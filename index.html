@@ -1,0 +1,3102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>사주 허선생 — 명리 감정소</title>
+<meta name="description" content="만세력 실계산 명리 감정 — 명식, 오행, 평생 총운, 연애·직업·재물, 대운 전환점">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='10' fill='%23f4efe3'/%3E%3Crect x='10' y='10' width='44' height='44' rx='6' fill='none' stroke='%23a93a2c' stroke-width='4' transform='rotate(-4 32 32)'/%3E%3Ctext x='32' y='44' font-size='30' font-weight='bold' text-anchor='middle' fill='%23a93a2c' font-family='serif' transform='rotate(-4 32 32)'%3E許%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* == 사주 허선생 · 조선 감정소 에디토리얼 ================================== */
+:root {
+  --paper: #f4efe3;
+  --paper-2: #ece5d3;
+  --panel: #faf7ee;
+  --ink: #221e17;
+  --ink-2: #4c463a;
+  --muted: #8b8272;
+  --line: rgba(34, 30, 23, 0.16);
+  --line-soft: rgba(34, 30, 23, 0.16);
+  --line-strong: rgba(34, 30, 23, 0.45);
+  --seal: #a93a2c;
+  --seal-soft: rgba(169, 58, 44, 0.08);
+  --wood: #4c7a5c; --fire: #a94a38; --earth: #a8842f; --metal: #77808c; --water: #3e5a7e;
+  /* 호환 변수 (앱 코드 참조) */
+  --gold: #a93a2c; --gold-2: #a93a2c; --gold-3: #a93a2c;
+  --coral: #a93a2c; --coral-2: #a93a2c; --peach: #c2705f; --lav: #6b6353; --lav-soft: #e6dfcd;
+  --paper-dim: #4c463a; --text: #221e17; --text-dim: #4c463a;
+  --serif: 'Gowun Batang', 'Nanum Myeongjo', AppleMyungjo, 'Noto Serif KR', serif;
+  --display: 'Gowun Batang', 'Nanum Myeongjo', AppleMyungjo, 'Noto Serif KR', serif;
+  --body: 'Gowun Batang', 'Nanum Myeongjo', AppleMyungjo, 'Noto Serif KR', serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  line-height: 1.85;
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body::before { /* 한지 결 */
+  content: ''; position: fixed; inset: 0; z-index: -2;
+  background:
+    radial-gradient(ellipse 70% 45% at 50% -8%, rgba(255, 252, 243, 0.9), transparent 65%),
+    radial-gradient(ellipse 60% 42% at 88% 108%, rgba(226, 216, 194, 0.55), transparent 70%),
+    linear-gradient(180deg, #f5f0e4 0%, #f1ebdc 100%);
+}
+body::after { /* 종이 질감 */
+  content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.42 0 0 0 0 0.38 0 0 0 0 0.30 0 0 0 0.05 0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+#stars { display: none; }
+
+#app { max-width: 680px; margin: 0 auto; padding: 0 22px 90px; position: relative; }
+
+/* ── 상단 제호 ── */
+.topbar {
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+  padding: 30px 0 0; letter-spacing: 0.5em; font-size: 13.5px; color: var(--ink);
+  text-indent: 0.5em; font-weight: 700;
+}
+.topbar .rule { flex: 0 0 52px; height: 1px; background: linear-gradient(90deg, transparent, var(--line-strong)); }
+.topbar .rule:last-child { background: linear-gradient(90deg, var(--line-strong), transparent); }
+
+/* 낙관 */
+.seal-mark {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border: 1.5px solid var(--seal); color: var(--seal);
+  font-size: 15px; font-weight: 700; letter-spacing: 0; text-indent: 0;
+  border-radius: 4px; transform: rotate(-3deg); background: rgba(250, 247, 238, 0.6);
+}
+
+section[hidden] { display: none !important; }
+
+/* ── 히어로 ── */
+#view-hero { text-align: center; padding: 8vh 0 64px; }
+.hero-sub { color: var(--seal); letter-spacing: 0.42em; font-size: 12.5px; margin-bottom: 26px; text-indent: 0.42em; }
+.hero-title {
+  font-weight: 700; font-size: clamp(38px, 9.6vw, 58px); letter-spacing: 0.02em; line-height: 1.42;
+  color: var(--ink); text-wrap: balance;
+}
+.hero-hanja { margin-top: 20px; font-size: 14px; letter-spacing: 0.16em; color: var(--muted); }
+.hero-hanja b { color: var(--ink); font-weight: 700; }
+
+/* 오행 잉크 페블 */
+.pebble {
+  position: relative; width: min(280px, 66vw); aspect-ratio: 200 / 166; margin: 44px auto 0;
+  border-radius: 46% 54% 58% 42% / 52% 46% 54% 48%;
+  background: #fcfaf4; border: 1px solid var(--line); overflow: hidden;
+  box-shadow: inset 0 0 34px rgba(34, 30, 23, 0.05);
+  animation: pebble-morph 16s ease-in-out infinite;
+}
+.pebble .blob { position: absolute; border-radius: 50%; filter: blur(16px); }
+.pebble .blob.fine { filter: blur(7px); }
+@keyframes pebble-morph {
+  0%, 100% { border-radius: 46% 54% 58% 42% / 52% 46% 54% 48%; }
+  50% { border-radius: 54% 46% 44% 56% / 46% 55% 47% 54%; }
+}
+.pebble-caption { margin-top: 16px; font-size: 12.5px; color: var(--muted); letter-spacing: 0.14em; }
+
+.hero-services { display: flex; align-items: center; justify-content: center; gap: 14px; margin-top: 46px; color: var(--ink-2); font-size: 13.5px; letter-spacing: 0.1em; }
+.hero-services::before, .hero-services::after { content: ''; flex: 0 0 34px; height: 1px; background: var(--line-strong); }
+
+/* CTA — 먹색 인장 버튼 */
+.cta {
+  display: inline-block; margin-top: 40px; border: none; cursor: pointer;
+  font-family: var(--serif); font-size: 16.5px; font-weight: 700; letter-spacing: 0.22em; text-indent: 0.22em;
+  color: #f6f2e6; padding: 17px 52px; border-radius: 999px;
+  background: #2a251d;
+  box-shadow: 0 4px 16px rgba(34, 30, 23, 0.28);
+  transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+}
+.cta:hover { transform: translateY(-2px); background: #37312a; box-shadow: 0 8px 22px rgba(34, 30, 23, 0.32); }
+.cta:active { transform: translateY(0); }
+.cta.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line-strong); box-shadow: none; font-weight: 400; }
+
+/* ── 패널(감정서 지면) ── */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line); border-radius: 6px; padding: 30px 28px;
+  position: relative;
+}
+.card + .card { margin-top: 20px; }
+.card-label {
+  display: flex; align-items: baseline; gap: 12px;
+  font-size: 12px; letter-spacing: 0.3em; color: var(--seal); margin-bottom: 20px; font-weight: 700;
+}
+.card-label::after { content: ''; flex: 1; align-self: center; height: 1px; background: var(--line); }
+
+/* ── 입력 위저드 ── */
+#view-form { padding-top: 7vh; }
+.wiz-card { max-width: 480px; margin: 0 auto; padding: 28px 30px 32px; }
+.wiz-progress { height: 2px; background: var(--line); overflow: hidden; }
+.wiz-bar { height: 100%; width: 20%; background: var(--ink); transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+.wiz-count { text-align: right; font-size: 12px; color: var(--muted); margin: 8px 0 6px; letter-spacing: 0.14em; }
+.wiz-step { display: none; min-height: 224px; }
+.wiz-step.active { display: block; animation: stepin 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+@keyframes stepin { from { opacity: 0; transform: translateX(34px); } }
+.wiz-q { font-size: 23px; font-weight: 700; color: var(--ink); text-align: center; margin: 26px 0 10px; letter-spacing: 0.02em; }
+.wiz-hint { text-align: center; color: var(--muted); font-size: 13.5px; margin-bottom: 28px; }
+.wiz-name {
+  display: block; width: 80%; margin: 0 auto; text-align: center; font-size: 20px;
+  font-family: var(--serif); color: var(--ink);
+  background: transparent; border: none; border-bottom: 1px solid var(--line-strong);
+  padding: 10px 4px; outline: none; transition: border-color 0.15s ease;
+}
+.wiz-name:focus { border-bottom-color: var(--seal); }
+.wiz-name::placeholder { color: var(--muted); }
+
+.opt-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.opt-card {
+  border: 1px solid var(--line); border-radius: 6px; background: rgba(252, 250, 244, 0.7);
+  padding: 26px 10px 22px; text-align: center; cursor: pointer;
+  font-size: 16.5px; font-weight: 700; color: var(--ink-2); letter-spacing: 0.12em;
+  transition: all 0.16s ease;
+}
+.opt-card .oc-emoji { display: block; font-size: 30px; margin-bottom: 10px; font-weight: 400; color: var(--muted); letter-spacing: 0; transition: color 0.16s ease; }
+.opt-card:hover { border-color: var(--line-strong); }
+.opt-card.on { background: var(--ink); border-color: var(--ink); color: #f6f2e6; }
+.opt-card.on .oc-emoji { color: #d9b7a0; }
+
+select {
+  width: 100%; padding: 13px 15px; font-family: var(--serif); font-size: 16px; color: var(--ink);
+  background: rgba(252, 250, 244, 0.7); border: 1px solid var(--line); border-radius: 6px;
+  outline: none; appearance: none; transition: border-color 0.15s ease;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a93a2c'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 14px center;
+}
+select:focus { border-color: var(--line-strong); }
+.row { display: flex; gap: 10px; }
+.row > * { flex: 1; min-width: 0; }
+.check { display: flex; align-items: center; gap: 9px; color: var(--ink-2); font-size: 14.5px; cursor: pointer; user-select: none; }
+.check input { width: 16px; height: 16px; accent-color: var(--seal); cursor: pointer; }
+.form-error { color: var(--seal); font-size: 14px; margin-top: 12px; min-height: 22px; text-align: center; }
+.wiz-nav { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; gap: 10px; }
+.wiz-prev { background: none; border: none; color: var(--muted); font-family: var(--serif); font-size: 14.5px; cursor: pointer; padding: 10px 12px; letter-spacing: 0.06em; }
+.wiz-prev:hover { color: var(--ink-2); }
+.wiz-next { margin-top: 0; padding: 14px 38px; font-size: 15px; }
+
+/* ── 로딩 — 먹선 일원상 ── */
+#view-loading { text-align: center; padding: 17vh 0; }
+.orbit { position: relative; width: 128px; height: 128px; margin: 0 auto 40px; }
+.orbit .ring { position: absolute; inset: 0; border: 1.5px solid var(--line-strong); border-top-color: transparent; border-radius: 50%; animation: spin 3.4s linear infinite; }
+.orbit .ring.r2 { inset: 16px; border-color: var(--line); border-bottom-color: transparent; animation-duration: 5.2s; animation-direction: reverse; }
+.orbit .ring.r3 { inset: 34px; border-color: var(--seal); border-left-color: transparent; border-right-color: transparent; animation-duration: 7s; opacity: 0.7; }
+.orbit .core { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 700; color: var(--ink); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-msg { color: var(--ink); font-size: 17px; letter-spacing: 0.12em; min-height: 30px; font-weight: 700; }
+.loading-sub { color: var(--muted); font-size: 13px; margin-top: 12px; letter-spacing: 0.06em; }
+
+/* ── 결과 공통 ── */
+#view-result { padding-top: 44px; }
+.reveal { opacity: 0; transform: translateY(22px); animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes rise { to { opacity: 1; transform: none; } }
+.result-head { text-align: center; margin-bottom: 36px; }
+.result-eyebrow { font-size: 12px; letter-spacing: 0.4em; color: var(--seal); margin-bottom: 14px; text-indent: 0.4em; font-weight: 700; }
+.result-name { font-size: 27px; font-weight: 700; }
+.result-name .seal-mark { margin-left: 10px; vertical-align: -5px; }
+.result-name b { color: var(--ink); }
+.result-birth { color: var(--muted); font-size: 13.5px; margin-top: 10px; letter-spacing: 0.05em; }
+
+/* ── 명식표 ── */
+.myeongsik { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border: 1px solid var(--line-strong); background: var(--line); grid-gap: 1px; }
+.pillar { text-align: center; background: var(--panel); padding: 14px 4px 12px; }
+.pillar .p-title { font-size: 12px; letter-spacing: 0.2em; color: var(--muted); margin-bottom: 10px; font-weight: 700; }
+.pillar.me { background: #f7f1e2; }
+.pillar.me .p-title { color: var(--seal); }
+.pillar .p-ss { font-size: 11px; color: var(--ink-2); height: 18px; margin-bottom: 6px; }
+.gz-box { padding: 6px 2px; }
+.gz-box .hanja { display: block; font-size: clamp(25px, 7vw, 34px); line-height: 1.35; font-weight: 700; color: var(--el, var(--ink)); }
+.gz-box .read { display: block; font-size: 11px; color: var(--muted); margin-top: 2px; letter-spacing: 0.1em; }
+.pillar .p-empty { color: var(--muted); font-size: 12px; padding: 34px 0; }
+.me-badge {
+  display: inline-block; font-size: 10px; color: var(--seal); border: 1px solid var(--seal);
+  border-radius: 3px; padding: 0 6px; margin-left: 6px; vertical-align: 2px; letter-spacing: 0.1em; transform: rotate(-2deg);
+}
+
+/* ── 오행 ── */
+.oheng-wrap { display: flex; gap: 26px; align-items: center; }
+.oheng-pebble { flex: 0 0 150px; }
+.oheng-pebble .pebble { width: 150px; margin: 0; }
+.oheng-bars { flex: 1; min-width: 0; }
+.oheng-row { display: flex; align-items: center; gap: 12px; margin-top: 11px; }
+.oheng-row:first-child { margin-top: 0; }
+.oheng-row .oh-name { flex: 0 0 56px; font-size: 14px; color: var(--ink-2); }
+.oheng-row .oh-bar { flex: 1; height: 7px; background: rgba(34, 30, 23, 0.07); overflow: hidden; }
+.oheng-row .oh-fill { height: 100%; width: 0; transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1); }
+.oheng-row .oh-cnt { flex: 0 0 32px; text-align: right; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.oheng-note { margin-top: 20px; color: var(--ink-2); font-size: 15px; }
+
+/* ── 본문 ── */
+.epithet { font-size: 20px; font-weight: 700; color: var(--ink); margin: 4px 0 10px; }
+.epithet::before { content: '❝ '; color: var(--seal); font-size: 17px; }
+.epithet::after { content: ' ❞'; color: var(--seal); font-size: 17px; }
+.body-text { color: var(--ink-2); font-size: 15.5px; }
+.body-text + .body-text { margin-top: 14px; }
+.body-text b, .oheng-note b { color: var(--ink); font-weight: 700; border-bottom: 1px solid rgba(169, 58, 44, 0.35); }
+
+/* ── 오늘의 운세 ── */
+.today-grid { display: flex; gap: 26px; align-items: center; }
+.gauge-wrap { flex: 0 0 132px; position: relative; }
+.gauge-wrap svg { display: block; }
+.gauge-score { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.gauge-score .num { font-size: 36px; font-weight: 700; color: var(--seal); line-height: 1; }
+.gauge-score .of { font-size: 11px; color: var(--muted); margin-top: 4px; }
+.today-side { flex: 1; min-width: 0; }
+.today-iljin { font-size: 13.5px; color: var(--muted); margin-bottom: 10px; }
+.today-iljin b { color: var(--ink); }
+.cat-row { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.cat-row .c-name { flex: 0 0 58px; font-size: 13px; color: var(--ink-2); }
+.cat-row .c-bar { flex: 1; height: 5px; background: rgba(34, 30, 23, 0.07); overflow: hidden; }
+.cat-row .c-fill { height: 100%; background: var(--ink); width: 0; transition: width 1s ease 0.3s; }
+.cat-row .c-val { flex: 0 0 26px; text-align: right; font-size: 12.5px; color: var(--seal); font-variant-numeric: tabular-nums; }
+.today-text { margin-top: 18px; }
+.today-cats { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 18px; }
+.tc-item { padding: 14px 16px; background: var(--panel); }
+.tc-item .tc-h { font-size: 13.5px; font-weight: 700; color: var(--ink); display: block; margin-bottom: 4px; letter-spacing: 0.04em; }
+.tc-item .tc-h::before { content: '· '; color: var(--seal); }
+.tc-item .body-text { font-size: 14px; }
+.lucky-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.chip { font-size: 12.5px; border: 1px solid var(--line); padding: 4px 12px; color: var(--ink-2); background: rgba(252, 250, 244, 0.6); border-radius: 3px; }
+.chip b { color: var(--seal); font-weight: 700; }
+
+/* ── 봉인(잠금) ── */
+.locked-zone { position: relative; margin-top: 20px; }
+.locked-stack { filter: blur(8px); opacity: 0.5; pointer-events: none; user-select: none; }
+.lock-overlay {
+  position: absolute; inset: -4px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 8px; z-index: 2;
+  background: radial-gradient(ellipse at 50% 42%, rgba(244, 239, 227, 0.4), rgba(244, 239, 227, 0.94) 72%);
+}
+.lock-overlay .lock-ico {
+  width: 54px; height: 54px; display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--seal); color: var(--seal); font-size: 26px; font-weight: 700;
+  border-radius: 6px; transform: rotate(-4deg); margin-bottom: 6px; background: rgba(252, 250, 244, 0.7);
+}
+.lock-overlay .lock-t { font-size: 20px; font-weight: 700; color: var(--ink); }
+.lock-overlay .lock-s { font-size: 13.5px; color: var(--ink-2); max-width: 320px; }
+
+/* ── 감정 상품 ── */
+.pricing { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 22px; }
+.price-card {
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 26px 20px; text-align: center; cursor: pointer;
+  background: var(--panel); transition: transform 0.16s ease; position: relative;
+}
+.price-card:hover { transform: translateY(-3px); }
+.price-card.hot { background: #262119; border-color: #262119; color: #f6f2e6; }
+.hot-badge {
+  position: absolute; top: -12px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+  font-size: 11px; letter-spacing: 0.22em; text-indent: 0.22em;
+  background: var(--seal); color: #f6f2e6; padding: 3px 14px; border-radius: 3px; font-weight: 700;
+}
+.price-name { font-size: 15.5px; font-weight: 700; letter-spacing: 0.1em; }
+.price-card.hot .price-name { color: #f6f2e6; }
+.price-amount { font-size: 27px; font-weight: 700; color: var(--seal); margin: 10px 0 14px; font-variant-numeric: tabular-nums; }
+.price-card.hot .price-amount { color: #e8b9a5; }
+.price-amount small { font-size: 13px; font-weight: 400; color: var(--muted); }
+.price-inc { list-style: none; font-size: 12.5px; color: var(--ink-2); line-height: 2.1; text-align: left; padding-left: 6px; }
+.price-card.hot .price-inc { color: rgba(246, 242, 230, 0.75); }
+.price-inc li::before { content: '— '; color: var(--seal); }
+.price-card.hot .price-inc li::before { color: #c98a75; }
+.price-btn {
+  margin-top: 16px; width: 100%; padding: 12px 0; border-radius: 999px; cursor: pointer;
+  font-family: var(--serif); font-size: 14px; font-weight: 700; letter-spacing: 0.14em; text-indent: 0.14em;
+  background: transparent; color: var(--ink); border: 1px solid var(--line-strong); transition: all 0.15s ease;
+}
+.price-card.hot .price-btn { background: var(--seal); color: #f6f2e6; border: none; }
+.price-btn:hover { filter: brightness(1.06); }
+
+/* ── 결제 모달 ── */
+#modal-root { position: fixed; inset: 0; z-index: 50; display: flex; align-items: flex-end; justify-content: center; }
+#modal-root[hidden] { display: none; }
+.modal-dim { position: absolute; inset: 0; background: rgba(24, 21, 16, 0.55); animation: fadein 0.25s ease; }
+.modal-sheet {
+  position: relative; width: 100%; max-width: 440px; border-radius: 10px 10px 0 0; padding: 30px 26px 36px;
+  background: var(--panel); border: 1px solid var(--line-strong); border-bottom: none;
+  animation: sheetup 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes fadein { from { opacity: 0; } }
+@keyframes sheetup { from { transform: translateY(60px); opacity: 0; } }
+.modal-title { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 4px; letter-spacing: 0.04em; }
+.modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 22px; }
+.pay-summary { display: flex; justify-content: space-between; align-items: center; border: 1px solid var(--line);
+  padding: 15px 17px; margin-bottom: 16px; background: rgba(252, 250, 244, 0.6); }
+.pay-summary .p-n { font-size: 15px; font-weight: 700; }
+.pay-summary .p-p { font-size: 19px; font-weight: 700; color: var(--seal); font-variant-numeric: tabular-nums; }
+.pay-methods { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-bottom: 22px; }
+.pay-m { display: flex; align-items: center; gap: 11px; background: var(--panel);
+  padding: 13px 15px; cursor: pointer; font-size: 15px; color: var(--ink-2); transition: background 0.15s ease; }
+.pay-m input { accent-color: var(--seal); width: 15px; height: 15px; }
+.pay-m.on { background: #f5efe0; color: var(--ink); font-weight: 700; }
+.pay-m .m-ico { font-size: 15px; color: var(--muted); }
+.demo-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 13px; }
+.pay-go { width: 100%; margin-top: 0; }
+.pay-close { position: absolute; top: 16px; right: 18px; background: none; border: none; color: var(--muted); font-size: 19px; cursor: pointer; }
+
+.pay-done { text-align: center; padding: 28px 0 12px; }
+.pay-done .done-ico {
+  width: 76px; height: 76px; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center;
+  font-size: 32px; font-weight: 700; color: var(--seal); border: 2.5px solid var(--seal); border-radius: 8px;
+  transform: rotate(-5deg); background: rgba(252, 250, 244, 0.8);
+  animation: stamp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes stamp { from { transform: rotate(-5deg) scale(1.7); opacity: 0; } }
+.pay-done .done-t { font-size: 19px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.pay-done .done-s { font-size: 13.5px; color: var(--muted); }
+
+/* ── 리포트 ── */
+.report-divider { text-align: center; margin: 52px 0 28px; color: var(--ink); letter-spacing: 0.44em; text-indent: 0.44em; font-size: 14px; font-weight: 700; }
+.report-divider::before, .report-divider::after { content: '─────'; color: var(--line-strong); margin: 0 14px; letter-spacing: 0; text-indent: 0; font-weight: 400; }
+.jobs-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+.timeline { position: relative; margin-top: 10px; padding-left: 26px; }
+.timeline::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 1px; background: var(--line-strong); }
+.tl-item { position: relative; padding: 0 0 24px; }
+.tl-item::before { content: ''; position: absolute; left: -23.5px; top: 8px; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--panel); border: 1.5px solid var(--ink-2); }
+.tl-item.now::before { background: var(--seal); border-color: var(--seal); }
+.tl-age { font-size: 14.5px; font-weight: 700; color: var(--ink); letter-spacing: 0.04em; }
+.tl-age .tl-gz { color: var(--muted); margin-left: 7px; font-size: 12.5px; font-weight: 400; }
+.tl-now-badge { font-size: 10px; color: var(--seal); border: 1px solid var(--seal); border-radius: 3px; padding: 0 6px; margin-left: 8px; vertical-align: 1px; letter-spacing: 0.1em; }
+.tl-flag { font-size: 12px; margin-left: 8px; color: var(--seal); }
+.tl-body { font-size: 14.5px; color: var(--ink-2); margin-top: 5px; }
+.tl-body b { color: var(--ink) !important; border-bottom: 1px solid rgba(169, 58, 44, 0.35); }
+
+/* ── 푸터 ── */
+.foot { margin-top: 60px; text-align: center; }
+.foot-seal { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 22px; color: var(--muted); font-size: 12.5px; letter-spacing: 0.2em; }
+.foot .disclaim { font-size: 11.5px; color: var(--muted); line-height: 1.95; max-width: 440px; margin: 0 auto 26px; }
+.toast {
+  position: fixed; left: 50%; bottom: 30px; transform: translateX(-50%) translateY(80px); z-index: 60;
+  background: #262119; color: #f6f2e6; font-size: 14px; font-family: var(--serif); font-weight: 700; letter-spacing: 0.08em;
+  padding: 13px 28px; border-radius: 999px; box-shadow: 0 10px 26px rgba(24, 21, 16, 0.4); opacity: 0;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1); pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+@media (max-width: 560px) {
+  .pricing { grid-template-columns: 1fr; }
+  .today-grid, .oheng-wrap { flex-direction: column; }
+  .gauge-wrap, .oheng-pebble { flex: none; }
+  .oheng-bars { width: 100%; }
+  #view-hero { padding-top: 6vh; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+<div id="app">
+  <header class="topbar"><span class="rule"></span>사주 허선생<span class="seal-mark">許</span><span class="rule"></span></header>
+
+  <!-- 표지 -->
+  <section id="view-hero">
+    <div class="hero-sub">만세력 실계산 · 명리 감정소</div>
+    <h1 class="hero-title">하늘이 새긴<br>여덟 글자,<br>내 읽어드리겠네</h1>
+    <div class="pebble" id="hero-pebble" aria-hidden="true"></div>
+    <div class="pebble-caption">사람마다 다른 오행의 먹빛 — 감정을 마치면 자네의 빛깔이 채워질 걸세</div>
+    <div class="hero-hanja">감정인 <b>허선생</b> · 육십갑자 명식 · 대운 감정</div>
+    <div class="hero-services">평생 총운 · 연애 · 직업 · 재물 · 대운 전환점</div>
+    <div><button class="cta" id="btn-start">감정 시작하기</button></div>
+  </section>
+
+  <!-- 문진 (한 질문 = 한 화면) -->
+  <section id="view-form" hidden>
+    <div class="card wiz-card">
+      <div class="wiz-progress"><div class="wiz-bar" id="wiz-bar"></div></div>
+      <div class="wiz-count" id="wiz-count">1 / 5</div>
+
+      <div class="wiz-step" data-step="0">
+        <h2 class="wiz-q">자네, 이름이 어찌 되시는가</h2>
+        <p class="wiz-hint">감정서에 이름을 새겨주겠네 · 비워두어도 괜찮네</p>
+        <input type="text" id="in-name" class="wiz-name" placeholder="이름 또는 별호" maxlength="12" autocomplete="off">
+      </div>
+
+      <div class="wiz-step" data-step="1">
+        <h2 class="wiz-q">남자이신가, 여자이신가</h2>
+        <p class="wiz-hint">대운이 순행할지 역행할지 여기서 갈리네</p>
+        <div class="opt-cards" id="cards-gender">
+          <div class="opt-card" data-v="M"><span class="oc-emoji">男</span>남자</div>
+          <div class="opt-card" data-v="F"><span class="oc-emoji">女</span>여자</div>
+        </div>
+      </div>
+
+      <div class="wiz-step" data-step="2">
+        <h2 class="wiz-q">생일은 양력인가, 음력인가</h2>
+        <p class="wiz-hint">음력이면 윤달까지 살펴봐야 하네</p>
+        <div class="opt-cards" id="cards-cal">
+          <div class="opt-card" data-v="solar"><span class="oc-emoji">日</span>양력</div>
+          <div class="opt-card" data-v="lunar"><span class="oc-emoji">月</span>음력</div>
+        </div>
+        <label class="check" id="leap-wrap" style="margin-top:18px; display:none; justify-content:center;">
+          <input type="checkbox" id="in-leap"> 윤달입니다
+        </label>
+      </div>
+
+      <div class="wiz-step" data-step="3">
+        <h2 class="wiz-q">어느 날에 태어나셨는가</h2>
+        <p class="wiz-hint">그날의 하늘을 만세력으로 되짚어보겠네</p>
+        <div class="row">
+          <select id="in-year"></select>
+          <select id="in-month"></select>
+          <select id="in-day"></select>
+        </div>
+      </div>
+
+      <div class="wiz-step" data-step="4">
+        <h2 class="wiz-q">몇 시에 세상에 나오셨는가</h2>
+        <p class="wiz-hint">분 단위까지 정확할수록 시주가 또렷해지네</p>
+        <div class="row">
+          <select id="in-hour"></select>
+          <select id="in-minute"></select>
+        </div>
+        <label class="check" style="margin-top:18px; justify-content:center;">
+          <input type="checkbox" id="in-nohour"> 태어난 시각을 모릅니다
+        </label>
+      </div>
+
+      <div class="form-error" id="form-error"></div>
+      <div class="wiz-nav">
+        <button type="button" class="wiz-prev" id="wiz-prev">← 이전</button>
+        <button type="button" class="cta wiz-next" id="wiz-next">다음</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 감정 중 -->
+  <section id="view-loading" hidden>
+    <div class="orbit">
+      <div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>
+      <div class="core">命</div>
+    </div>
+    <div class="loading-msg" id="loading-msg">만세력을 펼치는 중…</div>
+    <div class="loading-sub">천 년의 역법으로 그날의 하늘을 되짚는 중일세</div>
+  </section>
+
+  <!-- 감정서 -->
+  <section id="view-result" hidden></section>
+</div>
+
+<!-- 감정료 납부 -->
+<div id="modal-root" hidden></div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KoreanLunarCalendar = (function () {
+  var module = { exports: {} }; var exports = module.exports;
+//#region src/korean-lunar-data.ts
+var LUNAR_CALENDAR_DATA = {
+	KOREAN_LUNAR_MIN_VALUE: 10000101,
+	KOREAN_LUNAR_MAX_VALUE: 20501118,
+	KOREAN_SOLAR_MIN_VALUE: 10000213,
+	KOREAN_SOLAR_MAX_VALUE: 20501231,
+	KOREAN_LUNAR_BASE_YEAR: 1e3,
+	SOLAR_LUNAR_DAY_DIFF: 43,
+	LUNAR_SMALL_MONTH_DAY: 29,
+	LUNAR_BIG_MONTH_DAY: 30,
+	SOLAR_SMALL_YEAR_DAY: 365,
+	SOLAR_BIG_YEAR_DAY: 366,
+	SOLAR_DAYS: [
+		31,
+		28,
+		31,
+		30,
+		31,
+		30,
+		31,
+		31,
+		30,
+		31,
+		30,
+		31,
+		29
+	],
+	KOREAN_CHEONGAN: [
+		44049,
+		51012,
+		48337,
+		51221,
+		47924,
+		44592,
+		44221,
+		49888,
+		51076,
+		44228
+	].map((c) => String.fromCharCode(c)),
+	KOREAN_GANJI: [
+		51088,
+		52629,
+		51064,
+		47896,
+		51652,
+		49324,
+		50724,
+		48120,
+		49888,
+		50976,
+		49696,
+		54644
+	].map((c) => String.fromCharCode(c)),
+	KOREAN_GAPJA_UNIT: [
+		45380,
+		50900,
+		51068
+	].map((c) => String.fromCharCode(c)),
+	CHINESE_CHEONGAN: [
+		30002,
+		20057,
+		19993,
+		19969,
+		25098,
+		24049,
+		24218,
+		36763,
+		22764,
+		30328
+	].map((c) => String.fromCharCode(c)),
+	CHINESE_GANJI: [
+		23376,
+		19985,
+		23493,
+		21359,
+		36784,
+		24051,
+		21320,
+		26410,
+		30003,
+		37193,
+		25100,
+		20133
+	].map((c) => String.fromCharCode(c)),
+	CHINESE_GAPJA_UNIT: [
+		24180,
+		26376,
+		26085
+	].map((c) => String.fromCharCode(c)),
+	INTERCALATION_STR: [50980, 38287].map((c) => String.fromCharCode(c)),
+	KOREAN_LUNAR_DATA: [
+		2194016855,
+		2197734699,
+		2193886506,
+		2194017621,
+		3271595437,
+		2193884522,
+		2194016621,
+		2197837021,
+		3267626157,
+		2193885773,
+		2197827149,
+		2193885990,
+		3271600982,
+		2194016981,
+		2193883994,
+		2197842298,
+		3267758427,
+		2193884315,
+		2197834395,
+		2193885771,
+		3271674533,
+		2193884842,
+		2194016981,
+		2197852893,
+		3267625653,
+		2194016599,
+		2197705902,
+		2194017431,
+		3267626571,
+		2197759306,
+		2194017705,
+		2197857974,
+		3267757677,
+		2193883758,
+		2197907758,
+		2193885486,
+		3267628182,
+		2197835157,
+		2193886538,
+		2197867881,
+		3267627864,
+		2194148715,
+		2197918315,
+		2193883741,
+		3267627307,
+		2197838507,
+		2193885845,
+		2193886026,
+		3271696043,
+		2193883861,
+		2197927258,
+		2194015419,
+		3267625563,
+		2197845303,
+		2193884459,
+		2193884821,
+		3271571285,
+		2193884842,
+		2198063797,
+		2193883765,
+		3267626166,
+		2197850718,
+		2193885782,
+		2193886502,
+		3271581350,
+		2194017621,
+		2193884586,
+		2197822826,
+		3267758445,
+		2197861551,
+		2193884317,
+		2193885773,
+		3271589165,
+		2193885862,
+		2194017109,
+		2197833173,
+		3267625818,
+		2194016605,
+		2197885299,
+		2193884251,
+		3271596623,
+		2193884747,
+		2193885861,
+		2197842793,
+		3267757749,
+		2193883866,
+		2197826230,
+		2194016567,
+		3271476375,
+		2194017431,
+		2193884747,
+		2197718698,
+		3267759525,
+		2193884596,
+		2198030957,
+		2193883822,
+		3267628641,
+		2197826862,
+		2193886358,
+		2197855565,
+		2193886538,
+		2194017637,
+		2197906837,
+		2194015581,
+		3267625581,
+		2197826141,
+		2193885483,
+		2197858967,
+		3267627669,
+		2193886026,
+		2197850970,
+		2194016981,
+		3267757403,
+		2197832375,
+		2193884247,
+		2193884459,
+		3271564587,
+		2193884821,
+		2197853997,
+		2193884586,
+		3267758773,
+		2197837037,
+		2193884342,
+		2194016855,
+		3271504974,
+		2193886502,
+		2197929618,
+		2194017621,
+		3267626410,
+		2197850554,
+		2194016621,
+		2193884334,
+		3271576221,
+		2193885773,
+		2193886501,
+		2197827365,
+		3267627860,
+		2198056297,
+		2193883866,
+		2194016605,
+		3271648411,
+		2193884315,
+		2193885771,
+		2197834571,
+		3267626661,
+		2197863251,
+		2193884852,
+		2194016950,
+		3271657814,
+		2194016663,
+		2193884311,
+		2197833367,
+		3267626315,
+		2197735077,
+		2194017701,
+		2193884588,
+		3271797429,
+		2193883758,
+		2193885486,
+		2197843118,
+		3267628182,
+		2193886538,
+		2197827402,
+		2194017621,
+		3271603563,
+		2194015579,
+		2193883741,
+		2197846333,
+		3267627303,
+		2193885845,
+		2197904661,
+		2193886026,
+		3267758933,
+		2197885653,
+		2194015451,
+		2197721694,
+		3267758679,
+		2193884459,
+		2197842603,
+		2193884821,
+		3267626666,
+		2197830570,
+		2194016949,
+		2197861559,
+		3267626158,
+		2194016855,
+		2197714222,
+		2193886502,
+		3267759763,
+		2197837525,
+		2193884586,
+		2194016693,
+		3271566701,
+		2193884334,
+		2197924429,
+		2193885773,
+		3267628326,
+		2197843301,
+		2193886034,
+		2194017642,
+		3271567066,
+		2194016605,
+		2197931165,
+		2193884315,
+		3267627595,
+		2197850795,
+		2193884837,
+		2193886036,
+		3271576500,
+		2194016950,
+		2194016603,
+		2197824823,
+		3267626135,
+		2197853775,
+		2193884491,
+		2193884837,
+		3271653061,
+		2193884588,
+		2194016950,
+		2197895278,
+		3267627310,
+		2197867671,
+		2193886358,
+		2193886538,
+		3271593386,
+		2194017109,
+		2193884522,
+		2197969627,
+		3267625565,
+		2193885486,
+		2197826859,
+		2193885845,
+		3271597389,
+		2193885994,
+		2194017109,
+		2197845365,
+		3267626202,
+		2194016859,
+		2197833047,
+		2193884459,
+		3271674515,
+		2193884819,
+		2193884842,
+		2197850842,
+		3267758821,
+		2193884342,
+		2197834414,
+		2194016855,
+		3267626279,
+		2197759270,
+		2194017875,
+		2197857995,
+		3267626410,
+		2194015661,
+		2197906605,
+		2193884334,
+		3267627598,
+		2197835085,
+		2193886502,
+		2197863763,
+		3267627858,
+		2194017130,
+		2197919082,
+		2194015575,
+		3267626141,
+		2197903899,
+		2193885771,
+		2193885861,
+		3271564965,
+		2193886034,
+		2197863258,
+		2194016950,
+		3267758427,
+		2197841079,
+		2193884311,
+		2193884747,
+		3271571275,
+		2193884837,
+		2197862067,
+		2193884588,
+		3267758774,
+		2197914285,
+		2193884318,
+		2193885773,
+		3271581003,
+		2193885989,
+		2193886034,
+		2197892690,
+		3267758938,
+		2197858654,
+		2194016603,
+		2193884315,
+		3271584343,
+		2193885771,
+		2193885861,
+		2197834661,
+		3267626708,
+		2197867222,
+		2194016950,
+		2194016567,
+		2197849247,
+		2193884311,
+		2193884747,
+		2197706442,
+		3267759525,
+		2193884586,
+		2197822828,
+		2194016878,
+		3271604527,
+		2193885486,
+		2193886358,
+		2197847381,
+		3267628362,
+		2194017621,
+		2197894485,
+		2193884522,
+		3267758701,
+		2197822045,
+		2193885483,
+		2197850715,
+		3267627669,
+		2193885994,
+		2197904170,
+		2194016981,
+		3267626202,
+		2197822650,
+		2194016855,
+		2197853487,
+		3267626279,
+		2193884819,
+		2197845683,
+		2193884842,
+		3267758773,
+		2197828981,
+		2193884342,
+		2197867111,
+		3267627566,
+		2193886486,
+		2197851798,
+		2193886538,
+		3267759530,
+		2197837290,
+		2194015597,
+		2193884334,
+		3271632989,
+		2193885741,
+		2197859607,
+		2193885861,
+		3267627858,
+		2197847412,
+		2194016986,
+		2194015581,
+		3271570747,
+		2193884251,
+		2193885739,
+		2197887531,
+		3267627685,
+		2197855061,
+		2193884850,
+		2194016982,
+		3271644470,
+		2194016567,
+		2193884247,
+		2197830231,
+		3267626283,
+		2197727910,
+		2194017685,
+		2193884586,
+		3271654060,
+		2194016878,
+		2193884462,
+		2197830830,
+		3267627606,
+		2197863723,
+		2193886506,
+		2194017621,
+		3271595437,
+		2193884522,
+		2194016877,
+		2197837149,
+		3267626283,
+		2193885837,
+		2197827157,
+		2193885994,
+		3271600982,
+		2194016981,
+		2193884378,
+		2197842554,
+		3267758679,
+		2193884443,
+		2197899799,
+		2193884755,
+		3271673513,
+		2193884586,
+		2194016949,
+		2197852861,
+		3267625654,
+		2194016823,
+		2197706030,
+		2193886486,
+		2194017867,
+		2197698386,
+		2194017706,
+		2197927348,
+		3267757421,
+		2193883822,
+		2197846589,
+		2193885741,
+		3267628309,
+		2197835157,
+		2193886034,
+		2197867369,
+		3267758810,
+		2194015581,
+		2197918299,
+		2193884251,
+		3267627563,
+		2197838507,
+		2193885845,
+		2193886034,
+		3271564970,
+		2194016950,
+		2197865819,
+		2194015415,
+		3267626071,
+		2197845303,
+		2193884459,
+		2193884821,
+		3271640725,
+		2193884586,
+		2197867189,
+		2194016878,
+		3267626158,
+		2197850718,
+		2193885782,
+		2193886506,
+		3271585450,
+		2194017621,
+		2193884522,
+		2197891418,
+		3267758429,
+		2197861551,
+		2193884315,
+		2193885773,
+		3271589165,
+		2193885994,
+		2194017109,
+		2197833173,
+		3267625690,
+		2194016603,
+		2197885271,
+		2193884315,
+		3271596623,
+		2193884747,
+		2193884841,
+		2197842666,
+		3267757749,
+		2193883830,
+		2197826222,
+		2194016567,
+		3271537814,
+		2193886358,
+		2194017867,
+		2197714610,
+		3267759530,
+		2194015661,
+		2197828461,
+		2193883758,
+		3267627310,
+		2197826861,
+		2193886357,
+		2197855565,
+		3267627850,
+		2194017129,
+		2197906778,
+		2194015579,
+		3267625565,
+		2197826139,
+		2193885483,
+		2197858967,
+		3267626645,
+		2193885002,
+		2197850970,
+		2194016950,
+		3267757371,
+		2197832375,
+		2193883735,
+		2193884459,
+		3271564587,
+		2193884821,
+		2197853869,
+		2193884586,
+		3267758773,
+		2197837037,
+		2193884334,
+		2194016855,
+		3271504974,
+		2193886506,
+		2197929364,
+		2194017109,
+		2193884522,
+		2197846394,
+		2194016605,
+		2193884334,
+		3271576219,
+		2193885773,
+		2193886501,
+		2197887658,
+		3267758933,
+		2197853549,
+		2193883866,
+		2194016603,
+		3271578807,
+		2193884311,
+		2193885771,
+		2197834571,
+		3267626665,
+		2197867221,
+		2194015669,
+		2193883830,
+		3271592286,
+		2194016559,
+		2193884311,
+		2197702294,
+		3267628362,
+		2197868197,
+		2194017641,
+		2194015597,
+		3271664309,
+		2193883758,
+		2193885486,
+		2197843117,
+		3267628181,
+		2193886538,
+		2197827402,
+		2194017113,
+		3271607661,
+		2194015579,
+		2193883741,
+		2197846331,
+		3267627307,
+		2193885845,
+		2197904149,
+		2193884874,
+		3267758805,
+		2197885622,
+		2194015419,
+		2197852767,
+		3267625559,
+		2193884459,
+		2197711530,
+		2194017941,
+		3267626666,
+		2197830570,
+		2194016949,
+		2197861559,
+		3267626158,
+		2194016855,
+		2197714221,
+		2193886502,
+		3267759509,
+		2197837269,
+		2193884522,
+		2194016621,
+		3271566685,
+		2193884334,
+		2197858895,
+		2193885773,
+		3267628325,
+		2197843305,
+		2194017109,
+		2193883994,
+		3271568058,
+		2194016603,
+		2197931163,
+		2193884311,
+		3267627595,
+		2197850923,
+		2193884837,
+		2193884884,
+		3271772853,
+		2193883830,
+		2194016567,
+		2197824815,
+		3267626135,
+		2197722702,
+		2193886538,
+		2194017957,
+		3271648937,
+		2194015597,
+		2193883830,
+		2197895262,
+		3267627310,
+		2197863575,
+		2193885845,
+		2193886538,
+		3271593386,
+		2194017101,
+		2194015595,
+		2197832411,
+		3267625565,
+		2193885485,
+		2197826859,
+		2193885845,
+		3271596877,
+		2193884842,
+		2194016981,
+		2197841269,
+		3267757243,
+		2193883739,
+		2197894231,
+		2193884459,
+		3271539348,
+		2194017941,
+		2193884842,
+		2197850842,
+		3267758517,
+		2193884342,
+		2197834414,
+		2194016847,
+		3267495206,
+		2197892390,
+		2194017621,
+		2197923241,
+		3267626346,
+		2194016621,
+		2197906589,
+		2193884318,
+		3267627597,
+		2197835085,
+		2193886501,
+		2197863763,
+		3267627860,
+		2194017114,
+		2197915994,
+		2194016603,
+		3267626139,
+		2197834391,
+		2193885771,
+		2193885861,
+		3271564965,
+		2193884884,
+		2197994203,
+		2193883830,
+		3267758391,
+		2197841071,
+		2193884311,
+		2193884747,
+		3271440202,
+		2194017701,
+		2197862069,
+		2194015597,
+		3267625646,
+		2197846334,
+		2193885486,
+		2193886358,
+		3271646485,
+		2193886538,
+		2194017701,
+		2197894485,
+		3267626346,
+		2197846650,
+		2194016861,
+		2193885485,
+		3271584427,
+		2193885845,
+		2193886026,
+		2197834666,
+		3267758805,
+		2193884506,
+		2197891258,
+		2194016859,
+		3271587127,
+		2193884459,
+		2193884819,
+		2197903125,
+		3267626666,
+		2194016981,
+		2197829045,
+		2193884342,
+		3271592542,
+		2193885774,
+		2193886502,
+		2197843622,
+		3267628370,
+		2194017706,
+		2197898858,
+		2194015597,
+		3267626158,
+		2197830301,
+		2193885773,
+		2197847339,
+		3267627813,
+		2193886546,
+		2197904724,
+		2194017114,
+		3267757405,
+		2197828955,
+		2193884315,
+		2197845591,
+		2193885771,
+		2193885861,
+		2197842789,
+		2193884882,
+		3267758810,
+		2197833142,
+		2194016567,
+		2193884311,
+		3271571095,
+		2193884749,
+		2197714602,
+		2194017701,
+		3267626410,
+		2197838572,
+		2194016942,
+		2193885486,
+		3271572782,
+		2193886358,
+		2197916997,
+		2193886538,
+		3267759445,
+		2197906837,
+		2193884522,
+		2194016877,
+		3271574877,
+		2193884461,
+		2193885845,
+		2197896341,
+		3267627850,
+		2197912394,
+		2194016981,
+		2193884506,
+		3271645754,
+		2194016859,
+		2193884459,
+		2197899799,
+		3267626643,
+		2197853867,
+		2193884842,
+		2194016949,
+		3271582965,
+		2193884342,
+		2194016855,
+		2197701934,
+		3267628310,
+		2194017939,
+		2197698386,
+		2194017706,
+		3271652778,
+		2194015597,
+		2193884334,
+		2197903901,
+		3267627565,
+		2193886485,
+		2197835173,
+		2193886034,
+		3271597418,
+		2194016986,
+		2194015581,
+		2197906075,
+		3267626075,
+		2193885739,
+		2197838635,
+		2193885845,
+		3267627858,
+		2197891762,
+		2194016982,
+		2197910870,
+		3267757367,
+		2193884247,
+		2197837399,
+		2193884459,
+		3267626645,
+		2197829525,
+		2193884586,
+		2197858998,
+		3267758701,
+		2193884334,
+		2197842542,
+		2193885782,
+		3267628330,
+		2197839530,
+		2194017621,
+		2193884586,
+		3271572330,
+		2194016877,
+		2197845181,
+		2193884331,
+		3267627661,
+		2197839189,
+		2193885994,
+		2194017109,
+		3271574997,
+		2193884378,
+		2194016605,
+		2197824855,
+		3267626139,
+		2197842583,
+		2193884747,
+		2193884841,
+		2197834666,
+		2194015925,
+		2193883834,
+		2197826230,
+		3267758391,
+		2197710126,
+		2193886486,
+		2194017867,
+		3271448274,
+		2194017705,
+		2194015669,
+		2197828461,
+		3267625646,
+		2193885742,
+		2197827117,
+		2193886357,
+		3271585109,
+		2193886034,
+		2194017129,
+		2197833178,
+		3267757405,
+		2193883741,
+		2197830235,
+		2193885739,
+		3271654027,
+		2193885845,
+		2193886026,
+		2197904170,
+		3267758805,
+		2194015579,
+		2197832375,
+		2193883735,
+		3271595311,
+		2193884459,
+		2193884821,
+		2197841621,
+		3267626410,
+		2194016949,
+		2197833069,
+		2193884334,
+		3267758679,
+		2197763158,
+		2193886506,
+		2197913226,
+		3267759445,
+		2193884586,
+		2197838554,
+		2194016605,
+		3267626158,
+		2197834411,
+		2193885773,
+		2197851435,
+		3267627817,
+		2194017109,
+		2197845365,
+		2193883866,
+		3267758429,
+		2197837015,
+		2193884315,
+		2193885771,
+		3271637579,
+		2193884841,
+		2197850841,
+		2194015925,
+		3267625654,
+		2197903670,
+		2194016567,
+		2193884311,
+		3271444118,
+		2193886794,
+		2197860006,
+		2194017705,
+		3267757485,
+		2197906093,
+		2193883822,
+		2193885486,
+		3271580845,
+		2193886357,
+		2193886538,
+		2197896522,
+		3267758953,
+		2197845370,
+		2194015579,
+		2193883741,
+		3271579995,
+		2193885483,
+		2193885845,
+		2197835157,
+		3267627850,
+		2194017109,
+		2197825237,
+		2194015579,
+		3271582327,
+		2193883735,
+		2193884459,
+		2197707434,
+		3267759765,
+		2193884842,
+		2197830570,
+		2194016949,
+		2197849277,
+		2193884334,
+		2194016855,
+		2197706061,
+		3267628326,
+		2194017685,
+		2197898837,
+		2193884522,
+		3267758509,
+		2197824861,
+		2193884334,
+		2197842523,
+		3267627597,
+		2193886501,
+		2197839273,
+		2194017109,
+		3267626346,
+		2197826266,
+		2194016605,
+		2197845179,
+		3267626139,
+		2193885771,
+		2197838667,
+		2193884841,
+		3267627732,
+		2197965749,
+		2193883830,
+		2194016603,
+		3271566647,
+		2193884311,
+		2197710422,
+		2193886794,
+		3267759781,
+		2197903017,
+		2194015669,
+		2193883830,
+		3271637166,
+		2193885486,
+		2197912717,
+		2193886357,
+		3267628362,
+		2197908874,
+		2194017129,
+		2194015597,
+		3271639643,
+		2193883741,
+		2193885485,
+		2197826859,
+		3267627669,
+		2197847381,
+		2193886026,
+		2194017109,
+		3271644501,
+		2194015451,
+		2193883739,
+		2197895255,
+		3267626283,
+		2197850779,
+		2193884821,
+		2193884842,
+		3271584490,
+		2194016949,
+		2193884342,
+		2197834414,
+		3267758679,
+		2193884455,
+		2197698342,
+		2194017685,
+		3271587509,
+		2193884522,
+		2194016685,
+		2197837021,
+		3267626158,
+		2193885774,
+		2197835085,
+		2193886501,
+		3271593305,
+		2193886036,
+		2194017642,
+		2197907802,
+		3267758427,
+		2193884315,
+		2197834395,
+		2193885771,
+		3271600935,
+		2193884837,
+		2193884884,
+		2197973877,
+		3267625654,
+		2194016603,
+		2197836983,
+		2193884311,
+		3267626571,
+		2197698378,
+		2194017957,
+		2197849817,
+		3267757485,
+		2193883830,
+		2197838190,
+		2193885486,
+		3267628182,
+		2197835413,
+		2193886538,
+		2194017701,
+		3271567189,
+		2193884524,
+		2197977787,
+		2193883741,
+		3267627309,
+		2197839019,
+		2193885845,
+		2193886026,
+		3271637834,
+		2194017109,
+		2197853533,
+		2193884346,
+		3267758683,
+		2197837143,
+		2193884459,
+		2193885845,
+		3271576469,
+		2193884842,
+		2194016981,
+		2197825205,
+		3267626166,
+		2197842542,
+		2194016855,
+		2193884455,
+		3271448230,
+		2194017683,
+		2193884586,
+		2197830506,
+		3267758445,
+		2197861551,
+		2193884334,
+		2193885773,
+		3271650573,
+		2193886501,
+		2193886546,
+		2197839316,
+		3267758954,
+		2194016621,
+		2197824859,
+		2193884315,
+		3271588439,
+		2193885771,
+		2193885989,
+		2197904165,
+		3267626708,
+		2194016986,
+		2197895350
+	]
+};
+//#endregion
+//#region src/korean-lunar-calendar.ts
+var GAPJA_OFFSET = {
+	YEAR_CHEONGAN: 6,
+	YEAR_GANJI: 0,
+	MONTH_CHEONGAN: 3,
+	MONTH_GANJI: 1,
+	DAY_CHEONGAN: 4,
+	DAY_GANJI: 2
+};
+var KoreanLunarCalendar = class {
+	constructor() {
+		this.cumulativeLunarYearDays = /* @__PURE__ */ new Map();
+		this.cumulativeSolarYearDays = /* @__PURE__ */ new Map();
+		this.solarCalendar = {
+			year: 0,
+			month: 0,
+			day: 0
+		};
+		this.lunarCalendar = {
+			year: 0,
+			month: 0,
+			day: 0,
+			intercalation: false
+		};
+		const today = /* @__PURE__ */ new Date();
+		this.setSolarDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
+	}
+	getLunarData(year) {
+		return LUNAR_CALENDAR_DATA.KOREAN_LUNAR_DATA[year - LUNAR_CALENDAR_DATA.KOREAN_LUNAR_BASE_YEAR];
+	}
+	getLunarIntercalationMonth(lunarData) {
+		return lunarData >> 12 & 15;
+	}
+	getLunarYearDays(year) {
+		return this.getLunarData(year) >> 17 & 511;
+	}
+	getLunarMonthDays(year, month, isIntercalation) {
+		const lunarData = this.getLunarData(year);
+		return (isIntercalation && this.getLunarIntercalationMonth(lunarData) === month ? (lunarData >> 16 & 1) > 0 : (lunarData >> 12 - month & 1) > 0) ? LUNAR_CALENDAR_DATA.LUNAR_BIG_MONTH_DAY : LUNAR_CALENDAR_DATA.LUNAR_SMALL_MONTH_DAY;
+	}
+	getLunarDaysBeforeBaseYear(year) {
+		return this.accumulateYearDays(year, this.cumulativeLunarYearDays, (y) => this.getLunarYearDays(y));
+	}
+	getLunarDaysBeforeBaseMonth(year, month, isIntercalation) {
+		let days = 0;
+		if (year >= LUNAR_CALENDAR_DATA.KOREAN_LUNAR_BASE_YEAR && month > 0) {
+			for (let baseMonth = 1; baseMonth < month + 1; baseMonth++) days += this.getLunarMonthDays(year, baseMonth, false);
+			if (isIntercalation) {
+				const intercalationMonth = this.getLunarIntercalationMonth(this.getLunarData(year));
+				if (intercalationMonth > 0 && intercalationMonth < month + 1) days += this.getLunarMonthDays(year, intercalationMonth, true);
+			}
+		}
+		return days;
+	}
+	getLunarAbsDays(year, month, day, isIntercalation) {
+		let days = this.getLunarDaysBeforeBaseYear(year - 1) + this.getLunarDaysBeforeBaseMonth(year, month - 1, true) + day;
+		if (isIntercalation && this.getLunarIntercalationMonth(this.getLunarData(year)) === month) days += this.getLunarMonthDays(year, month, false);
+		return days;
+	}
+	isSolarIntercalationYear(lunarData) {
+		return (lunarData >> 30 & 1) > 0;
+	}
+	getSolarYearDays(year) {
+		return this.isSolarIntercalationYear(this.getLunarData(year)) ? LUNAR_CALENDAR_DATA.SOLAR_BIG_YEAR_DAY : LUNAR_CALENDAR_DATA.SOLAR_SMALL_YEAR_DAY;
+	}
+	getSolarMonthDays(year, month) {
+		if (month === 2 && this.isSolarIntercalationYear(this.getLunarData(year))) return LUNAR_CALENDAR_DATA.SOLAR_DAYS[12];
+		return LUNAR_CALENDAR_DATA.SOLAR_DAYS[month - 1];
+	}
+	getSolarDaysBeforeBaseYear(year) {
+		return this.accumulateYearDays(year, this.cumulativeSolarYearDays, (y) => this.getSolarYearDays(y));
+	}
+	accumulateYearDays(year, cache, perYear) {
+		const cached = cache.get(year);
+		if (cached !== void 0) return cached;
+		const baseYear = LUNAR_CALENDAR_DATA.KOREAN_LUNAR_BASE_YEAR;
+		const previous = cache.get(year - 1);
+		let days = 0;
+		if (previous !== void 0 && year > baseYear) days = previous + perYear(year);
+		else for (let y = baseYear; y < year + 1; y++) days += perYear(y);
+		cache.set(year, days);
+		return days;
+	}
+	getSolarDaysBeforeBaseMonth(year, month) {
+		let days = 0;
+		for (let baseMonth = 1; baseMonth < month + 1; baseMonth++) days += this.getSolarMonthDays(year, baseMonth);
+		return days;
+	}
+	getSolarAbsDays(year, month, day) {
+		return this.getSolarDaysBeforeBaseYear(year - 1) + this.getSolarDaysBeforeBaseMonth(year, month - 1) + day - LUNAR_CALENDAR_DATA.SOLAR_LUNAR_DAY_DIFF;
+	}
+	setSolarDateByLunarDate(lunarYear, lunarMonth, lunarDay, isIntercalation) {
+		const absDays = this.getLunarAbsDays(lunarYear, lunarMonth, lunarDay, isIntercalation);
+		const solarYear = absDays < this.getSolarAbsDays(lunarYear + 1, 1, 1) ? lunarYear : lunarYear + 1;
+		let solarMonth = 0;
+		let solarDay = 0;
+		for (let month = 12; month > 0; month--) {
+			const absDaysByMonth = this.getSolarAbsDays(solarYear, month, 1);
+			if (absDays >= absDaysByMonth) {
+				solarMonth = month;
+				solarDay = absDays - absDaysByMonth + 1;
+				break;
+			}
+		}
+		this.solarCalendar = {
+			year: solarYear,
+			month: solarMonth,
+			day: solarDay
+		};
+	}
+	setLunarDateBySolarDate(solarYear, solarMonth, solarDay) {
+		const absDays = this.getSolarAbsDays(solarYear, solarMonth, solarDay);
+		const lunarYear = absDays >= this.getLunarAbsDays(solarYear, 1, 1, false) ? solarYear : solarYear - 1;
+		let lunarMonth = 0;
+		let lunarDay = 0;
+		let isIntercalation = false;
+		for (let month = 12; month > 0; month--) if (absDays >= this.getLunarAbsDays(lunarYear, month, 1, false)) {
+			lunarMonth = month;
+			if (this.getLunarIntercalationMonth(this.getLunarData(lunarYear)) === month) isIntercalation = absDays >= this.getLunarAbsDays(lunarYear, month, 1, true);
+			lunarDay = absDays - this.getLunarAbsDays(lunarYear, lunarMonth, 1, isIntercalation) + 1;
+			break;
+		}
+		this.lunarCalendar = {
+			year: lunarYear,
+			month: lunarMonth,
+			day: lunarDay,
+			intercalation: isIntercalation
+		};
+	}
+	checkValidDate(isLunar, isIntercalation, year, month, day) {
+		let isValid = false;
+		if (!Number.isInteger(year) || !Number.isInteger(month) || !Number.isInteger(day)) return false;
+		const dateValue = year * 1e4 + month * 100 + day;
+		if ((isLunar ? LUNAR_CALENDAR_DATA.KOREAN_LUNAR_MIN_VALUE : LUNAR_CALENDAR_DATA.KOREAN_SOLAR_MIN_VALUE) <= dateValue && (isLunar ? LUNAR_CALENDAR_DATA.KOREAN_LUNAR_MAX_VALUE : LUNAR_CALENDAR_DATA.KOREAN_SOLAR_MAX_VALUE) >= dateValue) {
+			if (month > 0 && month < 13 && day > 0) {
+				if (isLunar && isIntercalation && this.getLunarIntercalationMonth(this.getLunarData(year)) !== month) return false;
+				const dayLimit = isLunar ? this.getLunarMonthDays(year, month, isIntercalation) : this.getSolarMonthDays(year, month);
+				if (!isLunar && year === 1582 && month === 10 && day > 4 && day < 15) return false;
+				if (day <= dayLimit) isValid = true;
+			}
+		}
+		return isValid;
+	}
+	setLunarDate(lunarYear, lunarMonth, lunarDay, isIntercalation) {
+		let isValid = false;
+		if (this.checkValidDate(true, isIntercalation, lunarYear, lunarMonth, lunarDay)) {
+			this.lunarCalendar = {
+				year: lunarYear,
+				month: lunarMonth,
+				day: lunarDay,
+				intercalation: isIntercalation && this.getLunarIntercalationMonth(this.getLunarData(lunarYear)) === lunarMonth
+			};
+			this.setSolarDateByLunarDate(lunarYear, lunarMonth, lunarDay, isIntercalation);
+			isValid = true;
+		}
+		return isValid;
+	}
+	setSolarDate(solarYear, solarMonth, solarDay) {
+		let isValid = false;
+		if (this.checkValidDate(false, false, solarYear, solarMonth, solarDay)) {
+			this.solarCalendar = {
+				year: solarYear,
+				month: solarMonth,
+				day: solarDay
+			};
+			this.setLunarDateBySolarDate(solarYear, solarMonth, solarDay);
+			isValid = true;
+		}
+		return isValid;
+	}
+	computeGapJa() {
+		const lunar = this.lunarCalendar;
+		const absDays = this.getLunarAbsDays(lunar.year, lunar.month, lunar.day, !!lunar.intercalation);
+		if (absDays <= 0) return {
+			cheongan: {
+				year: 0,
+				month: 0,
+				day: 0
+			},
+			ganji: {
+				year: 0,
+				month: 0,
+				day: 0
+			}
+		};
+		const baseYear = LUNAR_CALENDAR_DATA.KOREAN_LUNAR_BASE_YEAR;
+		const cheonganLen = LUNAR_CALENDAR_DATA.KOREAN_CHEONGAN.length;
+		const ganjiLen = LUNAR_CALENDAR_DATA.KOREAN_GANJI.length;
+		const monthCount = lunar.month + 12 * (lunar.year - baseYear);
+		return {
+			cheongan: {
+				year: (lunar.year + GAPJA_OFFSET.YEAR_CHEONGAN - baseYear) % cheonganLen,
+				month: (monthCount + GAPJA_OFFSET.MONTH_CHEONGAN) % cheonganLen,
+				day: (absDays + GAPJA_OFFSET.DAY_CHEONGAN) % cheonganLen
+			},
+			ganji: {
+				year: (lunar.year + GAPJA_OFFSET.YEAR_GANJI - baseYear) % ganjiLen,
+				month: (monthCount + GAPJA_OFFSET.MONTH_GANJI) % ganjiLen,
+				day: (absDays + GAPJA_OFFSET.DAY_GANJI) % ganjiLen
+			}
+		};
+	}
+	getGapJaIndex() {
+		return this.computeGapJa();
+	}
+	getGapja(isChinese) {
+		const inx = this.getGapJaIndex();
+		const cheongan = !isChinese ? LUNAR_CALENDAR_DATA.KOREAN_CHEONGAN : LUNAR_CALENDAR_DATA.CHINESE_CHEONGAN;
+		const ganji = !isChinese ? LUNAR_CALENDAR_DATA.KOREAN_GANJI : LUNAR_CALENDAR_DATA.CHINESE_GANJI;
+		const unit = !isChinese ? LUNAR_CALENDAR_DATA.KOREAN_GAPJA_UNIT : LUNAR_CALENDAR_DATA.CHINESE_GAPJA_UNIT;
+		const intercalationStr = !isChinese ? `${LUNAR_CALENDAR_DATA.INTERCALATION_STR[0]}${LUNAR_CALENDAR_DATA.KOREAN_GAPJA_UNIT[1]}` : `${LUNAR_CALENDAR_DATA.INTERCALATION_STR[1]}${LUNAR_CALENDAR_DATA.CHINESE_GAPJA_UNIT[1]}`;
+		return {
+			year: `${cheongan[inx.cheongan.year]}${ganji[inx.ganji.year]}${unit[0]}`,
+			month: `${cheongan[inx.cheongan.month]}${ganji[inx.ganji.month]}${unit[1]}`,
+			day: `${cheongan[inx.cheongan.day]}${ganji[inx.ganji.day]}${unit[2]}`,
+			intercalation: this.lunarCalendar.intercalation ? intercalationStr : ""
+		};
+	}
+	getKoreanGapja() {
+		return this.getGapja();
+	}
+	getChineseGapja() {
+		return this.getGapja(true);
+	}
+	getLunarCalendar() {
+		return { ...this.lunarCalendar };
+	}
+	getSolarCalendar() {
+		return { ...this.solarCalendar };
+	}
+};
+//#endregion
+module.exports = KoreanLunarCalendar;
+
+//# sourceMappingURL=korean-lunar-calendar.js.map
+  return module.exports;
+})();
+</script>
+<script>
+/* ==========================================================================
+ * 사주 계산 엔진 — 만세력 기반 실계산
+ * 일주: 율리우스일 60갑자 (앵커: 2000-01-01 = 戊午)
+ * 년·월주: 입춘/12절 기준 (절기 근사 공식, ±1일 오차 가능)
+ * 시주: 오서둔, 한국 관례 30분 지연 시간 경계 (자시 23:30~01:29)
+ * ========================================================================== */
+
+const STEMS = [
+  { h: '甲', k: '갑', el: 0, yang: true },  { h: '乙', k: '을', el: 0, yang: false },
+  { h: '丙', k: '병', el: 1, yang: true },  { h: '丁', k: '정', el: 1, yang: false },
+  { h: '戊', k: '무', el: 2, yang: true },  { h: '己', k: '기', el: 2, yang: false },
+  { h: '庚', k: '경', el: 3, yang: true },  { h: '辛', k: '신', el: 3, yang: false },
+  { h: '壬', k: '임', el: 4, yang: true },  { h: '癸', k: '계', el: 4, yang: false },
+];
+const BRANCHES = [
+  { h: '子', k: '자', el: 4, yang: true,  animal: '쥐',   hidden: 9 },
+  { h: '丑', k: '축', el: 2, yang: false, animal: '소',   hidden: 5 },
+  { h: '寅', k: '인', el: 0, yang: true,  animal: '호랑이', hidden: 0 },
+  { h: '卯', k: '묘', el: 0, yang: false, animal: '토끼', hidden: 1 },
+  { h: '辰', k: '진', el: 2, yang: true,  animal: '용',   hidden: 4 },
+  { h: '巳', k: '사', el: 1, yang: false, animal: '뱀',   hidden: 2 },
+  { h: '午', k: '오', el: 1, yang: true,  animal: '말',   hidden: 3 },
+  { h: '未', k: '미', el: 2, yang: false, animal: '양',   hidden: 5 },
+  { h: '申', k: '신', el: 3, yang: true,  animal: '원숭이', hidden: 6 },
+  { h: '酉', k: '유', el: 3, yang: false, animal: '닭',   hidden: 7 },
+  { h: '戌', k: '술', el: 2, yang: true,  animal: '개',   hidden: 4 },
+  { h: '亥', k: '해', el: 4, yang: false, animal: '돼지', hidden: 8 },
+];
+const ELEMENTS = [
+  { k: '목', h: '木', color: '#4c7a5c' },
+  { k: '화', h: '火', color: '#a94a38' },
+  { k: '토', h: '土', color: '#a8842f' },
+  { k: '금', h: '金', color: '#77808c' },
+  { k: '수', h: '水', color: '#3e5a7e' },
+];
+// 생(生): el -> (el+1)%5 · 극(克): el -> (el+2)%5
+const SIPSEONG_NAMES = ['비견', '겁재', '식신', '상관', '편재', '정재', '편관', '정관', '편인', '정인'];
+
+function gzName(idx) {
+  const s = STEMS[idx % 10], b = BRANCHES[idx % 12];
+  return { hanja: s.h + b.h, hangul: s.k + b.k, stem: idx % 10, branch: idx % 12 };
+}
+
+// ---- 율리우스일 (그레고리력) --------------------------------------------
+function jdn(y, m, d) {
+  const a = Math.floor((14 - m) / 12), yy = y + 4800 - a, mm = m + 12 * a - 3;
+  return d + Math.floor((153 * mm + 2) / 5) + 365 * yy + Math.floor(yy / 4)
+       - Math.floor(yy / 100) + Math.floor(yy / 400) - 32045;
+}
+function dayGanzhi(y, m, d) {
+  const j = jdn(y, m, d);
+  return { stem: (j + 9) % 10, branch: (j + 1) % 12 };
+}
+
+// ---- 절기 근사 (12節: 월 경계) ------------------------------------------
+// D = floor(Y*0.2422 + C) - L · 20세기/21세기 계수 (±1일 오차 가능)
+const TERM_C = {
+  // [20세기(1901-1999), 21세기(2000-2049)] — 월지 인덱스 순 (입춘=寅월 시작)
+  ipchun:   [4.6295, 3.87],  gyeongchip: [6.3826, 5.63],  cheongmyeong: [5.59, 4.81],
+  ipha:     [6.318, 5.52],   mangjong:   [6.5, 5.678],    soseo:        [7.928, 7.108],
+  ipchu:    [8.35, 7.5],     baekro:     [8.44, 7.646],   hanro:        [9.098, 8.318],
+  ipdong:   [8.218, 7.438],  daeseol:    [7.9, 7.18],     sohan:        [6.11, 5.4055],
+};
+const TERM_ORDER = ['ipchun', 'gyeongchip', 'cheongmyeong', 'ipha', 'mangjong', 'soseo',
+                    'ipchu', 'baekro', 'hanro', 'ipdong', 'daeseol', 'sohan'];
+const TERM_MONTH = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 1]; // 각 절이 드는 양력 월
+
+function termDay(year, termKey) {
+  const century = year >= 2000 ? 1 : 0;
+  const Y = year % 100;
+  const janFeb = termKey === 'ipchun' || termKey === 'sohan';
+  const L = janFeb ? Math.floor((Y - 1) / 4) : Math.floor(Y / 4);
+  return Math.floor(Y * 0.2422 + TERM_C[termKey][century]) - L;
+}
+
+// ---- 년주: 입춘 기준 ------------------------------------------------------
+function yearGanzhi(y, m, d) {
+  const ipchun = termDay(y, 'ipchun'); // 2월 X일
+  let year = y;
+  if (m < 2 || (m === 2 && d < ipchun)) year -= 1;
+  return { stem: ((year - 4) % 10 + 10) % 10, branch: ((year - 4) % 12 + 12) % 12, sajuYear: year };
+}
+
+// ---- 월주: 12절 기준 월지 + 오호둔 월간 ----------------------------------
+// monthNo: 寅월=1 … 丑월=12
+function monthNumber(y, m, d) {
+  // 이 날짜가 속한 절 찾기: 해당 월에 드는 절의 날짜와 비교
+  for (let i = 0; i < 12; i++) {
+    const tm = TERM_MONTH[i];
+    const ty = i === 11 && m === 1 ? y : y; // 소한은 같은 해 1월
+    if (m === tm) {
+      const td = termDay(ty, TERM_ORDER[i]);
+      // 절입일 이후면 이 절의 월, 이전이면 직전 절의 월
+      return d >= td ? i + 1 : (i === 0 ? 12 : i);
+    }
+  }
+  return 1;
+}
+function monthGanzhi(y, m, d) {
+  const mn = monthNumber(y, m, d); // 1=寅 … 12=丑
+  const ys = yearGanzhi(y, m, d).stem;
+  const base = ((ys % 5) * 2 + 2) % 10;            // 오호둔: 寅월 천간
+  const stem = (base + mn - 1) % 10;
+  const branch = (mn + 1) % 12;                     // 寅=2 … 丑=1
+  return { stem, branch, monthNo: mn };
+}
+
+// ---- 시주: 30분 지연 경계 + 오서둔 ---------------------------------------
+function hourBranch(h, min) {
+  const t = (h * 60 + min + 30) % 1440; // 23:30 → 0
+  return Math.floor(t / 120);
+}
+function hourGanzhi(dayStem, h, min) {
+  const b = hourBranch(h, min);
+  const base = (dayStem % 5) * 2;                   // 오서둔: 子시 천간
+  return { stem: (base + b) % 10, branch: b };
+}
+
+// ---- 십성 ----------------------------------------------------------------
+function sipseong(dayStem, otherStem) {
+  const d = STEMS[dayStem], o = STEMS[otherStem];
+  const same = d.yang === o.yang;
+  let rel;
+  if (d.el === o.el) rel = 0;                            // 비견/겁재
+  else if ((d.el + 1) % 5 === o.el) rel = 1;             // 식신/상관
+  else if ((d.el + 2) % 5 === o.el) rel = 2;             // 편재/정재
+  else if ((o.el + 2) % 5 === d.el) rel = 3;             // 편관/정관
+  else rel = 4;                                          // 편인/정인
+  // 비견=같은극성, 겁재=다른극성 · 식신=같,상관=다 · 편재=같,정재=다 · 편관=같,정관=다 · 편인=같,정인=다
+  return rel * 2 + (same ? 0 : 1);
+}
+function sipseongOfBranch(dayStem, branch) {
+  return sipseong(dayStem, BRANCHES[branch].hidden);
+}
+
+// ---- 합·충 ---------------------------------------------------------------
+const YUKHAP = { 0: 1, 1: 0, 2: 11, 11: 2, 3: 10, 10: 3, 4: 9, 9: 4, 5: 8, 8: 5, 6: 7, 7: 6 };
+const SAMHAP = [[8, 0, 4], [11, 3, 7], [2, 6, 10], [5, 9, 1]]; // 수국 목국 화국 금국
+function branchRelation(b1, b2) {
+  if (b1 === b2) return 'same';
+  if (YUKHAP[b1] === b2) return 'yukhap';
+  if ((b1 + 6) % 12 === b2) return 'chung';
+  if (SAMHAP.some(g => g.includes(b1) && g.includes(b2))) return 'samhap';
+  return 'none';
+}
+function stemHap(s1, s2) { return (s1 + 5) % 10 === s2; } // 천간합
+
+// ---- 대운 ----------------------------------------------------------------
+function nextTermJdn(y, m, d, forward) {
+  // 출생일에서 가장 가까운 절입일(앞/뒤)의 JDN
+  const birth = jdn(y, m, d);
+  const candidates = [];
+  for (let yy = y - 1; yy <= y + 1; yy++) {
+    for (let i = 0; i < 12; i++) {
+      const tm = TERM_MONTH[i];
+      const td = termDay(yy, TERM_ORDER[i]);
+      candidates.push(jdn(yy, tm, td));
+    }
+  }
+  candidates.sort((a, b) => a - b);
+  if (forward) { for (const c of candidates) if (c > birth) return c; }
+  else { for (let i = candidates.length - 1; i >= 0; i--) if (candidates[i] < birth) return candidates[i]; }
+  return birth;
+}
+function daeun(y, m, d, gender, yearStem, monthGz) {
+  const yangYear = STEMS[yearStem].yang;
+  const forward = (yangYear && gender === 'M') || (!yangYear && gender === 'F');
+  const target = nextTermJdn(y, m, d, forward);
+  const days = Math.abs(target - jdn(y, m, d));
+  let start = Math.round(days / 3);
+  start = Math.max(1, Math.min(10, start));
+  const mIdx60 = gz60Index(monthGz.stem, monthGz.branch);
+  const list = [];
+  for (let i = 1; i <= 8; i++) {
+    const idx = ((mIdx60 + (forward ? i : -i)) % 60 + 60) % 60;
+    list.push({ age: start + (i - 1) * 10, gz: gzName(idx) });
+  }
+  return { forward, startAge: start, list };
+}
+function gz60Index(stem, branch) {
+  for (let i = 0; i < 60; i++) if (i % 10 === stem && i % 12 === branch) return i;
+  return 0;
+}
+
+// ---- 오행 분포 · 일간 강약 · 용신(근사) -----------------------------------
+function elementCounts(pillars) {
+  const counts = [0, 0, 0, 0, 0];
+  for (const p of pillars) {
+    if (!p) continue;
+    counts[STEMS[p.stem].el]++;
+    counts[BRANCHES[p.branch].el]++;
+  }
+  return counts;
+}
+function ilganStrength(dayStem, counts) {
+  const el = STEMS[dayStem].el;
+  const support = counts[el] + counts[(el + 4) % 5]; // 같은 오행 + 나를 생하는 오행
+  const total = counts.reduce((a, b) => a + b, 0);
+  const ratio = support / total;
+  return ratio >= 0.5 ? 'strong' : ratio >= 0.35 ? 'balanced' : 'weak';
+}
+function yongshin(dayStem, counts, strength) {
+  const el = STEMS[dayStem].el;
+  if (strength === 'strong') {
+    // 신강: 설기(내가 생하는 것)·재(내가 극하는 것) 중 부족한 쪽
+    const a = (el + 1) % 5, b = (el + 2) % 5;
+    return counts[a] <= counts[b] ? a : b;
+  }
+  // 신약/중화: 인성(나를 생) 또는 비겁(같은 오행) 중 부족한 쪽
+  const a = (el + 4) % 5;
+  return counts[a] <= counts[el] ? a : el;
+}
+
+// ---- 메인 ----------------------------------------------------------------
+function computeSaju(input) {
+  // input: { year, month, day, hour, minute, hourUnknown, calendar, leapMonth, gender }
+  let { year, month, day } = input;
+  let lunarInfo = null;
+  if (input.calendar === 'lunar') {
+    const cal = new KoreanLunarCalendar();
+    const ok = cal.setLunarDate(year, month, day, !!input.leapMonth);
+    if (!ok) throw new Error('음력 날짜가 올바르지 않네. 윤달 여부와 날짜를 확인해 주시게. (지원 1900~2050년)');
+    const s = cal.getSolarCalendar();
+    lunarInfo = { year, month, day, leap: !!input.leapMonth };
+    year = s.year; month = s.month; day = s.day;
+  }
+  const hour = input.hourUnknown ? null : input.hour;
+  const minute = input.hourUnknown ? 0 : (input.minute || 0);
+
+  // 야자시(23:30~)는 익일 일주
+  let dy = year, dm = month, dd = day;
+  if (hour !== null && (hour * 60 + minute) >= 1410) {
+    const t = new Date(Date.UTC(year, month - 1, day));
+    t.setUTCDate(t.getUTCDate() + 1);
+    dy = t.getUTCFullYear(); dm = t.getUTCMonth() + 1; dd = t.getUTCDate();
+  }
+
+  const yp = yearGanzhi(year, month, day);
+  const mp = monthGanzhi(year, month, day);
+  const dp = dayGanzhi(dy, dm, dd);
+  const hp = hour === null ? null : hourGanzhi(dp.stem, hour, minute);
+
+  const pillars = [yp, mp, dp, hp];
+  const counts = elementCounts(pillars);
+  const strength = ilganStrength(dp.stem, counts);
+  const ys = yongshin(dp.stem, counts, strength);
+  const du = daeun(year, month, day, input.gender, yp.stem, mp);
+
+  const ss = {
+    year:  { stem: sipseong(dp.stem, yp.stem), branch: sipseongOfBranch(dp.stem, yp.branch) },
+    month: { stem: sipseong(dp.stem, mp.stem), branch: sipseongOfBranch(dp.stem, mp.branch) },
+    day:   { stem: null, branch: sipseongOfBranch(dp.stem, dp.branch) },
+    hour:  hp ? { stem: sipseong(dp.stem, hp.stem), branch: sipseongOfBranch(dp.stem, hp.branch) } : null,
+  };
+
+  return {
+    solar: { year, month, day, hour, minute },
+    lunar: lunarInfo,
+    gender: input.gender,
+    pillars: { year: yp, month: mp, day: dp, hour: hp },
+    gz: {
+      year: gzName(gz60Index(yp.stem, yp.branch)),
+      month: gzName(gz60Index(mp.stem, mp.branch)),
+      day: gzName(gz60Index(dp.stem, dp.branch)),
+      hour: hp ? gzName(gz60Index(hp.stem, hp.branch)) : null,
+    },
+    day60: gz60Index(dp.stem, dp.branch),
+    counts, strength, yongshin: ys,
+    sipseong: ss,
+    daeun: du,
+    sajuYear: yp.sajuYear,
+  };
+}
+
+// ---- 오늘의 운세 (결정적: 같은 사주 + 같은 날 = 같은 결과) ------------------
+const TODAY_STEM_DELTA = [5, -10, 13, -5, 10, 14, -8, 12, 8, 15]; // 십성별 기본 점수
+function seededWobble(seed, span) {
+  let x = seed % 2147483647; if (x <= 0) x += 2147483646;
+  x = (x * 16807) % 2147483647;
+  return (x % (span * 2 + 1)) - span;
+}
+function todayFortune(saju, date) {
+  const y = date.getFullYear(), m = date.getMonth() + 1, d = date.getDate();
+  const today = dayGanzhi(y, m, d);
+  const j = jdn(y, m, d);
+  const ss = sipseong(saju.pillars.day.stem, today.stem);
+  const rel = branchRelation(saju.pillars.day.branch, today.branch);
+  const relDelta = { yukhap: 15, samhap: 10, same: 5, none: 0, chung: -18 }[rel];
+  const hap = stemHap(saju.pillars.day.stem, today.stem);
+
+  let score = 52 + TODAY_STEM_DELTA[ss] + relDelta + (hap ? 8 : 0);
+  score += seededWobble(j * 61 + saju.day60, 5);
+  score = Math.max(8, Math.min(99, score));
+
+  const cat = (salt, bias) => {
+    let s = score + seededWobble(j * salt + saju.day60 * 7, 12) + bias;
+    return Math.max(5, Math.min(99, Math.round(s)));
+  };
+  const loveBias = { yukhap: 8, samhap: 5 }[rel] || 0;
+  const categories = {
+    love: cat(101, loveBias),
+    money: cat(211, ss === 4 || ss === 5 ? 6 : 0),
+    work: cat(307, ss === 6 || ss === 7 ? 6 : 0),
+    health: cat(401, rel === 'chung' ? -6 : 0),
+  };
+  const luckyEl = saju.yongshin;
+  return {
+    date: { y, m, d }, gz: gzName(gz60Index(today.stem, today.branch)),
+    score, categories, sipseong: ss, branchRel: rel, stemHap: hap,
+    lucky: {
+      element: luckyEl,
+      number: ((j + saju.day60) % 9) + 1,
+      direction: ['동쪽', '남동쪽', '남쪽', '남서쪽', '서쪽', '북서쪽', '북쪽', '북동쪽'][(j + saju.pillars.day.branch) % 8],
+    },
+  };
+}
+
+</script>
+<script>
+/* ==========================================================================
+ * 콘텐츠 데이터베이스 — 계산 결과 조합으로 리포트 생성 (결정적)
+ * ========================================================================== */
+
+// ---- 60갑자 일주 해석 (index = 60갑자 순서) -------------------------------
+const ILJU_DB = [
+  { e: '겨울 밤바다에 선 첫 나무', t: '갑자일주는 어둠 속에서도 홀로 서는 개척자의 기질을 타고났네. 차가운 물 위에 뿌리내린 큰 나무처럼, 남들이 머뭇거리는 곳에서 먼저 길을 내고, 지혜가 깊어 어려운 국면일수록 판단이 맑아지네.' },
+  { e: '언 땅을 뚫는 여린 새싹', t: '을축일주는 부드러워 보이지만 속은 누구보다 끈질기네. 겨울 밭의 새싹처럼 느리더라도 반드시 자기 몫을 피워내며, 성실함이 재산이 되는 대기만성형일세.' },
+  { e: '숲 위로 떠오르는 아침 해', t: '병인일주는 타고난 밝음과 추진력으로 주변을 이끄는 리더형일세. 호랑이 등에 탄 태양처럼 스케일이 크고, 시작하는 일마다 사람들의 시선을 모으네. 다만 열정이 과하면 마무리가 흐려질 수 있어 완급 조절이 관건일세.' },
+  { e: '달빛 아래 피어난 꽃', t: '정묘일주는 섬세한 감성과 미적 감각이 빼어난 사람일세. 은은한 촛불이 방을 채우듯 조용히 주변을 매혹시키며, 예술·문화 방면에서 재능이 빛나네.' },
+  { e: '용을 품은 큰 산', t: '무진일주는 흔들리지 않는 무게감과 큰 포부를 지닌 대인형일세. 산이 용을 품듯 야망을 안으로 갈무리하며, 시간이 갈수록 세력이 커지는 저력의 소유자일세.' },
+  { e: '뱀이 지키는 기름진 밭', t: '기사일주는 영리하고 실속 있는 전략가일세. 겉으론 온화하지만 속셈이 치밀해 손해 보는 거래를 하지 않으며, 지식과 언변으로 재물을 일구는 힘이 있네.' },
+  { e: '한낮 벌판을 달리는 백마', t: '경오일주는 시원시원한 결단력과 정의감을 지닌 행동파일세. 달리는 말처럼 멈춰 있는 것을 못 견디고, 옳다고 믿으면 바로 움직일세. 강한 카리스마 뒤에 따뜻한 의리가 있네.' },
+  { e: '사막의 모래 속 보석', t: '신미일주는 겉은 담백하지만 안목이 날카로운 감별사형일세. 마른 흙 속 보석처럼 시간이 지나야 진가가 드러나며, 한번 갈고닦은 실력은 누구도 흉내 내지 못하네.' },
+  { e: '바위 틈에서 솟는 큰 강물', t: '임신일주는 명석한 두뇌 회전과 임기응변의 달인일세. 바위에서 솟아 쉼 없이 흐르는 물처럼 활동 반경이 넓고, 정보와 사람을 연결하는 데 탁월하네.' },
+  { e: '가을 이슬을 머금은 국화', t: '계유일주는 맑고 예리한 직관을 지닌 완벽주의자일세. 이슬처럼 투명한 심성이지만 기준이 높아 스스로에게 엄격하며, 전문 분야에서 정점을 찍는 힘이 있네.' },
+  { e: '가을 산마루의 낙락장송', t: '갑술일주는 묵직한 책임감과 보호 본능을 지닌 기둥 같은 사람일세. 마른 산 위의 소나무처럼 외로움을 견디는 힘이 강하고, 위기에서 진짜 리더십이 드러나네.' },
+  { e: '강물 위를 떠가는 연꽃', t: '을해일주는 유연한 적응력과 깊은 공감 능력의 소유자일세. 큰물 위의 연꽃처럼 어떤 환경에서도 품위를 잃지 않으며, 사람의 마음을 어루만지는 재능이 있네.' },
+  { e: '한밤중에 떠오른 태양', t: '병자일주는 반전 매력의 소유자일세. 밤바다 위의 태양처럼 밝음과 깊음을 동시에 지녀, 겉은 화려하고 속은 사색적일세. 대중 앞에 서는 일에서 진가가 드러나네.' },
+  { e: '눈 덮인 화로의 불씨', t: '정축일주는 은근하고 오래가는 열정의 사람일세. 겨울 화로처럼 요란하지 않게 주변을 데우며, 인내와 헌신으로 신뢰를 쌓아 늦게 크게 이루네.' },
+  { e: '호랑이가 사는 큰 산', t: '무인일주는 배포가 크고 스케일이 남다른 승부사일세. 호랑이를 품은 산처럼 평소엔 고요하다가 결정적 순간에 크게 움직이며, 조직을 이끄는 그릇일세.' },
+  { e: '봄 들판의 꽃밭', t: '기묘일주는 온화한 외유내강형일세. 봄 흙에 뿌리내린 화초처럼 친화력이 좋아 어디서든 사랑받지만, 속의 고집은 누구보다 단단하네.' },
+  { e: '용암을 품은 무쇠 바위', t: '경진일주는 강철 같은 의지와 승부 근성의 소유자일세. 용을 타고난 무쇠처럼 큰 무대에서 강해지며, 압박이 클수록 오히려 성과를 내는 대기형 인재일세.' },
+  { e: '뱀의 지혜를 품은 보검', t: '신사일주는 예리한 판단력과 우아한 야망을 함께 지녔네. 불에 단련된 보검처럼 세련된 겉모습 뒤에 치밀한 전략이 있고, 전문직·관리직에서 두각을 나타내네.' },
+  { e: '한여름 소나기 같은 강물', t: '임오일주는 열정과 냉정이 공존하는 매력덩어리일세. 한낮의 불 위를 흐르는 물처럼 밀당의 균형 감각이 좋고, 재물과 인연이 따르는 일주로 꼽히네.' },
+  { e: '비 갠 뒤의 촉촉한 정원', t: '계미일주는 감성이 풍부하고 돌봄의 재능이 있는 사람일세. 마른 흙을 적시는 단비처럼 필요한 곳을 알아채는 눈치가 빠르고, 베푼 만큼 돌아오는 복이 있네.' },
+  { e: '바위산 꼭대기의 거목', t: '갑신일주는 도전과 변화를 두려워하지 않는 승부사일세. 바위 위에 뿌리내린 나무처럼 역경 속에서 더 강해지며, 이동·변화가 많은 삶에서 오히려 기회를 잡네.' },
+  { e: '보석함 속의 난초', t: '을유일주는 예민한 미감과 절제된 우아함의 소유자일세. 금 위에 놓인 난초처럼 긴장 속에서 아름다움을 만들어내며, 디테일이 승부를 가르는 분야에서 빛나네.' },
+  { e: '노을이 내려앉은 가을 산', t: '병술일주는 따뜻한 카리스마의 소유자일세. 산 너머로 지는 큰 태양처럼 품이 넓어 사람을 모으고, 명예와 체면을 소중히 여기는 의리파일세.' },
+  { e: '깊은 바다 위의 등불', t: '정해일주는 신비로운 통찰력을 지닌 사색가일세. 밤바다를 비추는 등불처럼 어려운 사람을 끌어당기는 힘이 있고, 정신적 가치를 좇을 때 가장 행복해지네.' },
+  { e: '한겨울 들판의 큰 산', t: '무자일주는 듬직한 겉모습 속에 섬세한 계산이 숨어 있는 사람일세. 눈 덮인 산 아래로 물이 흐르듯 재물 감각이 남달라, 은근히 실속을 챙기는 알부자형일세.' },
+  { e: '보물을 묻어둔 겨울 밭', t: '기축일주는 근면과 축적의 명수일세. 언 밭 아래 보물을 묻어두듯 티 내지 않고 쌓아가며, 세월이 흐를수록 두터워지는 신용이 최대 자산일세.' },
+  { e: '호랑이 등의 백호 장수', t: '경인일주는 겁 없는 추진력과 개혁 기질의 소유자일세. 백호처럼 강한 존재감으로 판을 흔들며, 남들이 못 하는 결단을 대신 내려주는 해결사일세.' },
+  { e: '봄 숲의 은장도', t: '신묘일주는 부드러운 인상 뒤에 날카로운 심지를 감춘 사람일세. 꽃밭의 은장도처럼 섬세함과 단호함을 오가며, 예리한 손끝 재주와 심미안이 재산일세.' },
+  { e: '용이 노니는 큰 강', t: '임진일주는 스케일 큰 야망과 깊은 지략의 소유자일세. 용이 사는 강물처럼 그릇이 커서 작은 물에 만족하지 못하고, 큰 조직·큰 판에서 진가를 발휘하네.' },
+  { e: '아지랑이 속 봄비', t: '계사일주는 명민한 두뇌와 화려한 언변의 소유자일세. 불 위의 안개비처럼 변화무쌍한 매력이 있고, 머리로 승부하는 분야에서 재물을 부르네.' },
+  { e: '태양 아래 우뚝 선 거목', t: '갑오일주는 당당하고 화끈한 표현가일세. 한낮의 태양을 받은 큰 나무처럼 재능을 감추지 못하며, 무대·발표·리더 자리에서 에너지가 폭발하네.' },
+  { e: '여름 정원의 모란', t: '을미일주는 강인한 생활력과 부드러운 사교성을 겸비했네. 마른 흙에서도 꽃을 피우는 모란처럼 어디서든 살아남으며, 실속과 낭만을 모두 챙기네.' },
+  { e: '저녁놀에 빛나는 원숭이바위', t: '병신일주는 재치와 순발력이 뛰어난 만능 재주꾼일세. 태양이 바위를 비추듯 다방면에 빛을 내며, 기획·소통·기술을 넘나드는 융합형 인재일세.' },
+  { e: '촛불 앞의 황금 닭', t: '정유일주는 완벽한 디테일과 미적 감각의 장인일세. 촛불에 반짝이는 보석처럼 다듬을수록 빛나며, 전문 기술 하나로 평생을 사는 자격증·기술복이 있네.' },
+  { e: '보물을 품은 가을 산', t: '무술일주는 신의와 원칙의 수호자일세. 보물을 품은 큰 산처럼 무게감이 있어 사람들이 기대며, 종교·철학·부동산과 인연이 깊은 일주일세.' },
+  { e: '바다를 헤엄치는 황금 잉어', t: '기해일주는 온순해 보여도 큰물을 꿈꾸는 야망가일세. 바다를 건너는 잉어처럼 유연하게 큰 무대로 나아가며, 해외·무역·이동에서 복이 열리네.' },
+  { e: '한겨울 밤의 큰 강', t: '경자일주는 냉철한 판단력과 날카로운 언변의 소유자일세. 겨울 강물처럼 감정에 휩쓸리지 않으며, 분석·비평·연구 분야에서 독보적 실력을 보일세.' },
+  { e: '눈밭에 묻힌 진주', t: '신축일주는 묵묵히 실력을 쌓는 은둔 고수일세. 언 땅속 진주처럼 늦게 발견되지만, 한번 인정받으면 대체 불가능한 존재가 되네.' },
+  { e: '호랑이를 타고 건너는 대하', t: '임인일주는 배짱과 지혜를 겸비한 풍운아일세. 호랑이를 타고 강을 건너듯 남들이 못 가는 길을 가며, 교육·활인·큰 사업에서 이름을 남기네.' },
+  { e: '봄비에 젖은 버들잎', t: '계묘일주는 맑은 감수성과 천진한 매력의 소유자일세. 봄비를 머금은 새잎처럼 어딜 가나 생기를 퍼뜨리며, 사람을 살리고 키우는 일에 복이 있네.' },
+  { e: '용의 등에 선 푸른 거목', t: '갑진일주는 큰 뜻을 품은 실속형 야망가일세. 기름진 땅에 선 거목처럼 기반이 튼튼하고, 명분과 실리를 모두 잡는 수완이 있네.' },
+  { e: '뱀이 휘감은 등나무꽃', t: '을사일주는 화려한 사교성과 영리한 처세의 달인일세. 불꽃을 타고 오르는 덩굴처럼 위로 뻗는 힘이 강하며, 인맥이 곧 자산이 되는 일주일세.' },
+  { e: '정오의 이글거리는 태양', t: '병오일주는 타고난 스타성과 폭발적 에너지의 소유자일세. 하늘 한가운데 뜬 태양처럼 존재 자체가 강렬하며, 좋아하는 일에 몰입할 때 세상이 주목하네.' },
+  { e: '여름 흙담 안의 화롯불', t: '정미일주는 조용한 열정과 깊은 정을 지닌 사람일세. 담장 안 화롯불처럼 가까운 이들에게 아낌없이 온기를 나누며, 한번 맺은 인연을 평생 가네.' },
+  { e: '바위산에서 우는 원숭이', t: '무신일주는 재주 많고 활동적인 실용주의자일세. 큰 산의 원숭이처럼 영역이 넓고 손대는 일마다 결과를 만들어내며, 식복과 재복을 함께 타고났네.' },
+  { e: '가을 논의 황금 이삭', t: '기유일주는 알찬 결실의 아이콘일세. 추수를 기다리는 황금 들판처럼 노력한 만큼 정직하게 거두며, 꼼꼼한 관리 능력으로 무엇을 맡아도 흑자를 내네.' },
+  { e: '가을 산의 무쇠 종', t: '경술일주는 한번 울리면 멀리 퍼지는 무쇠 종 같은 사람일세. 의리와 뚝심으로 조직의 중심이 되며, 늦가을 산처럼 고독을 견딘 뒤 큰 명예를 얻네.' },
+  { e: '바다에 씻긴 진주 목걸이', t: '신해일주는 맑은 지성과 세련된 감각의 소유자일세. 바닷물에 씻긴 보석처럼 갈수록 빛나며, 유행을 읽는 눈과 언어 감각이 남다르네.' },
+  { e: '한밤의 대양', t: '임자일주는 깊이를 알 수 없는 지혜와 강한 자아의 소유자일세. 한밤의 대양처럼 품은 생각이 크고, 한 분야를 파고들면 대가의 반열에 오르네.' },
+  { e: '겨울 밭에 내리는 이슬비', t: '계축일주는 인내와 헌신의 사람일세. 언 밭을 적시는 이슬비처럼 굳은 것을 천천히 녹이는 힘이 있어, 어려운 사람·어려운 일을 살려내는 데 재능이 있네.' },
+  { e: '대숲을 흔드는 봄 호랑이', t: '갑인일주는 곧고 당당한 원칙주의자일세. 대숲의 호랑이처럼 자기 영역이 분명하고, 굽히지 않는 소신으로 결국 자기 세계를 세우네.' },
+  { e: '봄 들판의 푸른 토끼', t: '을묘일주는 생명력과 친화력이 넘치는 인기인일세. 봄 들판의 풀처럼 밟혀도 다시 일어나며, 부드러움으로 강함을 이기는 처세의 고수일세.' },
+  { e: '용 위로 떠오른 태양', t: '병진일주는 이상이 높고 무대가 큰 사람일세. 용을 비추는 아침 해처럼 스포트라이트가 따르며, 명분 있는 일에 나설 때 운이 크게 열리네.' },
+  { e: '뱀의 관을 쓴 붉은 촛불', t: '정사일주는 강한 신념과 신비로운 매력의 소유자일세. 겉은 차분한 촛불이지만 속은 용광로 같아, 몰입한 분야에서 무서운 집중력을 보일세.' },
+  { e: '한낮 초원의 야생마', t: '무오일주는 자존심과 열정의 화신일세. 한낮 초원을 달리는 붉은 말처럼 거침이 없고, 자기 확신이 강해 남 밑보다 자기 판을 벌일 때 성공하네.' },
+  { e: '여름 과수원의 단내', t: '기미일주는 실속 있는 온화함의 소유자일세. 잘 익은 과수원처럼 곁에 있으면 든든하고, 성실한 축적으로 중년 이후 부동산·자산복이 두터워지네.' },
+  { e: '바위산의 흰 독수리', t: '경신일주는 냉철한 승부사이자 타고난 해결사일세. 바위산의 독수리처럼 목표를 정하면 정확히 낚아채며, 강단과 의리로 따르는 사람이 많네.' },
+  { e: '보석 궁전의 흰 닭', t: '신유일주는 순도 100%의 장인 기질일세. 잡티 없는 보석처럼 완벽을 추구하며, 자기 분야의 최고가 되기 전까지 스스로를 놓아주지 않네.' },
+  { e: '가을 산 아래 큰 호수', t: '임술일주는 깊은 속정과 큰 포부를 지닌 외유내강형일세. 산을 품은 호수처럼 담아두는 그릇이 크며, 위기의 순간 놀라운 승부수를 던지네.' },
+  { e: '밤바다 위의 검은 돼지', t: '계해일주는 60갑자의 마지막, 지혜의 완성형일세. 끝없는 밤바다처럼 상상력이 무한하며, 직관과 통찰로 남들이 못 보는 기회를 먼저 알아채네.' },
+];
+
+// ---- 십성 -----------------------------------------------------------------
+const SIPSEONG_INFO = [
+  { name: '비견', kw: '자립·동료', personality: '독립심이 강하고 자기 주관이 뚜렷하며, 동등한 관계에서 힘을 얻네.',
+    career: '동업·프리랜서·전문직처럼 자기 이름으로 서는 일이 맞네.', jobs: '변호사, 프리랜서, 스포츠, 1인 창업',
+    wealth: '스스로 벌어 스스로 지키는 유형일세. 동업 시 지분 관계를 명확히 해야 재물이 새네.' },
+  { name: '겁재', kw: '승부·경쟁', personality: '승부욕과 배포가 크고, 경쟁 상황에서 오히려 능력이 극대화되네.',
+    career: '영업·투자·승부가 갈리는 분야에서 두각을 나타내네.', jobs: '영업, 트레이더, 스포츠, 승부 사업',
+    wealth: '크게 벌고 크게 쓰는 유형일세. 돈이 모이는 구조(자동이체 저축·자산 분리)를 만들어야 하네.' },
+  { name: '식신', kw: '재능·풍요', personality: '표현력과 창의력이 풍부하고 낙천적이며, 베푸는 만큼 복이 돌아오네.',
+    career: '만들고 표현하고 대접하는 일에서 즐겁게 성공하네.', jobs: '요리·식품, 콘텐츠 제작, 교육, 서비스 기획',
+    wealth: '재능이 곧 돈이 되는 구조일세. 좋아하는 일을 수익화할 때 재물이 장기적으로 안정되네.' },
+  { name: '상관', kw: '언변·혁신', personality: '두뇌 회전이 빠르고 언변이 화려하며, 기존 틀을 깨는 데서 희열을 느끼네.',
+    career: '말과 아이디어로 승부하는 분야가 천직일세.', jobs: '방송·유튜브, 마케팅, 기획, 예술, 강연',
+    wealth: '아이디어 한 방이 큰돈이 되는 유형일세. 다만 구설수가 재물 손실로 이어질 수 있어 말 관리가 곧 돈 관리일세.' },
+  { name: '편재', kw: '유통·기회', personality: '수완이 좋고 스케일이 크며, 돈과 사람의 흐름을 읽는 감각이 탁월하네.',
+    career: '움직이는 돈을 다루는 일, 무대가 넓은 일이 맞네.', jobs: '사업, 무역·유통, 부동산, 투자',
+    wealth: '큰돈이 들고 나는 사주일세. 유동 자산과 고정 자산의 비율을 지키면 부의 그릇이 커지네.' },
+  { name: '정재', kw: '성실·축적', personality: '꼼꼼하고 계획적이며, 약속과 신용을 목숨처럼 여기네.',
+    career: '안정된 조직에서 관리·운영을 맡을 때 진가가 드러나네.', jobs: '재무·회계, 금융, 공기업, 관리직',
+    wealth: '차곡차곡 쌓아 반드시 이루는 정석 재물운일세. 투기보다 적립식·장기 투자가 체질일세.' },
+  { name: '편관', kw: '결단·책임', personality: '결단력과 위기 대처 능력이 뛰어나고, 어려운 책임을 피하지 않네.',
+    career: '긴장감 있는 무대, 권한과 책임이 분명한 자리가 맞네.', jobs: '군·경·소방, 외과·응급, 감사, 구조조정 전문가',
+    wealth: '압박 속에서 벌어들이는 유형일세. 무리한 확장보다 리스크 관리가 재물의 핵심일세.' },
+  { name: '정관', kw: '명예·질서', personality: '반듯하고 합리적이며, 조직과 사회의 신뢰를 얻는 모범생형일세.',
+    career: '공적인 자리, 직급과 명예가 따르는 경로에서 성장하네.', jobs: '공무원, 법조, 대기업 관리자, 교직',
+    wealth: '직위가 오르면 재물이 따라오는 구조일세. 명예를 지키는 것이 최고의 재테크일세.' },
+  { name: '편인', kw: '직관·탐구', personality: '독창적 사고와 남다른 직관을 지녔고, 혼자 파고드는 몰입력이 강하네.',
+    career: '특수 전문 분야, 남들이 안 가는 길에서 독보적 존재가 되네.', jobs: '연구, IT·개발, 의약, 역술·심리, 예술',
+    wealth: '지식과 기술이 재산일세. 수입원이 끊기지 않게 두 번째 파이프라인을 미리 만들어두면 좋네.' },
+  { name: '정인', kw: '학문·후원', personality: '배움을 사랑하고 인덕이 두터우며, 어른과 귀인의 도움이 따르네.',
+    career: '가르치고 기록하고 자격을 쌓는 일에서 오래 가네.', jobs: '교수·교사, 작가, 의료, 자격 전문직',
+    wealth: '문서와 자격이 돈이 되는 사주일세. 학위·자격증·계약서 등 문서운을 살리면 재물이 안정되네.' },
+];
+
+// ---- 오행 -----------------------------------------------------------------
+const OHENG_TEXT = [
+  { name: '목(木)', excess: '나무가 우거진 숲처럼 추진력과 성장욕이 넘치네. 다만 계획이 너무 많아 흩어질 수 있으니 가지치기가 필요하네.',
+    lack: '뻗어나가는 기운이 약해 시작을 미루는 경향이 있네. 새벽 시간 활용과 식물·숲 가까이하는 습관이 목 기운을 보충하네.',
+    good: '성장과 안정의 균형이 좋아 꾸준히 뻗어나가는 힘이 있네.' },
+  { name: '화(火)', excess: '태양이 두 개 뜬 듯 열정이 넘쳐 주목받지만, 번아웃과 감정 기복을 조심해야 하네. 쉼표를 계획에 넣으시게.',
+    lack: '표현과 확산의 기운이 약해 실력에 비해 덜 알려지는 편일세. 자신을 드러내는 연습이 운을 여는 열쇠일세.',
+    good: '표현력과 온기가 적절해 사람들에게 매력적으로 비치네.' },
+  { name: '토(土)', excess: '땅이 넓고 두터워 신중하고 믿음직하지만, 변화 앞에서 지나치게 무거워질 수 있네. 가끔은 몸을 가볍게 움직이시게.',
+    lack: '중심을 잡아주는 기운이 약해 결정을 자주 바꾸기 쉽네. 루틴과 거처의 안정이 토 기운을 채워주네.',
+    good: '중심이 잘 잡혀 있어 신뢰를 얻고 사람이 모일세.' },
+  { name: '금(金)', excess: '날이 선 칼이 여럿인 형국이라 결단력은 최고지만 말이 날카로워질 수 있네. 부드러운 표현이 귀인을 부르네.',
+    lack: '맺고 끊는 기운이 약해 마무리와 거절이 어려운 편일세. 정리정돈과 금속·흰색 아이템이 금 기운을 살리네.',
+    good: '결단력과 절제가 균형을 이뤄 일 처리가 깔끔하네.' },
+  { name: '수(水)', excess: '깊은 바다처럼 생각이 많고 지혜롭지만, 고민이 길어지면 기회를 놓치네. 생각의 마감 시간을 정하시게.',
+    lack: '유연함과 융통성의 기운이 약해 정면돌파만 고집하기 쉽네. 충분한 수분 섭취와 물가 산책이 수 기운을 보충하네.',
+    good: '지혜와 유연함이 균형을 이뤄 위기 대처가 뛰어나네.' },
+];
+
+// ---- 일지(배우자궁) 연애 스타일 -------------------------------------------
+const ILJI_LOVE = [
+  '연애에서도 머리가 빠르게 돌아가는 밀당의 고수일세. 쉽게 속을 보여주지 않지만, 한번 마음을 열면 깊은 밤바다처럼 상대에게 빠져드네.',
+  '신중하고 우직한 연애를 하네. 표현은 서툴러도 행동으로 증명하는 타입이라, 오래 만날수록 진가가 드러나는 연인일세.',
+  '화끈하고 직진하는 연애 스타일일세. 좋으면 좋다고 말해야 직성이 풀리며, 연인에게 아낌없이 쏟는 순정파일세.',
+  '다정하고 로맨틱한 연애를 꿈꾸네. 분위기와 기념일을 소중히 여기며, 섬세한 배려로 상대를 감동시키는 타입일세.',
+  '쉽게 불붙지 않지만 한번 정하면 끝까지 가는 진중한 연애파일세. 믿음이 깨지는 것을 가장 못 견디네.',
+  '지적인 대화가 통해야 사랑이 시작되는 타입일세. 겉은 쿨해 보여도 속은 뜨거워, 연인 앞에서만 보여주는 반전 애교가 있네.',
+  '정열적이고 표현이 화려한 연애를 하네. 사랑할 때 에너지가 폭발하지만, 식는 것도 빠를 수 있어 꾸준함이 관건일세.',
+  '가정적이고 헌신적인 연애 스타일일세. 연인을 가족처럼 챙기며, 안정된 미래를 함께 그릴 수 있는 사람에게 끌리네.',
+  '재치 있고 유쾌한 연애를 하네. 웃음 코드가 맞는 상대와 급속도로 가까워지며, 지루한 관계는 오래 견디지 못하네.',
+  '깔끔하고 확실한 연애를 선호하네. 애매한 관계를 싫어하고, 서로의 사생활을 존중하는 세련된 사랑을 추구하네.',
+  '의리 있고 듬직한 연애를 하네. 한눈팔지 않는 일편단심형으로, 연인의 어려움을 자기 일처럼 나서서 해결해주네.',
+  '순수하고 깊은 정을 주는 연애를 하네. 상대를 품어주는 포용력이 크지만, 정을 쏟은 만큼 상처도 깊게 받는 타입일세.',
+];
+
+// ---- 연애운: 배우자성(남=재성, 여=관성) 상태 ------------------------------
+const LOVE_PARTNER = {
+  strong: '사주에 인연의 별이 뚜렷하게 자리 잡고 있어, 이성과의 인연이 끊이지 않는 구조일세. 선택지가 많은 만큼 사람을 보는 자기 기준을 명확히 세우는 것이 좋은 인연을 만나는 지름길일세.',
+  weak: '인연의 별이 은은하게 자리한 사주일세. 연애가 늦거나 뜸해 보여도 이는 인연이 없는 것이 아니라 깊고 확실한 인연을 기다리는 구조일세. 활동 반경을 넓히는 것만으로 만남의 운이 크게 열리네.',
+  none: '사주 원국에 인연의 별이 드러나 있지 않은 구조일세. 이런 사주는 오히려 운에서 인연의 별이 들어오는 시기에 강렬한 만남이 찾아오는 것이 특징이라, 시기를 아는 것이 무엇보다 중요하네.',
+};
+
+// ---- 대운 십성별 시기 해석 -------------------------------------------------
+const DAEUN_TEXT = [
+  '자기 세력을 키우는 시기일세. 동료·파트너가 모여들고 독립·창업의 기운이 강해지네.',
+  '경쟁이 치열해지는 대신 판이 커지는 시기일세. 승부수를 던질 기회가 오지만 동업·보증은 신중해야 하네.',
+  '재능이 만개하고 의식주가 풍성해지는 시기일세. 새로운 것을 만들고 배우고 낳는(자녀·작품·사업) 운일세.',
+  '틀을 깨는 시기일세. 이직·전업·독립 등 큰 변화가 일어나기 쉽고, 표현 활동에서 이름을 알리네.',
+  '큰돈이 움직이는 시기일세. 사업 확장·투자 기회가 열리지만 들어오는 만큼 나갈 수 있어 관리가 핵심일세.',
+  '안정적으로 축적하는 시기일세. 결혼·내집마련 등 인생의 기반이 다져지는 황금기일세.',
+  '책임과 압박이 커지는 대신 권한도 커지는 시기일세. 승진·발탁의 기회이자 건강 관리가 필요한 때일세.',
+  '명예가 올라가는 시기일세. 승진·합격·인정의 운이 강하고 사회적 위치가 한 단계 상승하네.',
+  '공부와 재충전의 시기일세. 자격·학위·기술을 쌓으면 다음 대운에서 크게 쓰일세.',
+  '귀인이 돕는 시기일세. 문서운(계약·합격·상속)이 좋아지고 윗사람의 후원을 받네.',
+];
+
+// ---- 오늘의 운세 텍스트 -----------------------------------------------------
+const TODAY_TEXT = [
+  '내 편이 늘어나는 날일세. 협업과 부탁이 잘 통하니 미뤄둔 제안을 꺼내보시게.',
+  '경쟁 기운이 강한 날일세. 지갑 단속과 감정 조절, 두 가지만 지키면 오히려 승기를 잡네.',
+  '재능이 빛나는 날일세. 만들고, 쓰고, 말하는 모든 표현이 평소보다 좋은 반응을 얻네.',
+  '아이디어가 넘치지만 말이 앞서기 쉬운 날일세. 톡 쏘는 한마디만 참으면 최고의 하루가 되네.',
+  '돈의 흐름이 활발한 날일세. 기회는 잡되 충동구매와 즉흥 투자는 하루만 미루시게.',
+  '성실함이 보상받는 날일세. 오래 공들인 일에서 결실의 신호가 오네.',
+  '압박이 있지만 실력을 증명할 기회의 날일세. 정면돌파가 답일세.',
+  '인정받는 날일세. 윗사람·공적인 자리에서 좋은 평가가 따르니 미팅을 잡기 좋네.',
+  '직관이 예리해지는 날일세. 문득 떠오른 생각을 메모하시게. 그 안에 답이 있네.',
+  '귀인이 움직이는 날일세. 연락이 뜸했던 어른·스승·선배에게 먼저 안부를 전하면 문이 열리네.',
+];
+const TODAY_REL_TEXT = {
+  yukhap: '오늘의 일진이 나의 일지와 합(合)을 이루어 인간관계와 협상에 순풍이 부네.',
+  samhap: '오늘의 일진이 나와 삼합의 기운으로 묶여 팀워크와 모임에서 좋은 일이 생기네.',
+  same: '오늘의 일진이 나의 일지와 같은 기운이라 익숙한 일에서 안정감을 얻네.',
+  chung: '오늘의 일진이 나의 일지와 충(冲)하여 계획이 흔들리기 쉬운 날일세. 중요한 결정은 하루 미루고, 이동·운전에 유의하시게.',
+  none: '무난한 기운의 날일세. 평소 페이스를 유지하는 것이 최선일세.',
+};
+
+// ---- 일간 강약 --------------------------------------------------------------
+const STRENGTH_TEXT = {
+  strong: '일간(나의 기운)이 튼튼한 신강한 사주일세. 자기 확신이 강해 주도할 때 운이 열리며, 기운을 덜어내는 활동(표현·베풂·도전)이 오히려 복을 부르네.',
+  balanced: '일간이 균형 잡힌 중화 사주일세. 억지스러운 무리수 없이도 운의 흐름을 타는 유연함이 최대 강점일세.',
+  weak: '일간이 섬세한 신약한 사주일세. 혼자 다 짊어지기보다 귀인과 시스템의 도움을 받을 때 몇 배의 성과를 내는 구조로, 사람 복이 곧 재물 복일세.',
+};
+
+// ---- 용신(부족 오행) 개운법 -------------------------------------------------
+const YONGSHIN_ADVICE = [
+  { el: '목(木)', color: '초록·청록', item: '식물, 원목 소품', habit: '아침 산책과 새 계획 세우기', place: '숲, 공원, 서점' },
+  { el: '화(火)', color: '레드·오렌지', item: '캔들, 조명', habit: '햇볕 쬐기와 감정 표현하기', place: '남향 카페, 공연장' },
+  { el: '토(土)', color: '옐로·베이지', item: '도자기, 흙 화분', habit: '규칙적인 식사와 명상', place: '산, 한옥, 미술관' },
+  { el: '금(金)', color: '화이트·실버', item: '금속 액세서리', habit: '정리정돈과 마무리 짓기', place: '고층 전망대, 넓은 광장' },
+  { el: '수(水)', color: '네이비·하늘색', item: '어항, 물병', habit: '충분한 수분과 밤 독서', place: '바다, 강변, 온천' },
+];
+
+// ---- 상품 구성 --------------------------------------------------------------
+const PRODUCTS = {
+  basic: { name: '기본 감정', price: 5900, includes: ['제6장 평생 총운', '제7장 연애운'] },
+  premium: { name: '전권 감정', price: 9900, includes: ['제6장 평생 총운', '제7장 연애운', '제8장 직업과 적성', '제9장 재물운', '제10장 대운 전환점'] },
+};
+
+// ---- 일간(나의 본질) 성정 — 전문 풀이용 ------------------------------------
+const ILGAN_INFO = [
+  '갑목(甲木)은 하늘을 향해 곧게 자라는 큰 나무의 기운일세. 시작하는 힘과 리더십이 강하고, 굽히는 것보다 부러지는 쪽을 택할 만큼 자존심이 뚜렷한 천간일세.',
+  '을목(乙木)은 바위틈에서도 길을 찾아 자라는 덩굴과 화초의 기운일세. 유연한 생존력과 섬세한 감각이 뛰어나며, 부드러워 보여도 결국 원하는 곳까지 뻗어가는 끈기가 있네.',
+  '병화(丙火)는 세상을 고루 비추는 태양의 기운일세. 밝고 화통하며 숨김이 없어 어디서든 존재감이 드러나고, 사람을 끌어모으는 천성적 매력이 있네.',
+  '정화(丁火)는 어둠 속에서 더 빛나는 촛불과 별빛의 기운일세. 겉은 조용하지만 속은 뜨겁고, 한 사람·한 분야를 깊게 비추는 집중력과 헌신이 강점일세.',
+  '무토(戊土)는 만물을 품는 큰 산의 기운일세. 묵직한 신뢰감과 포용력으로 사람들이 기대는 언덕이 되며, 쉽게 흔들리지 않는 중심을 지녔네.',
+  '기토(己土)는 곡식을 길러내는 기름진 밭의 기운일세. 겉으로 드러나지 않게 실속을 챙기고 사람을 키워내는 재능이 있으며, 현실 감각이 매우 뛰어나네.',
+  '경금(庚金)은 무쇠와 바위의 기운일세. 결단력과 추진력이 강철 같고, 의리를 중시하며 한번 정한 목표는 끝까지 밀어붙이는 승부사의 천간일세.',
+  '신금(辛金)은 세공을 마친 보석의 기운일세. 예리한 판단력과 완벽주의적 미감을 지녔고, 자기 분야에서 갈고닦은 실력으로 빛나는 전문가형 천간일세.',
+  '임수(壬水)는 바다와 큰 강의 기운일세. 스케일이 크고 지혜가 깊어 작은 일에 매이지 않으며, 흐름을 읽고 판을 움직이는 통찰이 강점일세.',
+  '계수(癸水)는 이슬비와 샘물의 기운일세. 섬세한 직관과 창의성이 뛰어나고, 스며들듯 사람의 마음을 읽어내는 공감 능력이 남다르네.',
+];
+
+// ---- 월지(태어난 계절)의 조후 — branch index 순 ----------------------------
+const WOLJI_INFO = [
+  '한겨울의 정점인 자월(11월 대설~소한)에 태어나 수(水) 기운이 가장 왕성한 계절의 명일세. 사색이 깊고 두뇌 회전이 빠르지만, 따뜻한 화(火) 기운이 더해질 때 운이 활짝 열리는 구조일세.',
+  '겨울의 끝자락인 축월(12월 소한~입춘)에 태어나 얼어붙은 땅이 봄을 준비하는 형국일세. 인내와 축적의 힘이 강하며, 준비한 것이 늦게라도 반드시 결실로 이어지는 저력의 계절일세.',
+  '만물이 깨어나는 인월(정월 입춘~경칩)에 태어나 목(木) 기운이 솟아오르는 명일세. 새로 시작하는 힘과 성장 에너지를 타고나, 개척하고 확장하는 일에서 운이 살아나네.',
+  '봄의 한가운데인 묘월(2월 경칩~청명)에 태어나 목 기운이 가장 순수하게 왕성한 계절일세. 생동감과 추진력이 넘치며, 사람을 살리고 키우는 분야와 인연이 깊네.',
+  '봄이 여름으로 넘어가는 진월(3월 청명~입하)에 태어나 변화의 길목을 지키는 명일세. 환경 적응력이 뛰어나고, 서로 다른 것을 조율하는 중재의 재능을 타고났네.',
+  '여름의 문턱인 사월(4월 입하~망종)에 태어나 화(火) 기운이 피어오르는 계절의 명일세. 표현력과 확산력이 강해 자기 재능을 세상에 알리는 힘이 좋네.',
+  '한여름의 정점인 오월(5월 망종~소서)에 태어나 화 기운이 가장 왕성한 명일세. 열정과 존재감이 타의 추종을 불허하며, 수(水) 기운으로 완급을 조절할 때 큰 그릇이 완성되네.',
+  '더위가 무르익은 미월(6월 소서~입추)에 태어나 결실을 준비하는 계절의 명일세. 실속과 마무리에 강하고, 쌓아온 것을 자산으로 바꾸는 수완이 뛰어나네.',
+  '가을의 문이 열리는 신월(7월 입추~백로)에 태어나 금(金) 기운이 서기 시작하는 명일세. 판단이 빨라지고 결단력이 살아나는 계절이라, 기회를 낚아채는 감각이 탁월하네.',
+  '가을의 한가운데인 유월(8월 백로~한로)에 태어나 금 기운이 가장 예리하게 벼려진 명일세. 완성도와 디테일에 대한 감각이 뛰어나 전문 분야에서 정점에 오르는 힘이 있네.',
+  '가을이 저무는 술월(9월 한로~입동)에 태어나 수확을 갈무리하는 계절의 명일세. 책임감과 보관·관리의 재능이 있어 조직의 곳간을 맡는 자리와 인연이 깊네.',
+  '겨울의 문턱인 해월(10월 입동~대설)에 태어나 수 기운이 차오르는 명일세. 통찰과 기획의 힘이 깊어지는 계절이라, 멀리 보고 판을 짜는 일에서 진가를 발휘하네.',
+];
+
+// ---- 오늘의 운세 항목별 풀이 (점수대별 3단계: 0=주의 1=보통 2=좋음) ---------
+const TODAY_CAT_TEXT = {
+  love: [
+    '오늘은 마음이 앞서면 어긋나기 쉬운 날일세. 고백·다툼의 마무리 같은 중요한 감정 표현은 하루 미루고, 상대의 이야기를 들어주는 쪽에 서면 오히려 점수를 버네.',
+    '잔잔하지만 안정적인 애정운일세. 특별한 이벤트보다 소소한 안부와 배려가 관계의 온도를 지켜주네. 솔로라면 소개나 모임 제안을 거절하지 마시게.',
+    '애정운에 순풍이 부는 날일세. 커플은 마음을 표현할수록 관계가 깊어지고, 솔로는 우연한 자리에서 좋은 인연의 신호가 오네. 먼저 연락하는 쪽이 이기네.',
+  ],
+  money: [
+    '금전의 문단속이 필요한 날일세. 충동구매·즉흥 투자·보증 부탁은 오늘만큼은 전부 보류하시게. 지키는 것이 버는 것일세.',
+    '들고 나는 것이 균형을 이루는 무난한 재물운일세. 가계부 정리, 자동이체 점검처럼 돈의 구조를 손보는 데 쓰면 알찬 하루가 되네.',
+    '재물의 흐름이 활발해지는 날일세. 미뤄둔 협상·정산·판매를 진행하기 좋고, 뜻밖의 수입이나 좋은 거래 소식이 닿을 수 있네.',
+  ],
+  work: [
+    '일에서는 변수가 끼어들기 쉬운 날일세. 중요한 결재·계약·발표는 한 번 더 검토하고, 오늘은 벌이기보다 다듬는 데 집중하시게.',
+    '맡은 일을 착실히 진행하기 좋은 날일세. 화려한 성과보다 신뢰가 쌓이는 날이니, 기본기를 보여주는 것이 최선의 전략일세.',
+    '업무운이 크게 열리는 날일세. 제안·보고·미팅에서 평소보다 좋은 반응을 얻으니, 준비해둔 카드가 있다면 오늘 꺼내시게.',
+  ],
+  health: [
+    '몸이 보내는 신호에 귀 기울여야 하는 날일세. 무리한 운동과 야식은 피하고, 이동·운전 시 평소보다 주의를 기울이시게.',
+    '컨디션이 무난한 날일세. 가벼운 스트레칭과 충분한 수분 섭취로 리듬을 유지하면 하루가 한결 가볍네.',
+    '활력이 차오르는 날일세. 미뤄둔 운동을 시작하거나 야외 활동을 하기에 더없이 좋은 컨디션일세.',
+  ],
+};
+
+// ---- 재성 위치별 재물 시기 (0=년주 1=월주 2=일지 3=시주) --------------------
+const WEALTH_POSITION_TEXT = [
+  '재성이 년주에 자리해 초년부터 돈에 대한 감각이 일찍 트이는 구조일세. 집안·조상 대의 기반이 재물의 출발점이 되며, 일찍 시작한 저축과 투자가 평생의 밑천이 되네.',
+  '재성이 월주에 자리해 청년기부터 중년까지 사회 활동을 통해 재물이 왕성하게 들어오는 구조일세. 직업 무대 자체가 돈길이니, 커리어를 키우는 것이 곧 재테크일세.',
+  '재성이 일지(배우자궁)에 자리해 배우자·파트너와 재물운이 깊게 얽히는 구조일세. 결혼·동업 이후 재물이 불어나는 경우가 많고, 짝을 잘 만나는 것이 최고의 재테크가 되네.',
+  '재성이 시주에 자리해 중년 이후부터 말년으로 갈수록 재물이 두터워지는 구조일세. 조급해할 필요가 전혀 없으며, 노후 자산과 연금 설계에 일찍 눈뜨면 말년이 풍요롭네.',
+];
+
+// ---- 오행별 어울리는 산업 --------------------------------------------------
+const ELEMENT_INDUSTRY = [
+  '교육·출판·콘텐츠·패션·바이오처럼 기르고 뻗어나가는 목(木) 산업',
+  '미디어·엔터테인먼트·마케팅·요식·에너지처럼 빛나고 확산되는 화(火) 산업',
+  '부동산·건설·농업·유통 플랫폼처럼 터를 닦고 잇는 토(土) 산업',
+  '금융·법률·기계·의료·IT 하드웨어처럼 정밀하게 벼리는 금(金) 산업',
+  '무역·물류·여행·주류·연구개발처럼 흐르고 통하는 수(水) 산업',
+];
+
+// ---- 사상 기질 (명리 근사 — 한의 진단 아님) --------------------------------
+const SASANG_DB = [
+  { name: '태양인(太陽人)', body: '기운이 위로 뻗고 밖으로 나가는 상이라, 결단이 빠르고 새 판을 여는 데 능하네. 남을 이끄는 자리가 어울리고, 굽히는 일에는 영 소질이 없는 기질일세.',
+    well: '큰 그림을 그리는 일, 먼저 나서서 길을 여는 일은 자네가 하면 남보다 배는 빠르네. 그 기운을 아끼지 말게.',
+    care: '기운이 위로만 쏠리면 목과 머리에 열이 오르고 아랫심이 허해지기 쉽네. 화를 삭이는 법을 익히고 하체 단련을 게을리하지 말게. 독단은 자네의 가장 큰 적일세.' },
+  { name: '소양인(少陽人)', body: '불처럼 빠르고 재기가 넘치되 안에는 찬 기운을 품은 상일세. 시작이 빠르고 눈치가 밝아 어디서든 분위기를 쥐고 흔드는 기질이네.',
+    well: '사람을 상대하는 일, 말과 아이디어로 푸는 일이 자네의 무대일세. 벌인 일을 셋 중 하나로 추리는 습관만 들이면 크게 되네.',
+    care: '뒷심을 조심하시게. 흥이 식으면 마무리를 남에게 미루기 쉽고, 속이 허해지면 조급증이 올라오네. 끝맺음 하나가 평판의 전부라 여기시게.' },
+  { name: '태음인(太陰人)', body: '산처럼 진중하고 속이 깊은 상일세. 한번 품은 것은 오래 끌고 가는 뚝심이 있어, 큰 살림과 큰 조직을 맡을 그릇이네.',
+    well: '쌓고 지키고 불리는 일에 능하니, 길게 보는 사업과 자산을 다루는 일이 자네 체질에 꼭 맞네.',
+    care: '기운이 안으로만 고이면 몸이 무거워지고 결단을 미루게 되네. 땀 흘리는 운동으로 기운을 돌리고, 미루던 일은 날을 정해 끊으시게.' },
+  { name: '소음인(少陰人)', body: '찬찬하고 섬세하며 속정이 깊은 상일세. 겉으로 드러내지 않아도 안에서 셈이 정확하고, 사람을 깊게 사귀는 기질이네.',
+    well: '꼼꼼함이 생명인 일, 오래 신용을 쌓는 일에서 자네를 따를 자가 없네. 좁고 깊게 파는 것이 자네의 승법일세.',
+    care: '속을 끓이는 버릇을 조심하시게. 말 못 하고 삭이면 속부터 상하네. 서운한 것은 그날 풀고, 몸을 늘 따뜻하게 지키시게.' },
+];
+
+// ---- 주력 기운(최다 오행)별 처방 -------------------------------------------
+const GIUN_DB = [
+  { t: '자네 팔자에 가장 짙게 흐르는 것은 나무(木)의 기운일세. 뻗어 자라려는 힘이라, 배우고 기르고 새로 시작하는 데서 생기가 도네.',
+    do: '새로 배우는 일과 사람을 기르는 일을 늘 곁에 두시게. 아침 시간을 잡는 자가 목 기운을 잡네.',
+    avoid: '가지가 많으면 줄기가 약해지는 법 — 벌인 일이 셋을 넘거든 하나를 쳐내시게. 화를 참아 속을 상하게 하는 것도 목 기운 사람의 고질일세.' },
+  { t: '자네 팔자에 가장 짙게 흐르는 것은 불(火)의 기운일세. 빛나고 퍼지는 힘이라, 드러내고 표현하는 데서 운이 살아나네.',
+    do: '무대에 서는 일, 알리는 일을 피하지 마시게. 자네의 밝음은 감출수록 손해일세.',
+    avoid: '불은 활활 타다 재가 되는 법 — 일정에 쉼표를 먼저 박아두시게. 흥에 겨운 즉흥 지출과 밤샘이 화 기운 사람의 덫일세.' },
+  { t: '자네 팔자에 가장 짙게 흐르는 것은 흙(土)의 기운일세. 받아 안고 버티는 힘이라, 사람들이 자네를 믿고 기대게 되네.',
+    do: '중간에서 잇고 중재하는 일, 터와 자산을 다루는 일에 힘을 쓰시게. 규칙적인 끼니와 거처의 안정이 곧 개운일세.',
+    avoid: '흙이 굳으면 아무것도 자라지 못하네. 고집이 세지고 몸이 무거워질 때가 위험 신호이니, 걷는 일부터 다시 시작하시게.' },
+  { t: '자네 팔자에 가장 짙게 흐르는 것은 쇠(金)의 기운일세. 벼리고 끊어내는 힘이라, 맺고 끊음이 분명하고 완성도가 높네.',
+    do: '마무리 짓는 일, 원칙을 세우는 일, 한 기술을 갈고닦는 일이 자네의 길일세.',
+    avoid: '칼은 쓰는 자리를 가려야 하네. 바른말이 상대를 베지 않게 반 박자 늦게 말하고, 융통성 없다는 말을 듣거든 한 번쯤 져주시게.' },
+  { t: '자네 팔자에 가장 짙게 흐르는 것은 물(水)의 기운일세. 스미고 흐르는 힘이라, 지혜가 깊고 어디서든 길을 찾아내네.',
+    do: '공부와 기획, 멀리 보는 일에 힘을 쓰시게. 물가를 걷고 충분히 자는 것이 자네에겐 보약일세.',
+    avoid: '물이 고이면 탁해지는 법 — 생각이 길어져 때를 놓치는 것이 자네의 병통일세. 고민에는 마감을 정하고, 속엣말을 쌓아두지 마시게.' },
+];
+
+// ---- 오늘의 당부 (일진 십성별) ---------------------------------------------
+const TODAY_CAUTION = [
+  '내 몫과 남의 몫이 섞이기 쉬운 날이니, 돈 계산은 그 자리에서 끝내시게.',
+  '지갑과 승부욕을 함께 단속하시게. 오늘 빌려준 돈은 돌아오지 않는다 여기게.',
+  '먹고 마시는 자리가 길하나 과함은 탈이 나네. 팔 할에서 수저를 놓으시게.',
+  '혀끝에 칼이 서는 날일세. 윗사람 앞에서는 반 박자 늦게 말하시게.',
+  '눈에 띄는 기회일수록 셈을 두 번 하시게. 충동 지출이 오늘의 가장 큰 적일세.',
+  '길한 날이나 인색해 보이기 쉬우니, 베풀 자리에서는 아끼지 마시게.',
+  '무리한 부탁을 떠안기 쉬운 날일세. 거절도 실력이라 여기시게.',
+  '체면 차리다 실속을 놓치기 쉬우니, 서류와 도장은 두 번 확인하시게.',
+  '생각이 많아 끼니를 놓치기 쉽네. 밥때와 잠부터 챙기시게.',
+  '받는 것이 많은 날이나 미루는 버릇이 살아나네. 오늘 몫은 오늘 끝내시게.',
+];
+
+// ---- 행운의 물건 (용신 오행별, 일자 순환) -----------------------------------
+const LUCKY_ITEMS = [
+  ['작은 화분', '초록 손수건', '원목 필기구', '새 책 한 권'],
+  ['붉은 끈 팔찌', '초 하나', '따뜻한 차 한 잔', '밝은 색 스카프'],
+  ['노란 지갑', '도자기 잔', '흙길 산책', '꿀 한 스푼'],
+  ['흰 셔츠', '쇠 열쇠고리', '손목시계', '은붙이 장신구'],
+  ['물병', '검은 수첩', '우산', '죽염 소금'],
+];
+
+</script>
+<script>
+/* ==========================================================================
+ * 사주비록 앱 — 화면 전환 · 렌더링 · 모의 결제
+ * ========================================================================== */
+(function () {
+  'use strict';
+  const $ = (sel, root) => (root || document).querySelector(sel);
+  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
+
+  // ---- 오행 잉크 페블 (리퀴드 아이덴티티) -----------------------------------
+  function paintPebble(el, inks) {
+    if (!el) return;
+    el.innerHTML = inks.map(b =>
+      `<span class="blob ${b.f ? 'fine' : ''}" style="left:${b.x}%;top:${b.y}%;width:${b.w}%;height:${b.h}%;background:${b.c};opacity:${b.o};"></span>`
+    ).join('');
+  }
+  paintPebble(document.querySelector('#hero-pebble'), [
+    { c: '#3a352b', x: 14, y: 22, w: 46, h: 42, o: 0.55 },
+    { c: '#3e5a7e', x: 46, y: 10, w: 40, h: 38, o: 0.48 },
+    { c: '#a93a2c', x: 42, y: 48, w: 32, h: 30, o: 0.42 },
+    { c: '#a8842f', x: 10, y: 54, w: 28, h: 26, o: 0.38 },
+    { c: '#4c7a5c', x: 60, y: 60, w: 18, h: 16, o: 0.4, f: true },
+    { c: '#3a352b', x: 30, y: 40, w: 10, h: 9, o: 0.45, f: true },
+  ]);
+
+  // ---- 상태 ----------------------------------------------------------------
+  const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null };
+
+  // ---- 화면 전환 -----------------------------------------------------------
+  const views = ['hero', 'form', 'loading', 'result'];
+  function show(v) {
+    for (const name of views) $('#view-' + name).hidden = name !== v;
+    scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
+  }
+
+  // ---- 폼 구성 --------------------------------------------------------------
+  function fillSelect(sel, from, to, unit, selected) {
+    const opts = [];
+    for (let v = from; from < to ? v <= to : v >= to; v += from < to ? 1 : -1)
+      opts.push(`<option value="${v}" ${v === selected ? 'selected' : ''}>${v}${unit}</option>`);
+    sel.innerHTML = opts.join('');
+  }
+  fillSelect($('#in-year'), 2010, 1930, '년', 1995);
+  fillSelect($('#in-month'), 1, 12, '월', 6);
+  fillSelect($('#in-day'), 1, 31, '일', 15);
+  fillSelect($('#in-hour'), 0, 23, '시', 12);
+  $('#in-minute').innerHTML = Array.from({ length: 60 }, (_, m) => `<option value="${m}">${m}분</option>`).join('');
+
+  $('#in-nohour').addEventListener('change', e => {
+    $('#in-hour').disabled = $('#in-minute').disabled = e.target.checked;
+    $('#in-hour').style.opacity = $('#in-minute').style.opacity = e.target.checked ? 0.35 : 1;
+  });
+
+  // ---- 입력 위저드 (한 질문 = 한 화면) --------------------------------------
+  const WIZ_TOTAL = 5;
+  let wizIdx = 0;
+  function optCards(id, key, chosenKey, onPick) {
+    $$('#' + id + ' .opt-card').forEach(c => c.addEventListener('click', () => {
+      $$('#' + id + ' .opt-card').forEach(x => x.classList.remove('on'));
+      c.classList.add('on');
+      state[key] = c.dataset.v;
+      state[chosenKey] = true;
+      if (onPick) onPick(c.dataset.v);
+    }));
+  }
+  optCards('cards-gender', 'gender', 'genderChosen', () => setTimeout(wizNext, 280));
+  optCards('cards-cal', 'calendar', 'calChosen', v => {
+    $('#leap-wrap').style.display = v === 'lunar' ? 'flex' : 'none';
+    if (v === 'solar') { $('#in-leap').checked = false; setTimeout(wizNext, 280); }
+  });
+
+  function wizGo(i) {
+    wizIdx = Math.max(0, Math.min(WIZ_TOTAL - 1, i));
+    $$('.wiz-step').forEach((el, k) => el.classList.toggle('active', k === wizIdx));
+    $('#wiz-bar').style.width = ((wizIdx + 1) / WIZ_TOTAL * 100) + '%';
+    $('#wiz-count').textContent = (wizIdx + 1) + ' / ' + WIZ_TOTAL;
+    $('#wiz-prev').style.visibility = wizIdx === 0 ? 'hidden' : 'visible';
+    $('#wiz-next').textContent = wizIdx === WIZ_TOTAL - 1 ? '감정을 청합니다' : '다음';
+    $('#form-error').textContent = '';
+    const inp = $$('.wiz-step')[wizIdx].querySelector('input[type=text]');
+    if (inp) setTimeout(() => inp.focus(), 380);
+  }
+  function wizNext() {
+    const err = $('#form-error');
+    if (wizIdx === 1 && !state.genderChosen) { err.textContent = '성별을 선택해 주시게.'; return; }
+    if (wizIdx === 2 && !state.calChosen) { err.textContent = '양력과 음력 중 하나를 선택해 주시게.'; return; }
+    if (wizIdx === 3 && state.calendar === 'solar') {
+      const y = +$('#in-year').value, m = +$('#in-month').value, d = +$('#in-day').value;
+      const dt = new Date(y, m - 1, d);
+      if (dt.getMonth() !== m - 1 || dt.getDate() !== d) { err.textContent = '존재하지 않는 날짜일세. 다시 확인해 주시게.'; return; }
+    }
+    if (wizIdx < WIZ_TOTAL - 1) wizGo(wizIdx + 1);
+    else runCompute();
+  }
+  $('#wiz-next').addEventListener('click', wizNext);
+  $('#wiz-prev').addEventListener('click', () => wizGo(wizIdx - 1));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !$('#view-form').hidden) { e.preventDefault(); wizNext(); }
+  });
+
+  $('#btn-start').addEventListener('click', () => { show('form'); wizGo(0); });
+
+  // ---- 계산 실행 ------------------------------------------------------------
+  const LOADING_MSGS = [
+    '만세력을 펼치는 중…', '천간과 지지를 배열하는 중…', '오행의 흐름을 읽는 중…',
+    '대운의 물길을 짚는 중…', '오늘의 일진을 맞추는 중…',
+  ];
+  function runCompute() {
+    const err = $('#form-error'); err.textContent = '';
+    const input = {
+      year: +$('#in-year').value, month: +$('#in-month').value, day: +$('#in-day').value,
+      hour: +$('#in-hour').value, minute: +$('#in-minute').value,
+      hourUnknown: $('#in-nohour').checked,
+      calendar: state.calendar, leapMonth: $('#in-leap').checked && state.calendar === 'lunar',
+      gender: state.gender,
+    };
+    if (input.calendar === 'solar') {
+      const dt = new Date(input.year, input.month - 1, input.day);
+      if (dt.getMonth() !== input.month - 1 || dt.getDate() !== input.day) {
+        err.textContent = '존재하지 않는 날짜일세. 다시 확인해주시게.'; return;
+      }
+    }
+    let saju;
+    try { saju = computeSaju(input); }
+    catch (e) { err.textContent = e.message || '계산 중 오류가 났네. 날짜를 확인해주시게.'; return; }
+
+    state.saju = saju;
+    state.name = $('#in-name').value.trim();
+    state.unlocked = null;
+    show('loading');
+    let i = 0;
+    const msgEl = $('#loading-msg');
+    const iv = setInterval(() => { msgEl.textContent = LOADING_MSGS[++i % LOADING_MSGS.length]; }, 620);
+    setTimeout(() => { clearInterval(iv); renderResult(); show('result'); }, 2600);
+  }
+
+  // ---- 리포트 데이터 파생 ----------------------------------------------------
+  function derive(s) {
+    const list = [];
+    const push = (ss) => { if (ss !== null && ss !== undefined) list.push(ss); };
+    push(s.sipseong.year.stem); push(s.sipseong.year.branch);
+    push(s.sipseong.month.stem); push(s.sipseong.month.branch);
+    push(s.sipseong.day.branch);
+    if (s.sipseong.hour) { push(s.sipseong.hour.stem); push(s.sipseong.hour.branch); }
+    const freq = Array(10).fill(0); list.forEach(x => freq[x]++);
+    let dominant = 0; freq.forEach((c, i) => { if (c > freq[dominant]) dominant = i; });
+    const count = (a, b) => freq[a] + freq[b];
+    const partnerCnt = s.gender === 'M' ? count(4, 5) : count(6, 7);
+    const wealthCnt = count(4, 5);
+    const maxCnt = Math.max(...s.counts);
+    const dayEl = STEMS[s.pillars.day.stem].el;
+    const maxEl = s.counts[dayEl] === maxCnt ? dayEl : s.counts.indexOf(maxCnt); // 동률이면 일간 오행 우선
+    const minEl = s.counts.indexOf(Math.min(...s.counts));
+    const nowAge = new Date().getFullYear() - s.sajuYear + 1; // 세는나이
+    return { freq, dominant, partnerCnt, wealthCnt, maxEl, minEl, nowAge };
+  }
+
+  // ---- 렌더 조각 ------------------------------------------------------------
+  const EL = ELEMENTS;
+  function gzBoxHTML(stemIdx, branchIdx) {
+    const st = STEMS[stemIdx], br = BRANCHES[branchIdx];
+    const se = EL[st.el], be = EL[br.el];
+    return `
+      <div class="gz-box" style="--el:${se.color}; --el-line:${se.color}33">
+        <span class="hanja">${st.k}</span><span class="read">${st.h} · ${se.k}</span>
+      </div>
+      <div class="gz-box" style="--el:${be.color}; --el-line:${be.color}33">
+        <span class="hanja">${br.k}</span><span class="read">${br.h} · ${be.k}</span>
+      </div>`;
+  }
+  function pillarHTML(title, p, ss, isMe) {
+    const ssLabel = ss ? [ss.stem !== null && ss.stem !== undefined ? SIPSEONG_NAMES[ss.stem] : '일간(나)', SIPSEONG_NAMES[ss.branch]] : null;
+    if (!p) return `
+      <div class="pillar"><div class="p-title">${title}</div><div class="p-ss">—</div>
+        <div class="p-empty">시간<br>모름</div></div>`;
+    return `
+      <div class="pillar ${isMe ? 'me' : ''}">
+        <div class="p-title">${title}${isMe ? '<span class="me-badge">나</span>' : ''}</div>
+        <div class="p-ss">${ssLabel ? ssLabel[0] : ''}</div>
+        ${gzBoxHTML(p.stem, p.branch)}
+        <div class="p-ss">${ssLabel ? ssLabel[1] : ''}</div>
+      </div>`;
+  }
+  function gaugeHTML(score) {
+    const R = 56, C = 2 * Math.PI * R, off = C * (1 - score / 100);
+    return `
+      <div class="gauge-wrap">
+        <svg width="132" height="132" viewBox="0 0 132 132">
+          <circle cx="66" cy="66" r="${R}" fill="none" stroke="rgba(34,30,23,0.08)" stroke-width="9"/>
+          <circle cx="66" cy="66" r="${R}" fill="none" stroke="url(#gg)" stroke-width="9" stroke-linecap="round"
+            stroke-dasharray="${C}" stroke-dashoffset="${C}" transform="rotate(-90 66 66)"
+            style="transition: stroke-dashoffset 1.4s cubic-bezier(0.22,1,0.36,1);" data-target="${off}"/>
+          <defs><linearGradient id="gg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#c2705f"/><stop offset="100%" stop-color="#a93a2c"/>
+          </linearGradient></defs>
+        </svg>
+        <div class="gauge-score"><span class="num">${score}</span><span class="of">/ 100점</span></div>
+      </div>`;
+  }
+  function ohengHTML(counts) {
+    const total = counts.reduce((a, b) => a + b, 0);
+    return counts.map((c, i) => `
+      <div class="oheng-row">
+        <span class="oh-name">${EL[i].k} ${EL[i].h}</span>
+        <div class="oh-bar"><div class="oh-fill" style="background:${EL[i].color}; color:${EL[i].color}" data-w="${Math.round(c / total * 100)}"></div></div>
+        <span class="oh-cnt">${c}개</span>
+      </div>`).join('');
+  }
+
+  // ---- 리포트 본문 섹션 (전문 장문 풀이: 계산 근거 인용형) --------------------
+  function who() { return state.name ? escapeHTML(state.name) + ' 자네' : '자네'; }
+
+  function sectionGiun(s, d) {
+    const yangScore = s.counts[0] + s.counts[1];
+    const yinScore = s.counts[3] + s.counts[4];
+    const dayYang = STEMS[s.pillars.day.stem].yang;
+    let sasang;
+    if (yangScore > yinScore) sasang = dayYang ? 0 : 1;
+    else if (yinScore > yangScore) sasang = dayYang ? 2 : 3;
+    else sasang = dayYang ? (s.counts[1] >= s.counts[4] ? 0 : 2) : (s.counts[1] >= s.counts[4] ? 1 : 3);
+    const sa = SASANG_DB[sasang];
+    const g = GIUN_DB[d.maxEl];
+    return `
+      <div class="card reveal" style="animation-delay:0.35s">
+        <div class="card-label">제4장 · 기질과 체질</div>
+        <p class="body-text">여덟 글자 가운데 뻗는 기운(목·화)이 <b>${yangScore}</b>, 거두는 기운(금·수)이 <b>${yinScore}</b>이고 일간이 ${dayYang ? '양(陽)' : '음(陰)'}간이니, 자네는 <b>${sa.name}</b>의 기질에 가깝네. ${sa.body}</p>
+        <p class="body-text"><b>잘 살릴 것</b> — ${sa.well}</p>
+        <p class="body-text"><b>조심할 것</b> — ${sa.care}</p>
+        <p class="body-text">${g.t}</p>
+        <p class="body-text"><b>힘 쓸 곳</b> — ${g.do}</p>
+        <p class="body-text"><b>삼갈 것</b> — ${g.avoid}</p>
+        <p class="body-text" style="font-size:12.5px; color:var(--muted);">체질 풀이는 명리로 읽은 기질의 경향이지 한의학 진단이 아니니, 몸의 일은 의원에게 물으시게.</p>
+      </div>`;
+  }
+
+  function sectionTotal(s, d) {
+    const ds = STEMS[s.pillars.day.stem];
+    const ilju = ILJU_DB[s.day60];
+    const gzLine = `${s.gz.year.hangul}(${s.gz.year.hanja}) 년주 · ${s.gz.month.hangul}(${s.gz.month.hanja}) 월주 · ${s.gz.day.hangul}(${s.gz.day.hanja}) 일주`
+      + (s.gz.hour ? ` · ${s.gz.hour.hangul}(${s.gz.hour.hanja}) 시주` : '');
+    const maxN = s.counts[d.maxEl], minN = s.counts[d.minEl];
+    const ohengNote = maxN >= 3 ? OHENG_TEXT[d.maxEl].excess
+      : minN === 0 ? OHENG_TEXT[d.minEl].lack : OHENG_TEXT[ds.el].good;
+    return `
+      <div class="card">
+        <div class="card-label">제6장 · 평생 총운</div>
+        <p class="body-text">${who()}의 명식은 <b>${gzLine}</b>로 세워졌네. 이 여덟 글자의 주인공, 곧 일간(日干)은 <b>${ds.k}${ELEMENTS[ds.el].k}(${ds.h})</b>일세. ${ILGAN_INFO[s.pillars.day.stem]}</p>
+        <p class="epithet">${ilju.e}</p>
+        <p class="body-text">일간과 일지를 함께 읽은 일주(日柱)는 ${who()}이 타고난 그릇의 모양을 보여주네. ${ilju.t}</p>
+        <p class="body-text">태어난 계절도 사주의 온도를 결정하네. ${WOLJI_INFO[s.pillars.month.branch]}</p>
+        <p class="body-text">오행의 세력을 살피면 <b>${ELEMENTS[d.maxEl].k}(${ELEMENTS[d.maxEl].h})이 ${maxN}개</b>로 가장 왕성하고, <b>${ELEMENTS[d.minEl].k}(${ELEMENTS[d.minEl].h})${minN ? `은 ${minN}개로 약한` : '은 원국에 드러나지 않은'}</b> 구조일세. ${ohengNote}</p>
+        <p class="body-text">${STRENGTH_TEXT[s.strength]}</p>
+        <p class="body-text">이 명식의 균형추, 곧 용신(用神)에 해당하는 기운은 <b>${ELEMENTS[s.yongshin].k}(${ELEMENTS[s.yongshin].h})</b>일세. ${YONGSHIN_ADVICE[s.yongshin].color} 계열을 가까이하고 ${YONGSHIN_ADVICE[s.yongshin].habit}를 생활에 들이면, 큰 운이 들어오는 시기에 그 기운을 온전히 받아낼 수 있네.</p>
+      </div>`;
+  }
+  function sectionLove(s, d) {
+    const b = s.pillars.day.branch;
+    const yh = YUKHAP[b];
+    const mates = SAMHAP.find(g => g.includes(b)).filter(x => x !== b);
+    const stateKey = d.partnerCnt >= 2 ? 'strong' : d.partnerCnt === 1 ? 'weak' : 'none';
+    const starName = s.gender === 'M' ? '재성(財星)' : '관성(官星)';
+    return `
+      <div class="card">
+        <div class="card-label">제7장 · 연애운</div>
+        <p class="body-text">명리학에서 연애와 결혼의 인연은 일지(日支), 곧 배우자궁(配偶者宮)에서 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b> — ${ILJI_LOVE[b]}</p>
+        <p class="body-text">${s.gender === 'M' ? '남' : '여'}자 사주에서 연인을 뜻하는 별은 <b>${starName}</b>인데, ${who()}의 원국에는 이 별이 <b>${d.partnerCnt}개</b> 자리하네. ${LOVE_PARTNER[stateKey]}</p>
+        <p class="body-text">지지의 합(合)으로 보는 상성도 뚜렷하네. 배우자궁 ${BRANCHES[b].k}(${BRANCHES[b].h})와 육합(六合)을 이루는 <b>${BRANCHES[yh].animal}띠</b>, 삼합(三合)으로 묶이는 <b>${BRANCHES[mates[0]].animal}띠 · ${BRANCHES[mates[1]].animal}띠</b>와는 처음부터 결이 잘 맞고, 오래 함께할수록 서로의 운을 끌어올리는 인연일세.</p>
+        <p class="body-text"><b>인연을 부르는 개운법</b> — ${YONGSHIN_ADVICE[s.yongshin].color} 계열을 가까이하고, ${YONGSHIN_ADVICE[s.yongshin].place} 같은 곳에서 만들어지는 만남이 좋은 인연으로 이어지기 쉽네.</p>
+      </div>`;
+  }
+  function sectionJob(s, d) {
+    const info = SIPSEONG_INFO[d.dominant];
+    let second = -1;
+    d.freq.forEach((c, i) => { if (i !== d.dominant && c > 0 && (second === -1 || c > d.freq[second])) second = i; });
+    const secondPart = second >= 0
+      ? ` 그 곁에서 <b>${SIPSEONG_INFO[second].name}(${SIPSEONG_INFO[second].kw})</b>의 기운이 받쳐주네. ${SIPSEONG_INFO[second].personality}`
+      : '';
+    return `
+      <div class="card">
+        <div class="card-label">제8장 · 직업과 적성</div>
+        <p class="body-text">${who()}의 원국을 십성(十星)으로 분석하면, 가장 힘이 강한 별은 <b>${info.name}(${info.kw})</b>으로 여덟 글자 가운데 <b>${d.freq[d.dominant]}자리</b>를 차지하네. ${info.personality}${secondPart}</p>
+        <p class="body-text">${info.career} 반대로 이 별을 거스르는 자리 — 좋아하지도 않는 일을 규격에 맞춰 반복하는 환경 — 에서는 능력의 절반도 나오지 않으니, 진로 선택의 기준으로 삼을 만하네.</p>
+        <p class="body-text">오행으로 보면 ${who()}에게 힘을 보태는 ${ELEMENTS[s.yongshin].k}(${ELEMENTS[s.yongshin].h}) 기운의 무대, 즉 ${ELEMENT_INDUSTRY[s.yongshin]}과 인연이 깊네.</p>
+        <div class="jobs-chips">${info.jobs.split(', ').map(j => `<span class="chip"><b>${j}</b></span>`).join('')}</div>
+      </div>`;
+  }
+  function sectionWealth(s, d) {
+    const info = SIPSEONG_INFO[d.dominant];
+    const wState = d.wealthCnt >= 2
+      ? '재물의 별이 뚜렷하여 돈의 흐름을 읽는 감각을 타고났네. 다만 별이 많은 만큼 드나듦도 커서, 버는 힘보다 지키는 구조를 먼저 만드는 것이 관건일세.'
+      : d.wealthCnt === 1
+        ? '재물의 별이 알맞게 자리하여 큰 굴곡 없이 꾸준히 쌓아가는 구조일세. 본업의 전문성이 깊어질수록 재물의 그릇도 함께 커지네.'
+        : '원국에 재물의 별이 드러나지 않았네. 이런 사주는 재물에 무심한 것이 아니라, 대운·세운에서 재성이 들어오는 시기에 한꺼번에 크게 벌어들이는 특징이 있네. 그 시기를 아는 것이 부의 열쇠일세.';
+    const isJae = v => v === 4 || v === 5;
+    const ss = s.sipseong;
+    const pos = (isJae(ss.year.stem) || isJae(ss.year.branch)) ? 0
+      : (isJae(ss.month.stem) || isJae(ss.month.branch)) ? 1
+      : isJae(ss.day.branch) ? 2
+      : (ss.hour && (isJae(ss.hour.stem) || isJae(ss.hour.branch))) ? 3 : -1;
+    const posPart = pos >= 0 ? `<p class="body-text">${WEALTH_POSITION_TEXT[pos]}</p>` : '';
+    return `
+      <div class="card">
+        <div class="card-label">제9장 · 재물운</div>
+        <p class="body-text">재물을 뜻하는 별인 재성(편재·정재)은 ${who()}의 원국에 <b>${d.wealthCnt}개</b> 자리하네. ${wState}</p>
+        ${posPart}
+        <p class="body-text"><b>재테크 체질</b> — 가장 강한 별인 ${info.name}의 관점에서 보면, ${info.wealth}</p>
+        <p class="body-text"><b>금전 개운법</b> — ${YONGSHIN_ADVICE[s.yongshin].item}을(를) 곁에 두고, ${YONGSHIN_ADVICE[s.yongshin].habit}가 금전운의 물꼬를 틔우네.</p>
+      </div>`;
+  }
+  function sectionTimeline(s, d) {
+    const items = s.daeun.list.map(du => {
+      const ss = sipseong(s.pillars.day.stem, du.gz.stem);
+      const rel = branchRelation(s.pillars.day.branch, du.gz.branch);
+      const isNow = d.nowAge >= du.age && d.nowAge < du.age + 10;
+      const flag = rel === 'chung' ? '<span class="tl-flag">⚡ 큰 변화의 십년</span>'
+        : (rel === 'yukhap' || rel === 'samhap') ? '<span class="tl-flag">✦ 기회의 십년</span>' : '';
+      return `
+        <div class="tl-item ${isNow ? 'now' : ''}">
+          <div class="tl-age">${du.age}세 ~ ${du.age + 9}세 <span class="tl-gz">${du.gz.hangul}(${du.gz.hanja}) 대운</span>
+            ${isNow ? '<span class="tl-now-badge">현재</span>' : ''}${flag}</div>
+          <div class="tl-body"><b style="color:var(--gold-2)">${SIPSEONG_NAMES[ss]}</b>의 기운 — ${DAEUN_TEXT[ss]}</div>
+        </div>`;
+    }).join('');
+    return `
+      <div class="card">
+        <div class="card-label">제10장 · 대운, 인생의 전환점</div>
+        <p class="body-text">${who()}은 ${STEMS[s.pillars.year.stem].yang ? '양(陽)' : '음(陰)'}의 해인 ${s.gz.year.hangul}(${s.gz.year.hanja})년에 태어난 ${s.gender === 'M' ? '남' : '여'}자분이라, 명리 원칙에 따라 대운이 <b>${s.daeun.forward ? '순행(順行)' : '역행(逆行)'}</b>하네. 첫 대운은 <b>${s.daeun.startAge}세</b>에 들어오며, 이후 10년마다 인생의 계절이 바뀌네.</p>
+        <p class="body-text" style="margin-bottom:18px;">아래 타임라인에서 ⚡·✦ 표시는 ${who()}의 배우자궁(일지)과 충(冲) 또는 합(合)을 이루는 대운 — 삶의 방향이 크게 꺾이거나 활짝 열리는 전환점일세. 그 십 년의 초입에는 이사·이직·만남 같은 큰 변화가 몰려오기 쉬우니 미리 알고 준비하는 것만으로 운의 절반을 버는 셈일세.</p>
+        <div class="timeline">${items}</div>
+      </div>`;
+  }
+
+  // ---- 결과 렌더 -------------------------------------------------------------
+  function renderResult() {
+    const s = state.saju, d = derive(s);
+    const name = state.name;
+    const today = todayFortune(s, new Date());
+    const p = s.pillars;
+    const birthStr = `${s.solar.year}년 ${s.solar.month}월 ${s.solar.day}일`
+      + (s.lunar ? ` (음력 ${s.lunar.month}월 ${s.lunar.day}일${s.lunar.leap ? ' 윤달' : ''})` : '')
+      + (p.hour ? ` ${String(s.solar.hour).padStart(2, '0')}:${String(s.solar.minute).padStart(2, '0')}` : ' · 시간 모름')
+      + (s.gender === 'M' ? ' · 남' : ' · 여');
+
+    const catNames = { love: '연애', money: '재물', work: '일·학업', health: '건강' };
+    const catRows = Object.entries(today.categories).map(([k, v]) => `
+      <div class="cat-row"><span class="c-name">${catNames[k]}</span>
+        <div class="c-bar"><div class="c-fill" data-w="${v}"></div></div>
+        <span class="c-val">${v}</span></div>`).join('');
+
+    const luckyEl = YONGSHIN_ADVICE[today.lucky.element];
+    const tb = today.gz.branch;
+    const samhapMates = SAMHAP.find(g => g.includes(tb)).filter(x => x !== tb);
+    const gwiin = BRANCHES[YUKHAP[tb]].animal + '띠 · ' + BRANCHES[samhapMates[0]].animal + '띠';
+    const avoidAnimal = BRANCHES[(tb + 6) % 12].animal + '띠';
+    const luckyItem = LUCKY_ITEMS[today.lucky.element][(today.lucky.number + today.date.d) % 4];
+    const root = $('#view-result');
+    root.innerHTML = `
+      <div class="result-head reveal">
+        <div class="result-eyebrow">허선생 감정서 · 鑑定書</div>
+        <h2 class="result-name">${name ? `<b>${escapeHTML(name)}</b>님의` : '나의'} 사주 원국 <span class="seal-mark">許</span></h2>
+        <div class="result-birth">${birthStr}</div>
+      </div>
+
+      <div class="card reveal" style="animation-delay:0.1s">
+        <div class="card-label">제1장 · 명식(命式)</div>
+        <div class="myeongsik">
+          ${pillarHTML('년주', p.year, s.sipseong.year, false)}
+          ${pillarHTML('월주', p.month, s.sipseong.month, false)}
+          ${pillarHTML('일주', p.day, s.sipseong.day, true)}
+          ${pillarHTML('시주', p.hour, s.sipseong.hour, false)}
+        </div>
+      </div>
+
+      <div class="card reveal" style="animation-delay:0.2s">
+        <div class="card-label">제2장 · 오행</div>
+        <div class="oheng-wrap">
+          <div class="oheng-pebble"><div class="pebble" id="result-pebble"></div></div>
+          <div class="oheng-bars">${ohengHTML(s.counts)}</div>
+        </div>
+        <p class="oheng-note">기운을 보태주는 오행은 <b>${EL[s.yongshin].k}(${EL[s.yongshin].h})</b> —
+          ${luckyEl.color} 계열의 물건과 ${luckyEl.habit}이 개운의 열쇠일세.</p>
+      </div>
+
+      <div class="card reveal" style="animation-delay:0.3s">
+        <div class="card-label">제3장 · 일주(日柱)</div>
+        <p class="epithet">${ILJU_DB[s.day60].e}</p>
+        <p class="body-text">${ILJU_DB[s.day60].t}</p>
+      </div>
+
+      ${sectionGiun(s, d)}
+
+      <div class="card reveal" style="animation-delay:0.4s">
+        <div class="card-label">제5장 · 오늘의 운세 — ${today.date.m}월 ${today.date.d}일</div>
+        <div class="today-grid">
+          ${gaugeHTML(today.score)}
+          <div class="today-side">
+            <div class="today-iljin">오늘의 일진 <b>${today.gz.hangul}(${today.gz.hanja})</b> — 나의 일간에게 <b>${SIPSEONG_NAMES[today.sipseong]}</b>의 날</div>
+            ${catRows}
+          </div>
+        </div>
+        <p class="body-text today-text">${TODAY_TEXT[today.sipseong]} ${TODAY_REL_TEXT[today.branchRel]}</p>
+        <div class="today-cats">
+          ${Object.entries(today.categories).map(([k, v]) => {
+            const band = v < 45 ? 0 : v <= 72 ? 1 : 2;
+            return `<div class="tc-item"><span class="tc-h">${catNames[k]}운 · ${v}점</span>
+              <p class="body-text">${TODAY_CAT_TEXT[k][band]}</p></div>`;
+          }).join('')}
+        </div>
+        <p class="body-text" style="margin-top:16px;"><b>허선생의 당부</b> — ${TODAY_CAUTION[today.sipseong]}</p>
+        <div class="lucky-chips">
+          <span class="chip">행운의 색 <b>${luckyEl.color}</b></span>
+          <span class="chip">행운의 물건 <b>${luckyItem}</b></span>
+          <span class="chip">행운의 숫자 <b>${today.lucky.number}</b></span>
+          <span class="chip">행운의 방향 <b>${today.lucky.direction}</b></span>
+          <span class="chip">오늘의 귀인 <b>${gwiin}</b></span>
+          <span class="chip">한 발 물러설 띠 <b>${avoidAnimal}</b></span>
+        </div>
+      </div>
+
+      <div class="report-divider reveal" style="animation-delay:0.5s">봉인된 감정 전권</div>
+
+      <div id="premium-zone" class="reveal" style="animation-delay:0.55s"></div>
+
+      <div class="foot">
+        <div class="foot-seal"><span class="seal-mark">許</span> 감정인 · 사주 허선생</div>
+        <p class="disclaim">본 서비스의 사주 계산은 KARI(한국천문연구원) 표준 음양력과 만세력 산법을 따르며,
+          절기 시각은 근사식을 사용해 절입일 경계 출생은 ±1일 오차가 있을 수 있네.
+          해석 콘텐츠는 명리학 이론을 바탕으로 한 참고용 정보이며, 중요한 결정의 유일한 근거로 삼지 마시게.
+          결제는 데모(모의) 결제로 실제 청구되지 않네.</p>
+        <button class="cta ghost" id="btn-reset">새로 감정하기</button>
+      </div>`;
+
+    renderPremiumZone();
+
+    $('#btn-reset').addEventListener('click', () => { state.unlocked = null; show('form'); wizGo(0); });
+
+    const elOrder = [0, 1, 2, 3, 4].sort((a, b) => s.counts[b] - s.counts[a] || a - b).filter(i => s.counts[i] > 0);
+    const inkSpots = [
+      { x: 12, y: 18, w: 58, h: 54, o: 0.72 },
+      { x: 44, y: 40, w: 44, h: 40, o: 0.6 },
+      { x: 20, y: 56, w: 30, h: 28, o: 0.55 },
+      { x: 60, y: 20, w: 14, h: 13, o: 0.5, f: true },
+      { x: 34, y: 68, w: 11, h: 10, o: 0.5, f: true },
+    ];
+    const topEls = elOrder.slice(0, 3);
+    paintPebble($('#result-pebble'), inkSpots.map((spot, i) => ({ c: EL[topEls[i % topEls.length]].color, ...spot })));
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      $$('.oh-fill', root).forEach(el => el.style.width = el.dataset.w + '%');
+      $$('.c-fill', root).forEach(el => el.style.width = el.dataset.w + '%');
+      $$('[data-target]', root).forEach(el => el.style.strokeDashoffset = el.dataset.target);
+    }));
+  }
+
+  // ---- 프리미엄 존 (잠금 ↔ 언락) ---------------------------------------------
+  function renderPremiumZone() {
+    const s = state.saju, d = derive(s);
+    const zone = $('#premium-zone');
+    const u = state.unlocked; // null | 'basic' | 'premium'
+
+    const secTotal = sectionTotal(s, d);
+    const secLove = sectionLove(s, d);
+    const secJob = sectionJob(s, d);
+    const secWealth = sectionWealth(s, d);
+    const secTl = sectionTimeline(s, d);
+
+    if (u === 'premium') {
+      zone.innerHTML = secTotal + secLove + secJob + secWealth + secTl;
+      return;
+    }
+    if (u === 'basic') {
+      zone.innerHTML = secTotal + secLove + `
+        <div class="locked-zone">
+          <div class="locked-stack">${secJob + secWealth + secTl}</div>
+          <div class="lock-overlay">
+            <div class="lock-ico">封</div>
+            <div class="lock-t">제8 · 9 · 10장이 봉인되어 있네</div>
+            <div class="lock-s">전권으로 올리시면 직업과 적성, 재물운, 대운 전환점까지 마저 풀어드립니다</div>
+            <button class="cta" style="margin-top:14px; font-size:15px; padding:13px 34px;"
+              onclick="window.__openPay('upgrade')">${(PRODUCTS.premium.price - PRODUCTS.basic.price).toLocaleString()}원으로 전권 개봉</button>
+          </div>
+        </div>`;
+      return;
+    }
+    // 미결제: 전체 잠금 + 가격표
+    zone.innerHTML = `
+      <div class="locked-zone">
+        <div class="locked-stack">${secTotal + secLove + secJob}</div>
+        <div class="lock-overlay">
+          <div class="lock-ico">封</div>
+          <div class="lock-t">제6장부터는 봉인되어 있네</div>
+          <div class="lock-s">평생 총운부터 대운 전환점까지 다섯 장의 감정이
+            ${who()}의 원국 그대로 이미 쓰여 봉인되어 있습니다</div>
+        </div>
+      </div>
+      <div class="pricing">
+        <div class="price-card" onclick="window.__openPay('basic')">
+          <div class="price-name">${PRODUCTS.basic.name}</div>
+          <div class="price-amount">${PRODUCTS.basic.price.toLocaleString()}<small>원</small></div>
+          <ul class="price-inc">${PRODUCTS.basic.includes.map(x => `<li>${x}</li>`).join('')}</ul>
+          <button class="price-btn">이 감정 개봉</button>
+        </div>
+        <div class="price-card hot" onclick="window.__openPay('premium')">
+          <div class="hot-badge">권 장</div>
+          <div class="price-name">${PRODUCTS.premium.name}</div>
+          <div class="price-amount">${PRODUCTS.premium.price.toLocaleString()}<small>원</small></div>
+          <ul class="price-inc">${PRODUCTS.premium.includes.map(x => `<li>${x}</li>`).join('')}</ul>
+          <button class="price-btn">전권 개봉</button>
+        </div>
+      </div>`;
+  }
+
+  // ---- 모의 결제 모달 --------------------------------------------------------
+  window.__openPay = function (plan) {
+    const isUpgrade = plan === 'upgrade';
+    const product = isUpgrade
+      ? { name: '전권 업그레이드', price: PRODUCTS.premium.price - PRODUCTS.basic.price }
+      : PRODUCTS[plan];
+    const root = $('#modal-root');
+    root.hidden = false;
+    root.innerHTML = `
+      <div class="modal-dim" onclick="window.__closePay()"></div>
+      <div class="modal-sheet">
+        <button class="pay-close" onclick="window.__closePay()">✕</button>
+        <div class="modal-title">감정료 납부</div>
+        <div class="modal-sub">납부 즉시 봉인된 장이 모두 열립니다</div>
+        <div class="pay-summary"><span class="p-n">${product.name}</span><span class="p-p">${product.price.toLocaleString()}원</span></div>
+        <div class="pay-methods" id="pay-methods">
+          <label class="pay-m on"><input type="radio" name="pm" checked>카카오페이</label>
+          <label class="pay-m"><input type="radio" name="pm">토스페이</label>
+          <label class="pay-m"><input type="radio" name="pm">신용·체크카드</label>
+        </div>
+        <button class="cta pay-go" id="btn-pay">${product.price.toLocaleString()}원 납부하기</button>
+        <div class="demo-note">프로토타입 데모 결제 — 실제 금액이 청구되지 않습니다</div>
+      </div>`;
+    $$('#pay-methods .pay-m').forEach(m => m.addEventListener('click', () => {
+      $$('#pay-methods .pay-m').forEach(x => x.classList.remove('on'));
+      m.classList.add('on'); m.querySelector('input').checked = true;
+    }));
+    $('#btn-pay').addEventListener('click', () => {
+      $('#btn-pay').textContent = '납부 처리 중…'; $('#btn-pay').disabled = true;
+      setTimeout(() => {
+        $('.modal-sheet').innerHTML = `
+          <div class="pay-done">
+            <div class="done-ico">許</div>
+            <div class="done-t">감정료 납부 완료</div>
+            <div class="done-s">${product.name} · ${product.price.toLocaleString()}원 (데모)</div>
+          </div>`;
+        setTimeout(() => {
+          window.__closePay();
+          state.unlocked = (plan === 'basic') ? 'basic' : 'premium';
+          renderPremiumZone();
+          toast('봉인이 해제되었습니다');
+          const zone = $('#premium-zone');
+          zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 1100);
+      }, 1300);
+    });
+  };
+  window.__closePay = function () { const r = $('#modal-root'); r.hidden = true; r.innerHTML = ''; };
+
+  // ---- 유틸 ----------------------------------------------------------------
+  function toast(msg) {
+    const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2600);
+  }
+  function escapeHTML(s) {
+    return s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  }
+})();
+
+</script>
+</body>
+</html>
