@@ -598,6 +598,37 @@ select:focus { border-color: var(--line-strong); }
   #app { max-width: 100%; padding: 0 8mm; }
 }
 
+
+/* ── 후속 문답 채팅 입력 ── */
+.fu-inputbar { display: flex; gap: 8px; margin-top: 14px; }
+.fu-inputbar .fu-input { flex: 1; margin-top: 0; border: 1px solid var(--line-strong); border-radius: 8px;
+  background: rgba(252, 250, 244, 0.7); color: var(--ink); font-family: var(--serif); font-size: 14px; padding: 12px 14px; }
+.fu-inputbar .fu-input:focus { outline: none; border-color: var(--seal); }
+.fu-send { flex: 0 0 auto; border: none; background: #2a251d; color: #f6f2e6; font-family: var(--serif); font-weight: 700;
+  font-size: 14px; padding: 0 20px; border-radius: 8px; cursor: pointer; letter-spacing: 0.08em; }
+.fu-send:hover { background: #37312a; }
+.fu-typing .fu-dots { display: inline-flex; gap: 4px; align-items: center; height: 20px; }
+.fu-typing .fu-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: fudot 1.1s ease-in-out infinite; }
+.fu-typing .fu-dots i:nth-child(2) { animation-delay: 0.18s; }
+.fu-typing .fu-dots i:nth-child(3) { animation-delay: 0.36s; }
+@keyframes fudot { 0%, 60%, 100% { opacity: 0.3; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-3px); } }
+
+
+/* ── 홈 상담 배너 ── */
+.consult-banner {
+  display: flex; align-items: center; gap: 14px; cursor: pointer; margin: 40px 0 8px;
+  padding: 16px 18px; border: 1px solid var(--line-strong); border-radius: 10px;
+  background: linear-gradient(120deg, #2a251d, #37312a); color: #f3ecdb;
+  box-shadow: 0 8px 22px rgba(34, 30, 23, 0.2); transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.consult-banner:hover { transform: translateY(-3px); box-shadow: 0 14px 30px rgba(34, 30, 23, 0.3); }
+.consult-banner .cb-seal { flex: 0 0 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid #d9b7a0; color: #e8c9b3; font-size: 19px; font-weight: 700; border-radius: 6px; transform: rotate(-4deg); }
+.consult-banner .cb-body { flex: 1; min-width: 0; }
+.consult-banner .cb-body b { display: block; font-size: 15.5px; letter-spacing: 0.04em; }
+.consult-banner .cb-body small { display: block; font-size: 11.5px; color: rgba(243, 236, 219, 0.62); margin-top: 3px; }
+.consult-banner .cat-go { flex: 0 0 auto; color: #e8c9b3; font-size: 16px; }
+
 </style>
 </head>
 <body>
@@ -627,6 +658,11 @@ select:focus { border-color: var(--line-strong); }
         <span class="fk-sub">(타로)</span>
         <span class="fk-desc">지금 품은 물음에<br>패로 답하지</span>
       </div>
+    </div>
+    <div class="consult-banner reveal" id="go-consult" style="animation-delay:0.72s">
+      <span class="cb-seal">問</span>
+      <span class="cb-body"><b>허선생과 마주 앉아 · 고민 상담</b><small>연애도 돈도 일도, 무엇이든 자네 명식을 두고 여쭙게</small></span>
+      <span class="cat-go">→</span>
     </div>
     <div class="home-label reveal" style="animation-delay:0.8s">이런 것이 궁금하지는 아니한가</div>
     <div id="home-catalog"></div>
@@ -3185,12 +3221,13 @@ void main(){
     const tgt = state.pendingTarget; state.pendingTarget = null;
     if (!tgt) return;
     if (tgt === 'newyear') { openNewyear(); return; }
-    const map = { today: 'today', job: 'job', love: 'spouse', gunghap: 'gunghap' };
+    const map = { today: 'today', job: 'job', love: 'spouse', gunghap: 'gunghap', ask: 'ask' };
     if (map[tgt]) { renderResult(map[tgt]); scrollTo({ top: 0 }); }
   }
   $('#fork-saju').addEventListener('click', () => { state.pendingTarget = null; state.topic = 'me'; ensureSaju(); });
   $('#fork-tarot').addEventListener('click', () => { state.tarotQuestion = null; state.lastView = 'hero'; openTarot(); });
   $('#tarot-back').addEventListener('click', () => show(state.lastView === 'result' && state.saju ? 'result' : 'hero'));
+  $('#go-consult') && $('#go-consult').addEventListener('click', () => { state.pendingTarget = 'ask'; ensureSaju(); });
   renderHome();
 
   // ---- 2026 신년운세 (세운·월운) ---------------------------------------------
@@ -3436,7 +3473,21 @@ void main(){
     10: 'friendly reliable face, warm soft eyes',
     11: 'round full face, generous easygoing warm look',
   };
+  const FACE_ELEM_MOOD_KO = ['맑은 봄빛의 청량함', '따뜻한 볕의 화사함', '든든한 대지의 안정감', '정갈한 가을의 기품', '깊은 물의 그윽함'];
   const FACE_ELEM_MOOD = ['fresh clear spring vitality', 'warm bright radiance', 'steady grounded warmth', 'crisp clean poise', 'deep calm serene aura'];
+  // 배우자궁 본기의 십성 → 배우자의 사회적 분위기·차림새 (얼굴 프롬프트에 반영)
+  const SPOUSE_VIBE = [
+    { look: 'independent confident air, smart-casual professional attire', job: '자기 일을 주도하는 전문직·자영의 기운' },       // 비견
+    { look: 'sporty energetic vibe, active stylish outfit', job: '승부와 활동성이 필요한 영업·사업의 기운' },                    // 겁재
+    { look: 'warm approachable creative air, soft artistic clothing', job: '만들고 표현하는 창작·요식·교육의 기운' },            // 식신
+    { look: 'trendy expressive stylish look, fashionable modern outfit', job: '말과 감각으로 승부하는 방송·기획·예술의 기운' }, // 상관
+    { look: 'sharp capable businesslike air, refined smart attire', job: '돈과 사람을 움직이는 사업·무역·투자의 기운' },          // 편재
+    { look: 'neat trustworthy air, clean tailored formal clothing', job: '성실히 쌓는 금융·회계·관리직의 기운' },                // 정재
+    { look: 'strong dignified commanding presence, structured formal wear', job: '결단과 책임의 군경·전문·감독의 기운' },        // 편관
+    { look: 'elegant proper refined air, classic formal attire', job: '반듯한 공직·법조·대기업의 기운' },                        // 정관
+    { look: 'intellectual unique thoughtful air, understated refined clothing', job: '깊이 파는 연구·전문·기술의 기운' },        // 편인
+    { look: 'scholarly gentle wise air, soft neat clothing', job: '가르치고 기록하는 학문·의료·자격 전문의 기운' },              // 정인
+  ];
   function spouseSeed(s) {
     // 명식 고정 시드 → 같은 사용자는 늘 같은 배필 얼굴 (재방문 신뢰)
     return (s.day60 * 131 + s.pillars.day.branch * 17 + s.pillars.year.branch * 7 + s.pillars.month.branch * 3 + (s.gender === 'M' ? 1 : 2)) % 1000000;
@@ -3446,9 +3497,10 @@ void main(){
     const hid = BRANCHES[b].hidden;
     const isMan = s.gender !== 'M'; // 배우자 성별 = 사용자 반대
     const age = ['late 20s', 'around 30'][b % 2];
+    const vibe = SPOUSE_VIBE[sipseong(s.pillars.day.stem, hid)];
     const prompt = `Photorealistic natural head-and-shoulders portrait of a single Korean ${isMan ? 'man' : 'woman'} in their ${age}, `
-      + `${FACE_FEATURE[b]}, ${FACE_ELEM_MOOD[STEMS[hid].el]}, `
-      + `soft warm studio lighting, plain ivory background, subtle modern hanbok-inspired clothing, `
+      + `${FACE_FEATURE[b]}, ${FACE_ELEM_MOOD[STEMS[hid].el]}, ${vibe.look}, `
+      + `soft warm studio lighting, plain ivory background, `
       + `kind gentle expression, realistic skin texture, sharp focus, cinematic, high quality, one person only`;
     const enc = encodeURIComponent(prompt).slice(0, 1600);
     return `https://image.pollinations.ai/prompt/${enc}?width=${w}&height=${Math.round(w * 1.5)}&seed=${seed}&nologo=true&model=flux`;
@@ -3466,28 +3518,29 @@ void main(){
   }
   function sectionSpouse(s, d) {
     const b = s.pillars.day.branch;
-    const g = s.gender === 'M' ? 'f' : 'm';
-    const img = `faces/s${g}${String(b).padStart(2, '0')}.jpg`;
     const hid = BRANCHES[b].hidden;
     const starName = s.gender === 'M' ? '재성(財星)' : '관성(官星)';
+    const vibeSs = sipseong(s.pillars.day.stem, hid);
+    const vibe = SPOUSE_VIBE[vibeSs];
     const mates = SAMHAP.find(gr => gr.includes(b)).filter(x => x !== b);
     return `
       <div class="card reveal">
         <div class="card-label">별면 · 미래 배우자의 상(相)</div>
+        <p class="body-text">명리에서 배필은 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고, 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세.</p>
+        <p class="body-text">이 본기를 자네 일간으로 견주면 <b>${SIPSEONG_NAMES[vibeSs]}</b>의 자리라, 자네에게 올 사람은 ${vibe.job}을 지녔을 확률이 높네. 그런 일에 몸담은 이는 자연히 <b>${vibe.job.replace('의 기운', '')}의 기운</b>이 몸을 감싸게 되고, 그 기운이 얼굴과 차림에 배어 나오는 법일세.</p>
+        <p class="body-text">그리하여 ${starName}의 자리와 배우자궁이 그리는 상은 — ${SPOUSE_LOOK[b]} 여기에 ${FACE_ELEM_MOOD_KO[STEMS[hid].el]}이 더해진 인상이지. 자, 이제 그 얼굴을 그려보겠네.</p>
         <div class="spouse-hero">
           <div class="spouse-frame big" id="spouse-canvas">
             <div class="face-brewing"><div class="fb-ink"></div><span class="fb-msg">허선생이 붓을 들어<br>자네 배필의 상을 그리는 중…</span></div>
             <span class="sf-cap">${s.gender === 'M' ? '배필(여인)' : '배필(사내)'}의 상 · 자네 명식으로 그린 얼굴</span>
           </div>
           <div style="text-align:center; margin-top:12px;">
-            <button class="cta ghost" id="spouse-redraw" style="margin-top:0; font-size:13px; padding:10px 24px;" onclick="window.__redrawSpouse()">허선생께 다시 청하기</button>
+            <button class="cta ghost" id="spouse-redraw" style="margin-top:0; font-size:13px; padding:10px 24px;" onclick="window.__redrawSpouse()">연이 닿은 다른 인연도 보기</button>
           </div>
         </div>
-        <p class="body-text"><b>이 상이 나온 까닭</b> — 자네가 ${s.gender === 'M' ? '사내이니 배우자는 여인(女)' : '여인이니 배우자는 사내(男)'}의 상일세. 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리로 배필의 이목구비와 분위기의 <b>경향</b>을 읽어 상을 그리네. 자네 명식이 정한 상이라 다시 찾아와도 같은 얼굴이 자네를 기다리네. 허나 같은 결의 인연이라도 얼굴은 저마다 다른 법 — 다른 상이 궁금하거든 아래에서 다시 청해보시게.</p>
-        <p class="body-text"><b>얼굴과 첫인상</b> — ${SPOUSE_LOOK[b]}</p>
-        <p class="body-text"><b>타고난 성품</b> — 배우자궁의 본기 ${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}로 읽으면, ${ILGAN_INFO[hid]} 자네 곁에 올 사람의 바탕이 이러하다는 뜻이네.</p>
         <p class="body-text"><b>인연이 들어오는 시기</b> — ${spouseTiming(s, d)}</p>
         <p class="body-text"><b>연이 깊은 띠</b> — ${BRANCHES[YUKHAP[b]].animal}띠와는 육합, ${BRANCHES[mates[0]].animal}띠 · ${BRANCHES[mates[1]].animal}띠와는 삼합의 연일세. 처음부터 결이 잘 맞는 상대들이네.</p>
+        <p class="body-text">자네 명식이 정한 첫 배필이라 다시 찾아와도 같은 얼굴이 기다리네. 다시 청하거든, 첫 사람보다 연은 다소 옅으나 실오라기처럼 이어진 또 다른 인연의 얼굴을 보여주지.</p>
         <p class="body-text" style="font-size:12.5px; color:var(--muted);">초상은 배우자궁의 기운을 옮긴 참고 화상일 뿐, 실제 얼굴을 단정하는 것이 아닐세.</p>
       </div>`;
   }
@@ -3589,7 +3642,7 @@ void main(){
       frame.querySelector('.face-brewing')?.remove();
       frame.insertBefore(holder, frame.firstChild);
       requestAnimationFrame(() => holder.classList.add('drawn'));
-      const btn = $('#spouse-redraw'); if (btn) { btn.disabled = false; btn.textContent = '허선생께 다시 청하기'; }
+      const btn = $('#spouse-redraw'); if (btn) { btn.disabled = false; btn.textContent = '연이 닿은 다른 인연도 보기'; }
     };
     const fallback = () => {
       const b = s.pillars.day.branch, g = s.gender === 'M' ? 'f' : 'm';
@@ -3771,8 +3824,11 @@ void main(){
         <p class="body-text">감정서를 읽고 더 궁금한 것이 있으면 물으시게. 자네의 명식을 두고 답하는 것이라, 아무에게나 하는 소리와는 다르네.</p>
         <div id="fu-thread"></div>
         <div class="fu-suggests" id="fu-suggests"></div>
-        <input class="fu-input" type="text" disabled placeholder="자유 질문은 정식 버전에서 — AI가 자네 명식을 들고 답하게 되네">
-        <p class="body-text" style="font-size:12px; color:var(--muted); margin-top:10px;">정식 버전 과금 구상 — 리포트 구매 시 후속 질문 3회 포함 · 추가 질문권 990원 · 월 자유 질문권</p>
+        <div class="fu-inputbar">
+          <input class="fu-input" id="fu-input" type="text" placeholder="고민을 말해보시게 — 연애, 돈, 일, 이사, 건강 무엇이든">
+          <button class="fu-send" id="fu-send">여쭙기</button>
+        </div>
+        <p class="body-text" style="font-size:12px; color:var(--muted); margin-top:10px;">자네의 실제 명식으로 답하는 데모 상담일세. 정식 버전에선 AI가 이 대화를 이어받아 더 깊이 풀어주네.</p>
       </div>`;
     } else {
       const secMap = {
@@ -3923,23 +3979,71 @@ void main(){
         : `${NY_YEAR}년에는 자네의 일지와 정면으로 충하는 달이 없네. 큰 탈 없이 흐르는 해이니, 벌여둔 일을 착실히 거두는 데 집중하시게.` },
     ];
   }
+  function fuReply(text, s, d) {
+    const t = text.toLowerCase();
+    const has = (...kw) => kw.some(k => text.includes(k));
+    const yEl = ELEMENTS[s.yongshin], ya = YONGSHIN_ADVICE[s.yongshin];
+    const info = SIPSEONG_INFO[d.dominant];
+    const nextDu = s.daeun.list.find(du => du.age > d.nowAge - 1) || s.daeun.list[s.daeun.list.length - 1];
+    const chungMonths = [];
+    for (let m = 1; m <= 12; m++) { const mg = monthGanzhi(NY_YEAR, m, 15); if (branchRelation(s.pillars.day.branch, mg.branch) === 'chung') chungMonths.push(m); }
+    if (has('이사', '이직', '이동', '옮', '집을', '방향')) {
+      const dir = ya.place;
+      return `이동을 묻는가. 자네 용신이 ${yEl.k}(${yEl.h})이니 ${ya.color} 기운이 도는 <b>${['동', '남동', '남', '남서', '서', '북서', '북', '북동'][(s.day60 + s.pillars.day.branch) % 8]}쪽</b>이 몸을 두기 좋은 방위일세. ${chungMonths.length ? `다만 ${NY_YEAR}년 ${chungMonths.join('·')}월은 자리가 흔들리는 달이니 그때를 피해 움직이시게.` : `올해는 큰 충이 없으니 마음 정한 때에 움직여도 무방하네.`} 구체적인 후보지를 말해주면 그 방위까지 견주어 보겠네.`;
+    }
+    if (has('연애', '사랑', '남자친구', '여자친구', '애인', '썸', '이성', '결혼', '배우자', '인연')) {
+      const b = s.pillars.day.branch;
+      return `인연을 묻는가. 자네의 배우자궁은 ${BRANCHES[b].k}(${BRANCHES[b].h})라 ${ILJI_LOVE[b]} ${BRANCHES[YUKHAP[b]].animal}띠 · ${BRANCHES[SAMHAP.find(g=>g.includes(b)).filter(x=>x!==b)[0]].animal}띠와 연이 깊으니, 그런 결의 사람을 만나거든 놓치지 마시게. 위의 '미래 배우자의 상'에서 얼굴까지 그려두었네.`;
+    }
+    if (has('돈', '재물', '투자', '주식', '부동산', '사업자금', '월급', '빚', '재테크')) {
+      return `재물을 묻는가. 자네는 ${info.name}의 기운이 강하니 — ${info.wealth} 큰돈을 다룰 땐 용신인 ${yEl.k} 기운의 물건(${ya.item})을 곁에 두고, ${ya.habit}이 금전운의 물꼬를 틔우네. 올해 재물의 달은 위 신년 감정에서 달마다 짚어두었네.`;
+    }
+    if (has('직업', '일', '진로', '취업', '이직', '사업', '창업', '적성', '회사')) {
+      return `일을 묻는가. 자네 원국에 가장 강한 별은 ${info.name}(${info.kw})일세. ${info.career} 오행으로는 ${yEl.k}(${yEl.h}) 기운의 무대 — ${ELEMENT_INDUSTRY[s.yongshin]}과 인연이 깊네. 자네 손에 맞는 일을 고르는 기준으로 삼으시게.`;
+    }
+    if (has('언제', '시기', '몇살', '몇 살', '대운', '올해', '내년', '나이')) {
+      return `때를 묻는가. 자네의 다음 대운은 <b>${s.sajuYear + nextDu.age - 1}년 무렵(${nextDu.age}세)</b> ${nextDu.gz.hangul}(${nextDu.gz.hanja}) 대운으로 바뀌네. 큰 결정은 대운이 바뀌는 전후 한 해를 피하는 것이 좋고, ${chungMonths.length ? `${NY_YEAR}년에는 ${chungMonths.join('·')}월을 조심하시게.` : '올해는 큰 충이 없어 무던한 해일세.'}`;
+    }
+    if (has('건강', '몸', '아파', '병')) {
+      const wEl = ELEMENTS[d.minEl];
+      return `몸을 묻는가. 자네 사주에 ${wEl.k}(${wEl.h}) 기운이 가장 옅으니 그에 해당하는 곳을 특히 아끼시게. ${ya.habit}이 기운을 고르게 하네. 다만 몸의 병은 반드시 의원에게 먼저 보이시게 — 명리는 참고일 뿐일세.`;
+    }
+    // 일반
+    return `음, ${who()}의 명식을 두고 답하자면 — 자네는 ${info.name}의 기운이 강한 ${STRENGTH_TEXT[s.strength].replace('일간(나의 기운)이 ', '').split('.')[0]} 사람일세. 용신인 ${yEl.k}(${yEl.h}) 기운을 살리는 것이 만사의 열쇠이니, ${ya.color} 계열과 ${ya.habit}을 곁에 두시게. 연애·재물·직업·이사·시기 가운데 무엇이 궁금한지 더 짚어 물으면 자세히 풀어주겠네.`;
+  }
   function initFollowup() {
     const card = $('#followup-card');
     if (!card || !state.saju) return;
-    const answers = fuAnswers(state.saju, derive(state.saju));
+    const s = state.saju, d = derive(s);
+    const presets = ['내 대운은 언제 바뀌는가?', '내게 맞는 일은 무엇인가?', '올해 조심할 때는?', '이사는 어느 방향이 좋은가?'];
     const sug = $('#fu-suggests');
-    sug.innerHTML = answers.map((x, i) => `<button class="fu-q" data-i="${i}">${x.q}</button>`).join('');
-    $('#fu-thread').innerHTML = '';
-    $$('.fu-q', sug).forEach(btn => btn.addEventListener('click', () => {
-      const x = answers[+btn.dataset.i];
-      btn.disabled = true; btn.style.opacity = 0.4;
-      $('#fu-thread').insertAdjacentHTML('beforeend', `
-        <div class="fu-bubble fu-user">${x.q}</div>
-        <div class="fu-bubble fu-heo"><span class="fu-seal">許</span>${x.a}</div>`);
-    }));
+    sug.innerHTML = presets.map((q, i) => `<button class="fu-q" data-i="${i}">${q}</button>`).join('');
+    const thread = $('#fu-thread');
+    function ask(q) {
+      thread.insertAdjacentHTML('beforeend', `<div class="fu-bubble fu-user">${escapeHTML(q)}</div>`);
+      const typing = document.createElement('div');
+      typing.className = 'fu-bubble fu-heo fu-typing';
+      typing.innerHTML = '<span class="fu-seal">許</span><span class="fu-dots"><i></i><i></i><i></i></span>';
+      thread.appendChild(typing);
+      thread.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      setTimeout(() => {
+        typing.classList.remove('fu-typing');
+        typing.innerHTML = '<span class="fu-seal">許</span>' + fuReply(q, s, d);
+        typing.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 900 + Math.min(text_len(q) * 20, 700));
+    }
+    function text_len(x) { return (x || '').length; }
+    $$('.fu-q', sug).forEach(btn => btn.addEventListener('click', () => ask(presets[+btn.dataset.i])));
+    const input = $('#fu-input'), send = $('#fu-send');
+    if (input) {
+      input.disabled = false; input.placeholder = '고민을 말해보시게 — 연애, 돈, 일, 이사, 건강 무엇이든';
+      const fire = () => { const v = input.value.trim(); if (!v) return; input.value = ''; ask(v); };
+      send && send.addEventListener('click', fire);
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); fire(); } });
+    }
   }
 
-  // ---- 궁합 감정 --------------------------------------------------------------
+    // ---- 궁합 감정 --------------------------------------------------------------
   function renderGunghapZone() {
     const zone = $('#gunghap-zone');
     if (!zone) return;
