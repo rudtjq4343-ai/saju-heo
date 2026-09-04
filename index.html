@@ -2969,7 +2969,9 @@ const NY_INTRO = {
  * ========================================================================== */
 (function () {
   'use strict';
-  const CONSULT_API = 'https://heo-consult.exultant-sunday.workers.dev';
+  // 운영 전환: 여기에 배포한 상담 백엔드(Worker) URL을 넣으면 실제 GPT/LLM 상담이 켜진다.
+  // 비어 있으면 명식 규칙 엔진으로 자동 구동된다.
+  const CONSULT_API = '';
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
@@ -3829,7 +3831,7 @@ void main(){
           <input class="fu-input" id="fu-input" type="text" placeholder="고민을 말해보시게 — 연애, 돈, 일, 이사, 건강 무엇이든">
           <button class="fu-send" id="fu-send">여쭙기</button>
         </div>
-        <p class="body-text" style="font-size:12px; color:var(--muted); margin-top:10px;">자네의 실제 명식으로 답하는 데모 상담일세. 정식 버전에선 AI가 이 대화를 이어받아 더 깊이 풀어주네.</p>
+        <p class="body-text" style="font-size:12px; color:var(--muted); margin-top:10px;">지금은 자네의 <b>실제 명식</b>을 근거로 규칙 엔진이 답하는 데모 상담일세. 운영자가 상담 백엔드에 LLM 키(OpenAI/Groq 등)를 연결하면, 이 자리에서 AI가 대화를 이어받아 훨씬 깊이 풀어주게 되네. — 개발 단계: 규칙 엔진 구동 중</p>
       </div>`;
     } else {
       const secMap = {
@@ -3997,6 +3999,7 @@ void main(){
     ].join('\n');
   }
   async function askBackend(msg, s, d, history) {
+    if (!CONSULT_API) throw new Error('no backend');
     const r = await fetch(CONSULT_API, {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ saju: sajuContext(s, d), history, message: msg }),
