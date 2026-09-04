@@ -567,13 +567,26 @@ select:focus { border-color: var(--line-strong); }
 #doors.closing .door-seal { opacity: 1; transform: translate(-50%, -50%) rotate(-4deg) scale(1); }
 
 /* ── 배우자 초상: 그려지듯 떠오름 ── */
-.spouse-frame.big img { animation: facedraw 3s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both; }
+/* 배우자 얼굴: 실시간 생성 + 붓질 리빌 */
+.spouse-frame.big { position: relative; width: 200px; aspect-ratio: 2/3; overflow: hidden; border: 1px solid var(--line-strong); border-radius: 8px; background: #efe8d6; margin: 0 auto; }
+.spouse-frame.big .sf-cap { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 7px 4px; font-size: 10.5px;
+  background: linear-gradient(0deg, rgba(24,21,16,0.62), transparent); color: #f6f2e6; z-index: 3; }
+.face-brewing { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; text-align: center;
+  background: repeating-linear-gradient(60deg, #f1ead9, #f1ead9 6px, #ece3cf 6px, #ece3cf 12px); }
+.fb-ink { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--seal); border-top-color: transparent; animation: spin 1s linear infinite; }
+.fb-msg { font-size: 12px; color: var(--ink-2); line-height: 1.6; }
+.face-real { position: absolute; inset: 0; }
+.face-real img { width: 100%; height: 100%; object-fit: cover; display: block;
+  opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(14px) saturate(0.3) sepia(0.35); }
+.face-real.drawn img { animation: facedraw 2.6s cubic-bezier(0.22, 1, 0.36, 1) both; }
 @keyframes facedraw {
-  0% { opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(16px) saturate(0.15) sepia(0.5); }
-  30% { opacity: 1; clip-path: inset(0 0 55% 0); filter: blur(10px) saturate(0.4) sepia(0.4); }
-  65% { clip-path: inset(0); filter: blur(4px) saturate(0.7) sepia(0.2); }
-  100% { clip-path: inset(0); filter: none; }
+  0% { opacity: 0; clip-path: inset(0 0 100% 0); filter: blur(14px) saturate(0.3) sepia(0.35); }
+  30% { opacity: 1; clip-path: inset(0 0 52% 0); filter: blur(9px) saturate(0.5) sepia(0.28); }
+  70% { clip-path: inset(0); filter: blur(3px) saturate(0.82) sepia(0.12); }
+  100% { opacity: 1; clip-path: inset(0); filter: none; }
 }
+.spouse-frame.big.noimg { display: flex; align-items: center; justify-content: center; }
+.spouse-frame.big.noimg::after { content: '얼굴을 그리지 못하였네'; font-size: 12px; color: var(--muted); }
 
 /* ── PDF 인쇄 ── */
 @media print {
@@ -3408,6 +3421,39 @@ void main(){
         ${spouseHTML(s, d)}
       </div>`;
   }
+  // ---- 배우자 얼굴 실시간 생성 (명식 기반 프롬프트 · 결정적 시드) -------------
+  const FACE_FEATURE = {
+    0: 'clear large eyes, slender oval face, intelligent serene look',
+    1: 'soft rounded cheeks, gentle eyes, calm comfortable look',
+    2: 'bold distinct features, defined eyebrows, confident striking look',
+    3: 'delicate refined features, clear bright eyes, pure youthful look',
+    4: 'large elegant features, deep expressive eyes, dignified look',
+    5: 'high nose bridge, refined intelligent look, elegant sharp eyes',
+    6: 'radiant smile, lively eyes, bright warm-hearted look',
+    7: 'warm smiling eyes, affectionate gentle look',
+    8: 'bright eyes, cheerful lively expression, witty charm',
+    9: 'neat clean features, chic refined elegant look',
+    10: 'friendly reliable face, warm soft eyes',
+    11: 'round full face, generous easygoing warm look',
+  };
+  const FACE_ELEM_MOOD = ['fresh clear spring vitality', 'warm bright radiance', 'steady grounded warmth', 'crisp clean poise', 'deep calm serene aura'];
+  function spouseSeed(s) {
+    // 명식 고정값으로 시드 → 같은 사주 = 같은 얼굴
+    return (s.day60 * 131 + s.pillars.day.branch * 17 + s.pillars.year.branch * 7 + (s.gender === 'M' ? 3 : 1)) % 100000;
+  }
+  function spouseFaceURL(s, w) {
+    const b = s.pillars.day.branch;
+    const hid = BRANCHES[b].hidden;
+    const isMan = s.gender !== 'M'; // 배우자 성별 = 사용자 반대
+    const age = ['late 20s', 'around 30'][b % 2];
+    const prompt = `Photorealistic natural head-and-shoulders portrait of a single Korean ${isMan ? 'man' : 'woman'} in their ${age}, `
+      + `${FACE_FEATURE[b]}, ${FACE_ELEM_MOOD[STEMS[hid].el]}, `
+      + `soft warm studio lighting, plain ivory background, subtle modern hanbok-inspired clothing, `
+      + `kind gentle expression, realistic skin texture, sharp focus, cinematic, high quality, one person only`;
+    const enc = encodeURIComponent(prompt).slice(0, 1600);
+    return `https://image.pollinations.ai/prompt/${enc}?width=${w}&height=${Math.round(w * 1.5)}&seed=${spouseSeed(s)}&nologo=true&model=flux`;
+  }
+
   function spouseTiming(s, d) {
     const b = s.pillars.day.branch;
     const stars = s.gender === 'M' ? [4, 5] : [6, 7];
@@ -3429,8 +3475,10 @@ void main(){
       <div class="card reveal">
         <div class="card-label">별면 · 미래 배우자의 상(相)</div>
         <div class="spouse-hero">
-          <div class="spouse-frame big"><img src="${img}" alt="배우자상" loading="lazy"
-            onerror="this.parentElement.classList.add('noimg')"><span class="sf-cap">허선생이 그려 본 ${s.gender === 'M' ? '배필(여인)' : '배필(사내)'}의 상</span></div>
+          <div class="spouse-frame big" id="spouse-canvas">
+            <div class="face-brewing"><div class="fb-ink"></div><span class="fb-msg">허선생이 붓을 들어<br>자네 배필의 상을 그리는 중…</span></div>
+            <span class="sf-cap">${s.gender === 'M' ? '배필(여인)' : '배필(사내)'}의 상 · 자네 명식으로 그린 얼굴</span>
+          </div>
         </div>
         <p class="body-text"><b>이 상이 나온 까닭</b> — 자네가 ${s.gender === 'M' ? '사내이니 배우자는 여인(女)' : '여인이니 배우자는 사내(男)'}의 상일세. 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리를 근거로 얼굴과 성품을 읽고 그 상을 그린 것이니, 아무 얼굴이나 무작위로 내놓은 것이 아니라 자네 명식이 고른 얼굴이네.</p>
         <p class="body-text"><b>얼굴과 첫인상</b> — ${SPOUSE_LOOK[b]}</p>
@@ -3516,6 +3564,40 @@ void main(){
         <p class="body-text" style="margin-bottom:18px;">아래 타임라인에서 ⚡·✦ 표시는 ${who()}의 배우자궁(일지)과 충(冲) 또는 합(合)을 이루는 대운 — 삶의 방향이 크게 꺾이거나 활짝 열리는 전환점일세. 그 십 년의 초입에는 이사·이직·만남 같은 큰 변화가 몰려오기 쉬우니 미리 알고 준비하는 것만으로 운의 절반을 버는 셈일세.</p>
         <div class="timeline">${items}</div>
       </div>`;
+  }
+
+  function brewSpouseFace() {
+    const frame = $('#spouse-canvas');
+    if (!frame) return;
+    const s = state.saju;
+    const w = Math.min(2, devicePixelRatio || 1) > 1 ? 512 : 384;
+    const url = spouseFaceURL(s, w);
+    const img = new Image();
+    img.alt = '배우자상';
+    img.onload = () => {
+      const holder = document.createElement('div');
+      holder.className = 'face-real';
+      holder.appendChild(img);
+      frame.querySelector('.face-brewing')?.remove();
+      frame.insertBefore(holder, frame.firstChild);
+      requestAnimationFrame(() => holder.classList.add('drawn'));
+    };
+    img.onerror = () => {
+      // 폴백: 미리 그려둔 상 (생성 실패 시)
+      const b = s.pillars.day.branch, g = s.gender === 'M' ? 'f' : 'm';
+      const fb = new Image();
+      fb.src = `faces/s${g}${String(b).padStart(2, '0')}.jpg`;
+      fb.alt = '배우자상';
+      fb.onload = () => {
+        const holder = document.createElement('div');
+        holder.className = 'face-real'; holder.appendChild(fb);
+        frame.querySelector('.face-brewing')?.remove();
+        frame.insertBefore(holder, frame.firstChild);
+        requestAnimationFrame(() => holder.classList.add('drawn'));
+      };
+      fb.onerror = () => { frame.classList.add('noimg'); };
+    };
+    img.src = url;
   }
 
   // ---- 미닫이문 전환 ---------------------------------------------------------
@@ -3746,6 +3828,7 @@ void main(){
 
     if (topic === 'gunghap') renderGunghapZone();
     if (topic === 'ask') initFollowup();
+    if (topic === 'spouse') brewSpouseFace();
     if (topic === 'me') {
       const elOrder = [0, 1, 2, 3, 4].sort((x, y) => s.counts[y] - s.counts[x] || x - y).filter(i => s.counts[i] > 0);
       const topEls = elOrder.slice(0, 3);
