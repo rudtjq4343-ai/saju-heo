@@ -2969,6 +2969,7 @@ const NY_INTRO = {
  * ========================================================================== */
 (function () {
   'use strict';
+  const CONSULT_API = 'https://heo-consult.exultant-sunday.workers.dev';
   const $ = (sel, root) => (root || document).querySelector(sel);
   const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
 
@@ -3979,6 +3980,33 @@ void main(){
         : `${NY_YEAR}년에는 자네의 일지와 정면으로 충하는 달이 없네. 큰 탈 없이 흐르는 해이니, 벌여둔 일을 착실히 거두는 데 집중하시게.` },
     ];
   }
+  function sajuContext(s, d) {
+    const el = ELEMENTS, ss = SIPSEONG_NAMES;
+    const ds = STEMS[s.pillars.day.stem];
+    const counts = s.counts.map((c, i) => `${el[i].k}${c}`).join(' ');
+    const daeun = s.daeun.list.slice(0, 4).map(du => `${du.age}세 ${du.gz.hangul}(${ss[sipseong(s.pillars.day.stem, du.gz.stem)]})`).join(', ');
+    const b = s.pillars.day.branch;
+    return [
+      `이름: ${state.name || '손님'} / 성별: ${s.gender === 'M' ? '남' : '여'}`,
+      `명식: ${s.gz.year.hangul}년 ${s.gz.month.hangul}월 ${s.gz.day.hangul}일` + (s.gz.hour ? ` ${s.gz.hour.hangul}시` : ' (시 모름)'),
+      `일간: ${ds.k}${el[ds.el].k}(${ds.h}) / 신강약: ${{ strong: '신강', balanced: '중화', weak: '신약' }[s.strength]}`,
+      `오행 분포: ${counts} / 용신(보완 오행): ${el[s.yongshin].k}(${el[s.yongshin].h})`,
+      `가장 강한 십성: ${ss[d.dominant]} / 배우자궁(일지): ${BRANCHES[b].k}(${BRANCHES[b].h})`,
+      `대운 흐름: ${daeun}`,
+      `현재 나이(세는): ${d.nowAge}세, 사주 기준 출생년: ${s.sajuYear}`,
+    ].join('\n');
+  }
+  async function askBackend(msg, s, d, history) {
+    const r = await fetch(CONSULT_API, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ saju: sajuContext(s, d), history, message: msg }),
+    });
+    if (!r.ok) throw new Error('backend ' + r.status);
+    const j = await r.json();
+    if (!j.text) throw new Error(j.error || 'no_text');
+    return j.text;
+  }
+
   function fuReply(text, s, d) {
     const t = text.toLowerCase();
     const has = (...kw) => kw.some(k => text.includes(k));
@@ -4019,6 +4047,7 @@ void main(){
     const sug = $('#fu-suggests');
     sug.innerHTML = presets.map((q, i) => `<button class="fu-q" data-i="${i}">${q}</button>`).join('');
     const thread = $('#fu-thread');
+    const chatHist = [];
     function ask(q) {
       thread.insertAdjacentHTML('beforeend', `<div class="fu-bubble fu-user">${escapeHTML(q)}</div>`);
       const typing = document.createElement('div');
@@ -4026,13 +4055,17 @@ void main(){
       typing.innerHTML = '<span class="fu-seal">許</span><span class="fu-dots"><i></i><i></i><i></i></span>';
       thread.appendChild(typing);
       thread.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      setTimeout(() => {
+      chatHist.push({ role: 'user', text: q });
+      const show = (ans) => {
         typing.classList.remove('fu-typing');
-        typing.innerHTML = '<span class="fu-seal">許</span>' + fuReply(q, s, d);
+        typing.innerHTML = '<span class="fu-seal">許</span>' + escapeHTML(ans).replace(/\n/g, '<br>');
         typing.scrollIntoView({ behavior: 'smooth', block: 'end' });
-      }, 900 + Math.min(text_len(q) * 20, 700));
+        chatHist.push({ role: 'model', text: ans });
+      };
+      askBackend(q, s, d, chatHist.slice(0, -1))
+        .then(show)
+        .catch(() => { show(fuReply(q, s, d)); }); // 백엔드 미가동 시 명식 규칙 폴백
     }
-    function text_len(x) { return (x || '').length; }
     $$('.fu-q', sug).forEach(btn => btn.addEventListener('click', () => ask(presets[+btn.dataset.i])));
     const input = $('#fu-input'), send = $('#fu-send');
     if (input) {
