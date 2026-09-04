@@ -3438,10 +3438,10 @@ void main(){
   };
   const FACE_ELEM_MOOD = ['fresh clear spring vitality', 'warm bright radiance', 'steady grounded warmth', 'crisp clean poise', 'deep calm serene aura'];
   function spouseSeed(s) {
-    // 명식 고정값으로 시드 → 같은 사주 = 같은 얼굴
-    return (s.day60 * 131 + s.pillars.day.branch * 17 + s.pillars.year.branch * 7 + (s.gender === 'M' ? 3 : 1)) % 100000;
+    // 명식 고정 시드 → 같은 사용자는 늘 같은 배필 얼굴 (재방문 신뢰)
+    return (s.day60 * 131 + s.pillars.day.branch * 17 + s.pillars.year.branch * 7 + s.pillars.month.branch * 3 + (s.gender === 'M' ? 1 : 2)) % 1000000;
   }
-  function spouseFaceURL(s, w) {
+  function spouseFaceURL(s, w, seed) {
     const b = s.pillars.day.branch;
     const hid = BRANCHES[b].hidden;
     const isMan = s.gender !== 'M'; // 배우자 성별 = 사용자 반대
@@ -3451,7 +3451,7 @@ void main(){
       + `soft warm studio lighting, plain ivory background, subtle modern hanbok-inspired clothing, `
       + `kind gentle expression, realistic skin texture, sharp focus, cinematic, high quality, one person only`;
     const enc = encodeURIComponent(prompt).slice(0, 1600);
-    return `https://image.pollinations.ai/prompt/${enc}?width=${w}&height=${Math.round(w * 1.5)}&seed=${spouseSeed(s)}&nologo=true&model=flux`;
+    return `https://image.pollinations.ai/prompt/${enc}?width=${w}&height=${Math.round(w * 1.5)}&seed=${seed}&nologo=true&model=flux`;
   }
 
   function spouseTiming(s, d) {
@@ -3479,8 +3479,11 @@ void main(){
             <div class="face-brewing"><div class="fb-ink"></div><span class="fb-msg">허선생이 붓을 들어<br>자네 배필의 상을 그리는 중…</span></div>
             <span class="sf-cap">${s.gender === 'M' ? '배필(여인)' : '배필(사내)'}의 상 · 자네 명식으로 그린 얼굴</span>
           </div>
+          <div style="text-align:center; margin-top:12px;">
+            <button class="cta ghost" id="spouse-redraw" style="margin-top:0; font-size:13px; padding:10px 24px;" onclick="window.__redrawSpouse()">허선생께 다시 청하기</button>
+          </div>
         </div>
-        <p class="body-text"><b>이 상이 나온 까닭</b> — 자네가 ${s.gender === 'M' ? '사내이니 배우자는 여인(女)' : '여인이니 배우자는 사내(男)'}의 상일세. 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리를 근거로 얼굴과 성품을 읽고 그 상을 그린 것이니, 아무 얼굴이나 무작위로 내놓은 것이 아니라 자네 명식이 고른 얼굴이네.</p>
+        <p class="body-text"><b>이 상이 나온 까닭</b> — 자네가 ${s.gender === 'M' ? '사내이니 배우자는 여인(女)' : '여인이니 배우자는 사내(男)'}의 상일세. 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리로 배필의 이목구비와 분위기의 <b>경향</b>을 읽어 상을 그리네. 자네 명식이 정한 상이라 다시 찾아와도 같은 얼굴이 자네를 기다리네. 허나 같은 결의 인연이라도 얼굴은 저마다 다른 법 — 다른 상이 궁금하거든 아래에서 다시 청해보시게.</p>
         <p class="body-text"><b>얼굴과 첫인상</b> — ${SPOUSE_LOOK[b]}</p>
         <p class="body-text"><b>타고난 성품</b> — 배우자궁의 본기 ${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}로 읽으면, ${ILGAN_INFO[hid]} 자네 곁에 올 사람의 바탕이 이러하다는 뜻이네.</p>
         <p class="body-text"><b>인연이 들어오는 시기</b> — ${spouseTiming(s, d)}</p>
@@ -3566,39 +3569,48 @@ void main(){
       </div>`;
   }
 
-  function brewSpouseFace() {
+  function brewSpouseFace(again) {
     const frame = $('#spouse-canvas');
     if (!frame) return;
     const s = state.saju;
     const w = Math.min(2, devicePixelRatio || 1) > 1 ? 512 : 384;
-    const url = spouseFaceURL(s, w);
-    const img = new Image();
-    img.alt = '배우자상';
-    img.onload = () => {
+    const seed = again ? Math.floor(Math.random() * 1e6) : spouseSeed(s); // 첫 감정=명식 고정(재방문 동일), 다시청하기=변주
+    frame.querySelector('.face-real')?.remove();
+    if (!frame.querySelector('.face-brewing')) {
+      const bw = document.createElement('div');
+      bw.className = 'face-brewing';
+      bw.innerHTML = '<div class="fb-ink"></div><span class="fb-msg">허선생이 붓을 들어<br>자네 배필의 상을 그리는 중…</span>';
+      frame.insertBefore(bw, frame.firstChild);
+    }
+    frame.classList.remove('noimg');
+    const place = (el) => {
       const holder = document.createElement('div');
-      holder.className = 'face-real';
-      holder.appendChild(img);
+      holder.className = 'face-real'; holder.appendChild(el);
       frame.querySelector('.face-brewing')?.remove();
       frame.insertBefore(holder, frame.firstChild);
       requestAnimationFrame(() => holder.classList.add('drawn'));
+      const btn = $('#spouse-redraw'); if (btn) { btn.disabled = false; btn.textContent = '허선생께 다시 청하기'; }
     };
-    img.onerror = () => {
-      // 폴백: 미리 그려둔 상 (생성 실패 시)
+    const fallback = () => {
       const b = s.pillars.day.branch, g = s.gender === 'M' ? 'f' : 'm';
-      const fb = new Image();
+      const fb = new Image(); fb.alt = '배우자상';
+      fb.onload = () => place(fb);
+      fb.onerror = () => { frame.querySelector('.face-brewing')?.remove(); frame.classList.add('noimg'); };
       fb.src = `faces/s${g}${String(b).padStart(2, '0')}.jpg`;
-      fb.alt = '배우자상';
-      fb.onload = () => {
-        const holder = document.createElement('div');
-        holder.className = 'face-real'; holder.appendChild(fb);
-        frame.querySelector('.face-brewing')?.remove();
-        frame.insertBefore(holder, frame.firstChild);
-        requestAnimationFrame(() => holder.classList.add('drawn'));
-      };
-      fb.onerror = () => { frame.classList.add('noimg'); };
     };
-    img.src = url;
+    const img = new Image();
+    img.alt = '배우자상';
+    let done = false;
+    const timer = setTimeout(() => { if (!done) { done = true; fallback(); } }, 22000);
+    img.onload = () => { if (!done) { done = true; clearTimeout(timer); place(img); } };
+    img.onerror = () => { if (!done) { done = true; clearTimeout(timer); fallback(); } };
+    img.src = spouseFaceURL(s, w, seed);
   }
+  window.__redrawSpouse = function () {
+    const btn = $('#spouse-redraw');
+    if (btn) { btn.disabled = true; btn.textContent = '다시 그리는 중…'; }
+    brewSpouseFace(true);
+  };
 
   // ---- 미닫이문 전환 ---------------------------------------------------------
   function doorTransition(mid) {
