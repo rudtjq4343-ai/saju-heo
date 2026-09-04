@@ -3128,7 +3128,7 @@ void main(){
       const tStr = i.hourUnknown ? '시간 모름' : `${String(i.hour).padStart(2, '0')}:${String(i.minute).padStart(2, '0')}`;
       pb.innerHTML = `
         <div class="profile-chip">
-          <span class="pc-info">자네 명식은 내 이미 적어두었네 — <b>${escapeHTML(p.name || '이름 없는 손님')}</b> · ${i.year}.${i.month}.${i.day} ${tStr} (${i.calendar === 'lunar' ? '음력' : '양력'})</span>
+          <span class="pc-info">자네 명식은 내 이미 적어두었네 — <b>${escapeHTML(p.name || '이름 없는 손님')}</b> · <b>${i.gender === 'M' ? '남' : '여'}</b> · ${i.year}.${i.month}.${i.day} ${tStr} (${i.calendar === 'lunar' ? '음력' : '양력'})</span>
           <button class="pc-btn" id="pb-view">마저 보시게</button>
           <button class="pc-btn ghost" id="pb-new">새로 적겠네</button>
         </div>`;
@@ -3430,9 +3430,9 @@ void main(){
         <div class="card-label">별면 · 미래 배우자의 상(相)</div>
         <div class="spouse-hero">
           <div class="spouse-frame big"><img src="${img}" alt="배우자상" loading="lazy"
-            onerror="this.parentElement.classList.add('noimg')"><span class="sf-cap">허선생이 그려 본 배우자의 상</span></div>
+            onerror="this.parentElement.classList.add('noimg')"><span class="sf-cap">허선생이 그려 본 ${s.gender === 'M' ? '배필(여인)' : '배필(사내)'}의 상</span></div>
         </div>
-        <p class="body-text"><b>이 상이 나온 까닭</b> — 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리를 근거로 얼굴과 성품을 읽고 그 상을 그린 것이니, 아무 얼굴이나 무작위로 내놓은 것이 아니라 자네 명식이 고른 얼굴이네.</p>
+        <p class="body-text"><b>이 상이 나온 까닭</b> — 자네가 ${s.gender === 'M' ? '사내이니 배우자는 여인(女)' : '여인이니 배우자는 사내(男)'}의 상일세. 명리에서 배우자는 일지, 곧 배우자궁(配偶者宮)으로 읽네. ${who()}의 배우자궁은 <b>${BRANCHES[b].k}(${BRANCHES[b].h})</b>이고 그 안에 깃든 본기(本氣)가 <b>${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}(${STEMS[hid].h})</b>일세. 이 두 글자와 ${starName}의 자리를 근거로 얼굴과 성품을 읽고 그 상을 그린 것이니, 아무 얼굴이나 무작위로 내놓은 것이 아니라 자네 명식이 고른 얼굴이네.</p>
         <p class="body-text"><b>얼굴과 첫인상</b> — ${SPOUSE_LOOK[b]}</p>
         <p class="body-text"><b>타고난 성품</b> — 배우자궁의 본기 ${STEMS[hid].k}${ELEMENTS[STEMS[hid].el].k}로 읽으면, ${ILGAN_INFO[hid]} 자네 곁에 올 사람의 바탕이 이러하다는 뜻이네.</p>
         <p class="body-text"><b>인연이 들어오는 시기</b> — ${spouseTiming(s, d)}</p>
