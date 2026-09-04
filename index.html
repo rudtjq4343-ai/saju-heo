@@ -390,6 +390,59 @@ select:focus { border-color: var(--line-strong); }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
 }
 
+/* ── 허선생의 그림패 ── */
+#view-tarot { padding-top: 4px; }
+.tarot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 10px; margin-top: 8px; }
+.tcard-back {
+  aspect-ratio: 2 / 3; border: 1.5px solid var(--line-strong); border-radius: 8px; cursor: pointer;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(169, 58, 44, 0.05), transparent 60%),
+    repeating-linear-gradient(45deg, #f1ead9, #f1ead9 7px, #ece3cf 7px, #ece3cf 14px);
+  display: flex; align-items: center; justify-content: center; position: relative;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.tcard-back:hover { transform: translateY(-4px); }
+.tcard-back .tb-seal {
+  width: 26px; height: 26px; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--seal); color: var(--seal); font-size: 13px; font-weight: 700;
+  border-radius: 4px; transform: rotate(-4deg); opacity: 0.75;
+}
+.tcard-back.sel { border-color: var(--seal); transform: translateY(-7px); box-shadow: 0 8px 18px rgba(169, 58, 44, 0.22); }
+.tcard-back.sel::after {
+  content: attr(data-ord); position: absolute; top: -9px; right: -7px; width: 22px; height: 22px;
+  background: var(--seal); color: #f6f2e6; border-radius: 50%; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.tarot-res { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 10px; }
+.tres-pos { text-align: center; font-size: 12px; letter-spacing: 0.22em; color: var(--seal); font-weight: 700; margin-bottom: 8px; }
+.tres-imgwrap { position: relative; aspect-ratio: 2 / 3; border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden; background: #f1ead9; }
+.tres-imgwrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.tres-card.rev .tres-imgwrap img { transform: rotate(180deg); }
+.tres-imgwrap .tres-fallback { display: none; position: absolute; inset: 0; align-items: center; justify-content: center; font-weight: 700; color: var(--ink-2); }
+.tres-imgwrap.noimg img { display: none; }
+.tres-imgwrap.noimg .tres-fallback { display: flex; }
+.tres-name { text-align: center; margin-top: 8px; font-weight: 700; font-size: 14.5px; }
+.tres-rev { font-size: 10.5px; color: var(--seal); border: 1px solid var(--seal); border-radius: 3px; padding: 0 5px; vertical-align: 1px; }
+
+/* ── 배우자상 ── */
+.spouse-wrap { display: flex; gap: 18px; margin-top: 18px; align-items: flex-start; }
+.spouse-frame { flex: 0 0 128px; text-align: center; }
+.spouse-frame img { width: 128px; aspect-ratio: 2 / 3; object-fit: cover; border: 1px solid var(--line-strong); border-radius: 8px; display: block; }
+.spouse-frame .sf-cap { display: block; font-size: 10.5px; color: var(--muted); margin-top: 6px; letter-spacing: 0.04em; }
+.spouse-frame.noimg img { display: none; }
+.spouse-frame.noimg .sf-cap::before { content: '畵 '; color: var(--seal); }
+.spouse-text { flex: 1; min-width: 0; }
+@media (max-width: 560px) {
+  .spouse-wrap { flex-direction: column; align-items: center; }
+  .spouse-text { width: 100%; }
+}
+
+/* ── 궁합 ── */
+.gh-head { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.gh-person { flex: 1; text-align: center; font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.gh-person b { color: var(--ink); font-size: 15px; }
+.p-field select, .p-field input { width: 100%; }
+
 </style>
 </head>
 <body>
@@ -406,6 +459,7 @@ select:focus { border-color: var(--line-strong); }
     <div class="hero-hanja">감정인 <b>허선생</b> · 육십갑자 명식 · 대운 감정</div>
     <div class="hero-services">평생 총운 · 연애 · 직업 · 재물 · 대운 전환점</div>
     <div><button class="cta" id="btn-start">감정 시작하기</button></div>
+    <div><button class="cta ghost" id="btn-tarot" style="margin-top:16px; font-size:14.5px; padding:13px 34px;">허선생의 그림패 뽑기</button></div>
   </section>
 
   <!-- 문진 (한 질문 = 한 화면) -->
@@ -483,6 +537,19 @@ select:focus { border-color: var(--line-strong); }
 
   <!-- 감정서 -->
   <section id="view-result" hidden></section>
+
+  <!-- 허선생의 그림패 (타로) -->
+  <section id="view-tarot" hidden>
+    <div class="result-head" style="margin-top:44px;">
+      <div class="result-eyebrow">허선생의 그림패 · 二十二枚</div>
+      <h2 class="result-name" id="tarot-title">마음에 물음 하나를 품으시게</h2>
+      <div class="result-birth" id="tarot-sub">그리고 스물두 패 가운데 석 장을 고르면, 지난 바람 · 지금 바람 · 올 바람을 읽어주겠네</div>
+    </div>
+    <div id="tarot-board"></div>
+    <div class="foot" style="margin-top:36px;">
+      <button class="cta ghost" id="tarot-back">감정소로 돌아가기</button>
+    </div>
+  </section>
 </div>
 
 <!-- 감정료 납부 -->
@@ -2193,6 +2260,57 @@ function todayFortune(saju, date) {
   };
 }
 
+// ---- 궁합 ----------------------------------------------------------------
+const WONJIN = { 0: 7, 7: 0, 1: 6, 6: 1, 2: 9, 9: 2, 3: 8, 8: 3, 4: 11, 11: 4, 5: 10, 10: 5 }; // 원진
+
+function stemRelation(sa, sb) {
+  if (stemHap(sa, sb) || stemHap(sb, sa)) return 'hap';
+  const a = STEMS[sa].el, b = STEMS[sb].el;
+  if (a === b) return 'same';
+  if ((a + 1) % 5 === b || (b + 1) % 5 === a) return 'saeng';
+  return 'geuk';
+}
+
+function computeGunghap(A, B) {
+  const parts = {};
+  let score = 50;
+
+  // 1. 일간 관계 (부부의 축)
+  const ilgan = stemRelation(A.pillars.day.stem, B.pillars.day.stem);
+  parts.ilgan = ilgan;
+  score += { hap: 18, saeng: 11, same: 6, geuk: -7 }[ilgan];
+
+  // 2. 일지 관계 (배우자궁끼리)
+  const ba = A.pillars.day.branch, bb = B.pillars.day.branch;
+  let ilji = branchRelation(ba, bb);
+  if (ilji === 'none' && WONJIN[ba] === bb) ilji = 'wonjin';
+  parts.ilji = ilji;
+  score += { yukhap: 18, samhap: 12, same: 5, none: 0, chung: -16, wonjin: -10 }[ilji];
+
+  // 3. 오행 상보 (서로의 빈 기운을 채우는가)
+  let bowanAB = 0, bowanBA = 0;
+  for (let e = 0; e < 5; e++) {
+    if (A.counts[e] === 0 && B.counts[e] >= 2) bowanAB++;
+    if (B.counts[e] === 0 && A.counts[e] >= 2) bowanBA++;
+  }
+  parts.bowan = { ab: bowanAB, ba: bowanBA };
+  score += Math.min(bowanAB, 2) * 7 + Math.min(bowanBA, 2) * 7;
+
+  // 4. 띠(년지) 관계
+  const tti = branchRelation(A.pillars.year.branch, B.pillars.year.branch);
+  parts.tti = tti;
+  score += { yukhap: 5, samhap: 5, same: 2, none: 0, chung: -7 }[tti] || 0;
+
+  // 5. 용신 상생 (상대가 나의 약인가)
+  const yAB = STEMS[B.pillars.day.stem].el === A.yongshin;
+  const yBA = STEMS[A.pillars.day.stem].el === B.yongshin;
+  parts.yongshin = yAB && yBA ? 'mutual' : (yAB || yBA) ? 'oneway' : 'none';
+  score += { mutual: 14, oneway: 8, none: 0 }[parts.yongshin];
+
+  score = Math.max(12, Math.min(99, score));
+  return { score, parts };
+}
+
 </script>
 <script>
 /* ==========================================================================
@@ -2392,6 +2510,7 @@ const YONGSHIN_ADVICE = [
 
 // ---- 상품 구성 --------------------------------------------------------------
 const PRODUCTS = {
+  gunghap: { name: '궁합 감정', price: 7900, includes: [] },
   basic: { name: '기본 감정', price: 5900, includes: ['제6장 평생 총운', '제7장 연애운'] },
   premium: { name: '전권 감정', price: 9900, includes: ['제6장 평생 총운', '제7장 연애운', '제8장 직업과 적성', '제9장 재물운', '제10장 대운 전환점'] },
 };
@@ -2525,6 +2644,88 @@ const LUCKY_ITEMS = [
   ['물병', '검은 수첩', '우산', '죽염 소금'],
 ];
 
+// ---- 궁합 풀이 --------------------------------------------------------------
+const GH_TOTAL = [
+  { min: 85, t: '참으로 귀한 연일세. 백 쌍을 감정해도 몇 쌍 나오지 않는 상생의 짝이니, 이 인연은 놓치지 말고 소중히 가꾸시게.' },
+  { min: 70, t: '좋은 연일세. 기운이 서로를 밀어주는 자리가 많아, 함께할수록 두 사람 모두 운이 트이는 짝이네.' },
+  { min: 50, t: '노력으로 완성되는 연일세. 타고난 합이 화려하진 않으나, 서로의 다름을 알고 맞춰가면 오래가는 짝이 되네.' },
+  { min: 0, t: '공부가 필요한 연일세. 부딪히는 자리가 몇 곳 보이니, 아래 풀이를 잘 읽고 서로의 결을 이해하는 것이 먼저일세.' },
+];
+const GH_ILGAN = {
+  hap: '두 사람의 일간이 천간합(天干合)을 이루네. 명리에서 부부의 연으로 치는 가장 귀한 합이라, 처음 만나도 오래 안 사람처럼 끌리는 사이일세.',
+  saeng: '두 사람의 일간이 서로 생(生)하는 관계일세. 한쪽이 지치면 다른 쪽이 채워주는 구조라, 함께 있을수록 기운이 사는 짝이네.',
+  same: '두 사람의 일간이 같은 기운일세. 친구처럼 통하고 편하나, 닮은 만큼 양보가 없으면 부딪히니 역할을 나누는 지혜가 필요하네.',
+  geuk: '두 사람의 일간이 서로 극(克)하는 관계일세. 긴장이 있는 만큼 서로를 단련시키는 짝이니, 말투 하나만 부드럽게 다듬으면 오히려 깊어지는 연이네.',
+};
+const GH_ILJI = {
+  yukhap: '배우자궁끼리 육합(六合)을 이루니 살을 맞대고 사는 자리의 합이 으뜸일세. 함께 사는 일상이 편안한 짝이네.',
+  samhap: '배우자궁이 삼합(三合)으로 묶여 있네. 같은 목표를 보고 달릴 때 가장 빛나는 동지 같은 짝일세.',
+  same: '배우자궁이 같은 글자일세. 생활의 결이 닮아 편안하나, 권태가 오기 쉬우니 새로움을 함께 찾으시게.',
+  chung: '배우자궁끼리 충(冲)이 있네. 생활 습관이 부딪히기 쉬운 자리이니, 각자의 공간과 시간을 존중하는 것이 이 연의 지혜일세.',
+  wonjin: '배우자궁에 원진(怨嗔)이 보이네. 이유 없이 서운해지는 날이 있는 짝이니, 마음이 상한 날은 묵히지 말고 그날 풀어야 하네.',
+  none: '배우자궁끼리 특별한 합도 충도 없는 담백한 자리일세. 크게 끌리지도 부딪히지도 않으니, 쌓아가는 정이 곧 합이 되는 짝이네.',
+};
+const GH_BOWAN = {
+  both: '무엇보다 귀한 것은, 서로가 서로의 빈 오행을 채워주고 있다는 점일세. 혼자서는 기울던 기운이 둘이 되면 바로 서니, 이것이 명리가 말하는 보완의 연이네.',
+  one: '한쪽이 다른 쪽의 빈 오행을 채워주는 구조일세. 받는 쪽은 그 고마움을 알고, 채워주는 쪽은 생색내지 않으면 좋은 순환이 되네.',
+  none: '서로의 빈 기운을 채워주는 자리는 뚜렷하지 않네. 대신 각자의 강한 기운을 침범하지 않으니, 독립적인 두 사람이 나란히 서는 그림일세.',
+};
+const GH_YONGSHIN = {
+  mutual: '놀랍게도 두 사람은 서로가 서로의 용신(用神)일세. 상대의 존재 자체가 나의 약이 되는 연이니, 곁에 있는 것만으로 운이 풀리는 짝이네.',
+  oneway: '한 사람의 일간이 상대의 용신에 해당하네. 그 사람 곁에 있으면 이상하게 일이 풀린다 느꼈다면, 그것이 바로 이 이치일세.',
+  none: '용신의 직접적인 연은 없으나, 이는 흠이 아니라 서로에게 기대지 않고 설 수 있다는 뜻이기도 하네.',
+};
+const GH_ADVICE = [
+  '연은 타고나는 것이 반, 가꾸는 것이 반일세. 오늘의 점수는 출발점이지 결론이 아니니, 두 사람의 하기에 달렸네.',
+];
+
+// ---- 배우자상 (내 일지 = 배우자궁 기준) --------------------------------------
+const SPOUSE_LOOK = [
+  '눈매가 맑고 얼굴선이 갸름한 사람일세. 머리가 빠르고 말수는 적으나 속정이 깊어, 조용히 자네 뒤를 챙기는 상이네.',
+  '순하고 부드러운 인상에 볼이 도톰한 사람일세. 서두르는 법이 없고 살림이 야무져, 곁에 있으면 마음이 놓이는 상이네.',
+  '이목구비가 시원시원하고 눈썹이 짙은 사람일세. 배포가 크고 리더 기질이 있어, 자네를 이끌어주는 상이네.',
+  '선이 곱고 여린 인상의 사람일세. 감성이 풍부하고 다정다감하여, 자네의 마음을 잘 읽어주는 상이네.',
+  '윤곽이 뚜렷하고 기품 있는 사람일세. 속이 깊고 야망이 있어, 함께 큰 그림을 그릴 수 있는 상이네.',
+  '턱선이 날렵하고 눈빛이 매력적인 사람일세. 영리하고 세련되어, 어디 내놓아도 빛나는 상이네.',
+  '웃는 얼굴이 화사하고 생기 넘치는 사람일세. 표현이 풍부하고 정열적이라, 자네의 일상을 밝히는 상이네.',
+  '눈웃음이 온화하고 정이 많은 사람일세. 가정적이고 헌신적이라, 오래 볼수록 귀해지는 상이네.',
+  '또렷한 이목구비에 장난기가 어린 사람일세. 재주가 많고 유쾌하여, 함께 있으면 웃음이 끊이지 않는 상이네.',
+  '단정하고 새침한 인상의 사람일세. 깔끔하고 자기 관리가 철저하여, 세월이 갈수록 빛나는 상이네.',
+  '서글서글하고 듬직한 인상의 사람일세. 의리 있고 한결같아, 한번 맺으면 변치 않는 상이네.',
+  '복스럽고 둥근 인상의 사람일세. 너그럽고 속이 깊어, 자네의 허물까지 품어주는 상이네.',
+];
+
+// ---- 허선생의 그림패 (타로 22장, 정/역) --------------------------------------
+const TAROT_DB = [
+  { n: '나그네', o: 'The Fool', img: 't00', up: '새 길이 열리는 패일세. 재고 따지기 전에 봇짐부터 싸시게 — 지금의 서툰 첫걸음이 나중의 큰 이야기가 되네.', rev: '설렘만 믿고 벼랑을 못 본 형국일세. 떠나되, 신 끈은 단단히 매고 떠나시게.' },
+  { n: '도사', o: 'The Magician', up: '재료가 다 갖춰졌다는 패일세. 자네 손안의 재주로 지금 시작하면 뜻대로 빚어지네.', rev: '재주를 부리되 속임수가 끼기 쉬운 때일세. 잔꾀를 버리면 본래 실력이 드러나네.' },
+  { n: '무녀', o: 'The High Priestess', up: '답은 이미 자네 안에 있다는 패일세. 소란에서 물러나 고요히 들으면 직감이 맞아떨어지네.', rev: '감이 흐려져 있네. 소문과 억측을 걷어내고, 확인된 것만 믿으시게.' },
+  { n: '왕비', o: 'The Empress', up: '풍요가 무르익는 패일세. 돌보고 가꾼 것들이 열매를 맺으니, 베풀수록 더 차오르네.', rev: '남을 돌보느라 제 밭이 말랐네. 오늘은 자네부터 먹이고 재우시게.' },
+  { n: '임금', o: 'The Emperor', up: '기틀을 세울 때라는 패일세. 원칙을 정하고 자리를 지키면 사람과 일이 자네 아래로 모이네.', rev: '고집이 왕좌를 흔드네. 명령을 줄이고 귀를 여는 것이 진짜 위엄일세.' },
+  { n: '큰스님', o: 'The Hierophant', up: '스승과 정도(正道)의 패일세. 검증된 길, 어른의 조언을 따르는 것이 지금은 가장 빠른 길이네.', rev: '낡은 법도에 갇힌 형국일세. 예를 지키되, 자네만의 답을 낼 때가 되었네.' },
+  { n: '연인', o: 'The Lovers', up: '까치가 다리를 놓는 패일세. 마음이 오가는 인연이 가까이 있으니, 선택 앞에선 머리보다 마음을 따르시게.', rev: '두 갈래 마음이 다리를 흔드네. 어정쩡한 관계와 미룬 결정을 이제 매듭지으시게.' },
+  { n: '장수', o: 'The Chariot', up: '고삐를 쥐고 내달리는 패일세. 상반된 두 힘을 다스릴 수 있는 지금, 밀어붙이면 이기네.', rev: '말 두 마리가 서로 딴 데를 보네. 방향부터 다시 잡지 않으면 힘만 빠지네.' },
+  { n: '범 쓰다듬는 처자', o: 'Strength', up: '부드러움이 사나움을 이기는 패일세. 힘이 아니라 다정함으로 다스리면, 범 같은 상대도 순해지네.', rev: '속에서 범이 울고 있네. 조급함과 화를 먼저 달래야 일이 풀리네.' },
+  { n: '은자', o: 'The Hermit', up: '홀로 등불을 드는 패일세. 잠시 무리에서 물러나 자네 안을 들여다보면, 찾던 답이 비치네.', rev: '동굴이 너무 깊어졌네. 성찰은 끝났으니, 이제 등불 들고 산을 내려오시게.' },
+  { n: '물레', o: 'Wheel of Fortune', up: '운의 물레가 자네 쪽으로 도는 패일세. 흐름이 바뀌는 때이니, 오는 기회를 붙잡기만 하시게.', rev: '물레가 잠시 어긋나 도네. 지금의 꼬임은 자네 탓이 아니니, 버티며 다음 회전을 기다리시게.' },
+  { n: '어사', o: 'Justice', up: '저울이 바로 서는 패일세. 뿌린 대로 거두는 때이니, 정직하게 임하면 판결은 자네 편일세.', rev: '저울이 한쪽으로 기울었네. 스스로에게 유리한 셈만 하고 있지 않은지 먼저 살피시게.' },
+  { n: '매달린 광대', o: 'The Hanged Man', up: '거꾸로 보아야 보이는 패일세. 지금의 멈춤은 손해가 아니라, 세상을 뒤집어 보는 값진 시간이네.', rev: '버틸 이유가 없는 데 매달려 있네. 미련의 끈을 놓으면 발이 땅에 닿네.' },
+  { n: '저승사자', o: 'Death', up: '끝이 곧 시작이라는 패일세. 낡은 것을 제대로 떠나보내야 국화 핀 자리에 새 아침이 오네.', rev: '끝난 것을 붙들고 있는 형국일세. 장례를 미룰수록 새 인연이 못 들어오네.' },
+  { n: '선녀', o: 'Temperance', up: '두 물을 섞는 패일세. 서두르지 않고 알맞게 섞으면, 어울리지 않던 것들이 하나로 빚어지네.', rev: '물이 한쪽으로 쏟아지고 있네. 일도 마음도 과한 쪽을 덜어 균형부터 잡으시게.' },
+  { n: '도깨비', o: 'The Devil', up: '달콤한 사슬의 패일세. 즐거움 뒤에 매인 것이 없는지 보시게 — 사슬은 생각보다 헐거워 스스로 벗을 수 있네.', rev: '도깨비 장난에서 깨어나는 패일세. 나쁜 습관, 나쁜 인연 하나를 끊어낼 힘이 지금 자네에게 있네.' },
+  { n: '무너지는 탑', o: 'The Tower', up: '벼락이 헌 탑을 치는 패일세. 무너지는 것은 애초에 금이 가 있던 것이니, 놀라되 슬퍼는 마시게. 터가 비어야 새로 짓네.', rev: '무너질 것을 붙들고 버티는 형국일세. 스스로 내려놓으면 벼락은 피해 가네.' },
+  { n: '별', o: 'The Star', up: '칠성이 자네를 비추는 패일세. 오래 빌던 소원에 서광이 비치니, 희망을 소리 내어 말해도 좋은 때이네.', rev: '구름이 별을 가렸을 뿐, 별이 진 것이 아닐세. 낙심 말고 물을 계속 부으시게.' },
+  { n: '달', o: 'The Moon', up: '달빛에 길이 어른거리는 패일세. 확실치 않은 것은 결정을 미루고, 불안의 정체를 밝힌 뒤 걸으시게.', rev: '안개가 걷히는 패일세. 오해가 풀리고 감췄던 것이 드러나니, 미뤄둔 대화를 나누시게.' },
+  { n: '해', o: 'The Sun', up: '해가 중천에 뜨는 패일세. 감출 것 없이 다 드러나도 좋은 날이니, 자네의 빛을 마음껏 내보이시게.', rev: '구름 뒤의 해일세. 좋은 일이 조금 늦어질 뿐 오지 않는 것이 아니니, 웃음을 잃지 마시게.' },
+  { n: '신장', o: 'Judgement', up: '북소리가 자네를 깨우는 패일세. 지난 일을 정리하고 부름에 응할 때이니, 두 번째 기회를 잡으시게.', rev: '북소리를 못 들은 척하는 형국일세. 스스로를 심판하는 버릇을 내려놓고, 지난 일은 지난 자리에 두시게.' },
+  { n: '강산', o: 'The World', up: '한 바퀴가 온전히 도는 패일세. 긴 여정 하나가 완성되니, 축하받고 다음 강산으로 나아가시게.', rev: '마지막 한 걸음이 남았네. 아홉 부 능선에서 멈추지 말고, 매듭 하나만 더 지으면 완성일세.' },
+];
+const TAROT_POS = [
+  { k: '지난 바람', d: '지나온 자리' },
+  { k: '지금 바람', d: '지금 자네를 흐르는 기운' },
+  { k: '올 바람', d: '다가올 자리' },
+];
+
 </script>
 <script>
 /* ==========================================================================
@@ -2552,10 +2753,10 @@ const LUCKY_ITEMS = [
   ]);
 
   // ---- 상태 ----------------------------------------------------------------
-  const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null };
+  const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null, gunghap: null, lastView: 'hero' };
 
   // ---- 화면 전환 -----------------------------------------------------------
-  const views = ['hero', 'form', 'loading', 'result'];
+  const views = ['hero', 'form', 'loading', 'result', 'tarot'];
   function show(v) {
     for (const name of views) $('#view-' + name).hidden = name !== v;
     scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
@@ -2627,6 +2828,8 @@ const LUCKY_ITEMS = [
   });
 
   $('#btn-start').addEventListener('click', () => { show('form'); wizGo(0); });
+  $('#btn-tarot').addEventListener('click', () => { state.lastView = 'hero'; openTarot(); });
+  $('#tarot-back').addEventListener('click', () => show(state.lastView === 'result' && state.saju ? 'result' : 'hero'));
 
   // ---- 계산 실행 ------------------------------------------------------------
   const LOADING_MSGS = [
@@ -2794,7 +2997,30 @@ const LUCKY_ITEMS = [
         <p class="body-text">${s.gender === 'M' ? '남' : '여'}자 사주에서 연인을 뜻하는 별은 <b>${starName}</b>인데, ${who()}의 원국에는 이 별이 <b>${d.partnerCnt}개</b> 자리하네. ${LOVE_PARTNER[stateKey]}</p>
         <p class="body-text">지지의 합(合)으로 보는 상성도 뚜렷하네. 배우자궁 ${BRANCHES[b].k}(${BRANCHES[b].h})와 육합(六合)을 이루는 <b>${BRANCHES[yh].animal}띠</b>, 삼합(三合)으로 묶이는 <b>${BRANCHES[mates[0]].animal}띠 · ${BRANCHES[mates[1]].animal}띠</b>와는 처음부터 결이 잘 맞고, 오래 함께할수록 서로의 운을 끌어올리는 인연일세.</p>
         <p class="body-text"><b>인연을 부르는 개운법</b> — ${YONGSHIN_ADVICE[s.yongshin].color} 계열을 가까이하고, ${YONGSHIN_ADVICE[s.yongshin].place} 같은 곳에서 만들어지는 만남이 좋은 인연으로 이어지기 쉽네.</p>
+        ${spouseHTML(s, d)}
       </div>`;
+  }
+  function spouseHTML(s, d) {
+    const b = s.pillars.day.branch;
+    const g = s.gender === 'M' ? 'f' : 'm';
+    const img = `faces/s${g}${String(b).padStart(2, '0')}.jpg`;
+    const stars = s.gender === 'M' ? [4, 5] : [6, 7];
+    const du = s.daeun.list.find(du2 => du2.age + 9 >= d.nowAge
+      && (stars.includes(sipseong(s.pillars.day.stem, du2.gz.stem))
+        || ['yukhap', 'samhap'].includes(branchRelation(b, du2.gz.branch))));
+    const timing = du
+      ? `<b>${du.age}세에서 ${du.age + 9}세 사이</b> — ${du.gz.hangul}(${du.gz.hanja}) 대운에 인연의 문이 크게 열리네. 이 시기의 만남은 스치는 연이 아니니 허투루 보내지 마시게.`
+      : '대운보다 해마다 드는 세운(歲運)에서 인연의 문이 열리는 명일세. 매년 새해 무렵 그 해의 운을 살피는 것이 좋네.';
+    return `
+        <div class="spouse-wrap">
+          <div class="spouse-frame"><img src="${img}" alt="배우자상" loading="lazy"
+            onerror="this.parentElement.classList.add('noimg')"><span class="sf-cap">허선생이 그려 본 배우자의 상</span></div>
+          <div class="spouse-text">
+            <p class="body-text"><b>미래 배우자의 상(相)</b> — 자네의 배우자궁 ${BRANCHES[b].k}(${BRANCHES[b].h})이 그리는 사람은, ${SPOUSE_LOOK[b]}</p>
+            <p class="body-text"><b>인연이 들어오는 시기</b> — ${timing}</p>
+          </div>
+        </div>
+        <p class="body-text" style="font-size:12.5px; color:var(--muted); margin-top:10px;">초상은 배우자궁의 기운을 그림으로 옮긴 참고 화상일 뿐, 실제 얼굴을 단정하는 것이 아닐세.</p>`;
   }
   function sectionJob(s, d) {
     const info = SIPSEONG_INFO[d.dominant];
@@ -2949,6 +3175,18 @@ const LUCKY_ITEMS = [
 
       <div id="premium-zone" class="reveal" style="animation-delay:0.55s"></div>
 
+      <div class="report-divider reveal" style="animation-delay:0.58s">별권 · 별점</div>
+
+      <div id="gunghap-zone" class="reveal" style="animation-delay:0.6s"></div>
+
+      <div class="card reveal" style="animation-delay:0.62s">
+        <div class="card-label">허선생의 그림패</div>
+        <p class="body-text">사주가 타고난 팔자라면, 그림패는 오늘 이 순간의 바람일세. 마음에 물음 하나 품고 석 장을 골라보시게.</p>
+        <div style="text-align:center; margin-top:14px;">
+          <button class="cta ghost" style="margin-top:0; font-size:14.5px; padding:13px 34px;" onclick="window.__goTarot()">그림패 뽑으러 가기</button>
+        </div>
+      </div>
+
       <div class="foot">
         <div class="foot-seal"><span class="seal-mark">許</span> 감정인 · 사주 허선생</div>
         <p class="disclaim">본 서비스의 사주 계산은 KARI(한국천문연구원) 표준 음양력과 만세력 산법을 따르며,
@@ -2959,8 +3197,9 @@ const LUCKY_ITEMS = [
       </div>`;
 
     renderPremiumZone();
+    renderGunghapZone();
 
-    $('#btn-reset').addEventListener('click', () => { state.unlocked = null; show('form'); wizGo(0); });
+    $('#btn-reset').addEventListener('click', () => { state.unlocked = null; state.gunghap = null; show('form'); wizGo(0); });
 
     const elOrder = [0, 1, 2, 3, 4].sort((a, b) => s.counts[b] - s.counts[a] || a - b).filter(i => s.counts[i] > 0);
     const inkSpots = [
@@ -3038,12 +3277,168 @@ const LUCKY_ITEMS = [
       </div>`;
   }
 
+  // ---- 허선생의 그림패 (타로) ------------------------------------------------
+  let tarotSel = [], tarotDeck = [];
+  window.__goTarot = function () { state.lastView = 'result'; openTarot(); };
+  function openTarot() {
+    tarotSel = [];
+    tarotDeck = [...Array(22).keys()].sort(() => Math.random() - 0.5);
+    $('#tarot-title').textContent = '마음에 물음 하나를 품으시게';
+    $('#tarot-sub').textContent = '그리고 스물두 패 가운데 석 장을 고르면, 지난 바람 · 지금 바람 · 올 바람을 읽어주겠네';
+    $('#tarot-board').innerHTML = `
+      <div class="tarot-grid">
+        ${tarotDeck.map((c, i) => `<div class="tcard-back" data-i="${i}"><span class="tb-seal">許</span></div>`).join('')}
+      </div>`;
+    $$('.tcard-back').forEach(el => el.addEventListener('click', () => pickTarot(el)));
+    show('tarot');
+  }
+  function pickTarot(el) {
+    if (el.classList.contains('sel') || tarotSel.length >= 3) return;
+    el.classList.add('sel');
+    el.dataset.ord = ['一', '二', '三'][tarotSel.length];
+    tarotSel.push(+el.dataset.i);
+    if (tarotSel.length === 3) setTimeout(revealTarot, 500);
+  }
+  function revealTarot() {
+    const picks = tarotSel.map(i => ({ card: TAROT_DB[tarotDeck[i]], idx: tarotDeck[i], rev: Math.random() < 0.42 }));
+    $('#tarot-title').textContent = '패가 나왔네';
+    $('#tarot-sub').textContent = '그림은 하늘이 고르고, 풀이는 내가 하지';
+    $('#tarot-board').innerHTML = `
+      <div class="tarot-res">
+        ${picks.map((p, i) => `
+          <div class="tres-card ${p.rev ? 'rev' : ''}">
+            <div class="tres-pos">${TAROT_POS[i].k}</div>
+            <div class="tres-imgwrap"><img src="cards/t${String(p.idx).padStart(2, '0')}.jpg" alt="${p.card.n}" loading="lazy"
+              onerror="this.parentElement.classList.add('noimg')"><span class="tres-fallback">${p.card.n}</span></div>
+            <div class="tres-name">${p.card.n}${p.rev ? ' <span class="tres-rev">거꾸로</span>' : ''}</div>
+          </div>`).join('')}
+      </div>
+      ${picks.map((p, i) => `
+        <div class="card" style="margin-top:14px;">
+          <div class="card-label">${TAROT_POS[i].k} · ${p.card.n} (${p.card.o})</div>
+          <p class="body-text">${TAROT_POS[i].d}에 ${p.rev ? '거꾸로 ' : ''}든 패일세. ${p.rev ? p.card.rev : p.card.up}</p>
+        </div>`).join('')}
+      <div style="text-align:center; margin-top:24px;">
+        <button class="cta ghost" style="margin-top:0;" id="tarot-again">다시 뽑기</button>
+      </div>`;
+    $('#tarot-again').addEventListener('click', openTarot);
+    scrollTo({ top: 0 });
+  }
+
+  // ---- 궁합 감정 --------------------------------------------------------------
+  function renderGunghapZone() {
+    const zone = $('#gunghap-zone');
+    if (!zone) return;
+    if (state.gunghap) { zone.innerHTML = gunghapReportHTML(); return; }
+    zone.innerHTML = `
+      <div class="card">
+        <div class="card-label">별권 · 궁합 감정</div>
+        <p class="body-text">마음에 둔 사람이 있는가? 그 사람의 생년월일시를 가져오면 두 명식을 나란히 세워
+          일간의 합, 배우자궁의 합충, 서로 채워주는 오행, 용신의 연까지 짚어 궁합을 감정해 주겠네.</p>
+        <div style="text-align:center; margin-top:16px;">
+          <button class="cta" style="margin-top:0; font-size:15px; padding:14px 36px;" onclick="window.__openGunghap()">상대와의 궁합 보기 · ${PRODUCTS.gunghap.price.toLocaleString()}원</button>
+        </div>
+      </div>`;
+  }
+  window.__openGunghap = function () {
+    const root = $('#modal-root');
+    root.hidden = false;
+    root.innerHTML = `
+      <div class="modal-dim" onclick="window.__closePay()"></div>
+      <div class="modal-sheet">
+        <button class="pay-close" onclick="window.__closePay()">✕</button>
+        <div class="modal-title">상대의 사주를 알려주시게</div>
+        <div class="modal-sub">궁합은 두 사람의 명식을 나란히 세워야 보이네</div>
+        <div class="p-field"><input type="text" id="p-name" class="wiz-name" style="width:100%; font-size:16px;" placeholder="상대 이름 (비워도 되네)" maxlength="12"></div>
+        <div class="p-field row" style="margin-top:14px;">
+          <select id="p-gender"><option value="M">남자</option><option value="F">여자</option></select>
+          <select id="p-cal"><option value="solar">양력</option><option value="lunar">음력</option><option value="leap">음력 윤달</option></select>
+        </div>
+        <div class="p-field row" style="margin-top:10px;">
+          <select id="p-year"></select><select id="p-month"></select><select id="p-day"></select>
+        </div>
+        <div class="p-field row" style="margin-top:10px;">
+          <select id="p-hour"></select><select id="p-minute"></select>
+        </div>
+        <label class="check" style="margin-top:12px; justify-content:center;">
+          <input type="checkbox" id="p-nohour"> 태어난 시각을 모릅니다
+        </label>
+        <div class="form-error" id="p-error"></div>
+        <button class="cta pay-go" id="p-go" style="margin-top:6px;">궁합 감정 청하기</button>
+      </div>`;
+    fillSelect($('#p-year'), 2010, 1930, '년', 1995);
+    fillSelect($('#p-month'), 1, 12, '월', 6);
+    fillSelect($('#p-day'), 1, 31, '일', 15);
+    fillSelect($('#p-hour'), 0, 23, '시', 12);
+    $('#p-minute').innerHTML = Array.from({ length: 60 }, (_, m) => `<option value="${m}">${m}분</option>`).join('');
+    $('#p-nohour').addEventListener('change', e => {
+      $('#p-hour').disabled = $('#p-minute').disabled = e.target.checked;
+    });
+    $('#p-go').addEventListener('click', () => {
+      const err = $('#p-error'); err.textContent = '';
+      const cal = $('#p-cal').value;
+      const input = {
+        year: +$('#p-year').value, month: +$('#p-month').value, day: +$('#p-day').value,
+        hour: +$('#p-hour').value, minute: +$('#p-minute').value,
+        hourUnknown: $('#p-nohour').checked,
+        calendar: cal === 'solar' ? 'solar' : 'lunar', leapMonth: cal === 'leap',
+        gender: $('#p-gender').value,
+      };
+      if (input.calendar === 'solar') {
+        const dt = new Date(input.year, input.month - 1, input.day);
+        if (dt.getMonth() !== input.month - 1 || dt.getDate() !== input.day) { err.textContent = '존재하지 않는 날짜일세.'; return; }
+      }
+      let partner;
+      try { partner = computeSaju(input); }
+      catch (e) { err.textContent = e.message; return; }
+      state._pendingPartner = { saju: partner, name: $('#p-name').value.trim() };
+      window.__closePay();
+      window.__openPay('gunghap');
+    });
+  };
+  function gunghapReportHTML() {
+    const A = state.saju, B = state.gunghap.partner;
+    const gh = state.gunghap.result;
+    const nameA = state.name ? escapeHTML(state.name) : '자네';
+    const nameB = state.gunghap.partnerName ? escapeHTML(state.gunghap.partnerName) : '그 사람';
+    const band = GH_TOTAL.find(x => gh.score >= x.min);
+    const bowan = gh.parts.bowan.ab > 0 && gh.parts.bowan.ba > 0 ? 'both' : (gh.parts.bowan.ab + gh.parts.bowan.ba > 0) ? 'one' : 'none';
+    const ttiNote = { yukhap: '띠끼리도 육합이라 어른들 보시기에도 좋은 짝일세.', samhap: '띠끼리 삼합이니 집안 어른들과의 연도 순하네.', chung: '띠끼리는 충이라 처음 어른들 반대가 있을 수 있으나, 이는 일지의 합이 풀어주네.' }[gh.parts.tti] || '';
+    const R = 56, C = 2 * Math.PI * R;
+    return `
+      <div class="card">
+        <div class="card-label">별권 · 궁합 감정서</div>
+        <div class="gh-head">
+          <div class="gh-person">${nameA}<br><b>${A.gz.day.hangul}(${A.gz.day.hanja})일주</b></div>
+          <div class="gauge-wrap" style="flex:0 0 132px;">
+            <svg width="132" height="132" viewBox="0 0 132 132">
+              <circle cx="66" cy="66" r="${R}" fill="none" stroke="rgba(34,30,23,0.08)" stroke-width="9"/>
+              <circle cx="66" cy="66" r="${R}" fill="none" stroke="url(#gg2)" stroke-width="9" stroke-linecap="round"
+                stroke-dasharray="${C}" stroke-dashoffset="${C * (1 - gh.score / 100)}" transform="rotate(-90 66 66)"/>
+              <defs><linearGradient id="gg2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c2705f"/><stop offset="100%" stop-color="#a93a2c"/>
+              </linearGradient></defs>
+            </svg>
+            <div class="gauge-score"><span class="num">${gh.score}</span><span class="of">/ 100점</span></div>
+          </div>
+          <div class="gh-person">${nameB}<br><b>${B.gz.day.hangul}(${B.gz.day.hanja})일주</b></div>
+        </div>
+        <p class="body-text" style="margin-top:18px;">${band.t}</p>
+        <p class="body-text">${GH_ILGAN[gh.parts.ilgan]}</p>
+        <p class="body-text">${GH_ILJI[gh.parts.ilji]} ${ttiNote}</p>
+        <p class="body-text">${GH_BOWAN[bowan]}</p>
+        <p class="body-text">${GH_YONGSHIN[gh.parts.yongshin]}</p>
+        <p class="body-text">${GH_ADVICE[0]}</p>
+      </div>`;
+  }
+
   // ---- 모의 결제 모달 --------------------------------------------------------
   window.__openPay = function (plan) {
     const isUpgrade = plan === 'upgrade';
     const product = isUpgrade
       ? { name: '전권 업그레이드', price: PRODUCTS.premium.price - PRODUCTS.basic.price }
       : PRODUCTS[plan];
+    window.__payPlan = plan;
     const root = $('#modal-root');
     root.hidden = false;
     root.innerHTML = `
@@ -3076,11 +3471,18 @@ const LUCKY_ITEMS = [
           </div>`;
         setTimeout(() => {
           window.__closePay();
-          state.unlocked = (plan === 'basic') ? 'basic' : 'premium';
-          renderPremiumZone();
-          toast('봉인이 해제되었습니다');
-          const zone = $('#premium-zone');
-          zone.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          if (plan === 'gunghap') {
+            const p = state._pendingPartner;
+            state.gunghap = { partner: p.saju, partnerName: p.name, result: computeGunghap(state.saju, p.saju) };
+            renderGunghapZone();
+            toast('궁합 감정을 마쳤네');
+            $('#gunghap-zone').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else {
+            state.unlocked = (plan === 'basic') ? 'basic' : 'premium';
+            renderPremiumZone();
+            toast('봉인을 풀었네');
+            $('#premium-zone').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
         }, 1100);
       }, 1300);
     });
