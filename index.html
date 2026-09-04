@@ -443,6 +443,56 @@ select:focus { border-color: var(--line-strong); }
 .gh-person b { color: var(--ink); font-size: 15px; }
 .p-field select, .p-field input { width: 100%; }
 
+/* ── 홈: 갈래 카드 ── */
+.fork-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 38px; }
+.fork-card {
+  border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel);
+  padding: 30px 14px 26px; text-align: center; cursor: pointer;
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.fork-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(34, 30, 23, 0.12); }
+.fork-card .fk-emoji { display: block; font-size: 34px; margin-bottom: 10px; }
+.fork-card b { display: block; font-size: 21px; letter-spacing: 0.24em; text-indent: 0.24em; margin-bottom: 8px; }
+.fork-card .fk-desc { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
+
+.home-label { margin: 40px 0 14px; font-size: 12.5px; letter-spacing: 0.3em; color: var(--seal); font-weight: 700; text-align: left; }
+#home-catalog { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); text-align: left; }
+.cat-card { background: var(--panel); padding: 16px 18px; cursor: pointer; display: flex; align-items: center; gap: 13px; transition: background 0.15s ease; }
+.cat-card:hover { background: #f5efe0; }
+.cat-badge { flex: 0 0 auto; font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line-strong); border-radius: 3px; padding: 1px 7px; color: var(--ink-2); white-space: nowrap; }
+.cat-badge.b-tarot { border-color: rgba(62, 90, 126, 0.55); color: #3e5a7e; }
+.cat-badge.b-saju { border-color: rgba(169, 58, 44, 0.55); color: var(--seal); }
+.cat-q { flex: 1; min-width: 0; font-size: 15px; font-weight: 700; color: var(--ink); }
+.cat-note { flex: 0 0 auto; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+
+.profile-chip {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
+  margin-top: 26px; padding: 12px 16px; border: 1px dashed var(--line-strong); border-radius: 8px;
+  background: rgba(252, 250, 244, 0.6); font-size: 13px; color: var(--ink-2);
+}
+.profile-chip b { color: var(--ink); }
+.pc-btn { border: none; background: #2a251d; color: #f6f2e6; font-family: var(--serif); font-size: 12.5px;
+  padding: 6px 15px; border-radius: 999px; cursor: pointer; font-weight: 700; }
+.pc-btn.ghost { background: transparent; color: var(--ink-2); border: 1px solid var(--line-strong); font-weight: 400; }
+
+/* ── 후속 문답 ── */
+.fu-suggests { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.fu-q { border: 1px solid var(--line-strong); background: rgba(252, 250, 244, 0.7); border-radius: 999px;
+  padding: 8px 16px; font-family: var(--serif); font-size: 13px; color: var(--ink); cursor: pointer; transition: background 0.15s ease; }
+.fu-q:hover { background: #f5efe0; }
+.fu-bubble { margin-top: 12px; padding: 12px 16px; font-size: 14.5px; line-height: 1.8; border-radius: 8px; }
+.fu-user { background: #efe8d6; color: var(--ink); margin-left: 15%; border: 1px solid var(--line); }
+.fu-heo { background: var(--panel); border: 1px solid var(--line-strong); color: var(--ink-2); margin-right: 8%; position: relative; padding-left: 44px; }
+.fu-heo b { color: var(--ink); border-bottom: 1px solid rgba(169, 58, 44, 0.35); }
+.fu-heo .fu-seal { position: absolute; left: 12px; top: 13px; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--seal); color: var(--seal); font-size: 11px; font-weight: 700; border-radius: 3px; transform: rotate(-4deg); }
+.fu-input { width: 100%; margin-top: 14px; padding: 12px 15px; font-family: var(--serif); font-size: 13.5px;
+  border: 1px dashed var(--line-strong); border-radius: 8px; background: transparent; color: var(--muted); }
+
+@media (max-width: 560px) {
+  .cat-note { display: none; }
+}
+
 </style>
 </head>
 <body>
@@ -450,16 +500,24 @@ select:focus { border-color: var(--line-strong); }
 <div id="app">
   <header class="topbar"><span class="rule"></span>사주 허선생<span class="seal-mark">許</span><span class="rule"></span></header>
 
-  <!-- 표지 -->
+  <!-- 홈: 오늘 무엇으로 볼까요 -->
   <section id="view-hero">
-    <div class="hero-sub">만세력 실계산 · 명리 감정소</div>
-    <h1 class="hero-title">하늘이 새긴<br>여덟 글자,<br>내 읽어드리겠네</h1>
-    <div class="pebble" id="hero-pebble" aria-hidden="true"></div>
-    <div class="pebble-caption">사람마다 다른 오행의 먹빛 — 감정을 마치면 자네의 빛깔이 채워질 걸세</div>
-    <div class="hero-hanja">감정인 <b>허선생</b> · 육십갑자 명식 · 대운 감정</div>
-    <div class="hero-services">평생 총운 · 연애 · 직업 · 재물 · 대운 전환점</div>
-    <div><button class="cta" id="btn-start">감정 시작하기</button></div>
-    <div><button class="cta ghost" id="btn-tarot" style="margin-top:16px; font-size:14.5px; padding:13px 34px;">허선생의 그림패 뽑기</button></div>
+    <div class="hero-sub">사주 · 타로 개인화 운세</div>
+    <h1 class="hero-title">오늘, 무엇으로<br>볼까요?</h1>
+    <div id="profile-banner"></div>
+    <div class="fork-cards">
+      <div class="fork-card" id="fork-saju">
+        <span class="fk-emoji">🔮</span><b>사주</b>
+        <span class="fk-desc">내가 타고난 흐름과<br>시기를 봅니다</span>
+      </div>
+      <div class="fork-card" id="fork-tarot">
+        <span class="fk-emoji">🃏</span><b>타로</b>
+        <span class="fk-desc">지금 궁금한 질문을<br>카드로 봅니다</span>
+      </div>
+    </div>
+    <div class="home-label">이런 게 궁금하지 않으세요?</div>
+    <div id="home-catalog"></div>
+    <div class="hero-hanja" style="margin-top:34px;">만세력 실계산 · 감정 캐릭터 <b>허선생</b> · 프로토타입 데모</div>
   </section>
 
   <!-- 문진 (한 질문 = 한 화면) -->
@@ -537,6 +595,9 @@ select:focus { border-color: var(--line-strong); }
 
   <!-- 감정서 -->
   <section id="view-result" hidden></section>
+
+  <!-- 2026 신년운세 -->
+  <section id="view-newyear" hidden></section>
 
   <!-- 허선생의 그림패 (타로) -->
   <section id="view-tarot" hidden>
@@ -2511,6 +2572,7 @@ const YONGSHIN_ADVICE = [
 // ---- 상품 구성 --------------------------------------------------------------
 const PRODUCTS = {
   gunghap: { name: '궁합 감정', price: 7900, includes: [] },
+  newyear: { name: '2026 신년운세 · 월별 흐름', price: 4900, includes: [] },
   basic: { name: '기본 감정', price: 5900, includes: ['제6장 평생 총운', '제7장 연애운'] },
   premium: { name: '전권 감정', price: 9900, includes: ['제6장 평생 총운', '제7장 연애운', '제8장 직업과 적성', '제9장 재물운', '제10장 대운 전환점'] },
 };
@@ -2726,6 +2788,25 @@ const TAROT_POS = [
   { k: '올 바람', d: '다가올 자리' },
 ];
 
+// ---- 2026 신년운세 (세운·월운) ----------------------------------------------
+const NY_YEAR = 2026;
+const MONTHLY_TEXT = [
+  '내 편을 얻는 달일세. 협업과 부탁이 순조로우니 함께 도모하시게.',
+  '경쟁이 붙는 달이니 지갑과 승부욕을 단속하시게.',
+  '재능이 피는 달일세. 만들고 표현하는 일에 힘을 쏟으시게.',
+  '말이 앞서기 쉬운 달이니 계약과 언쟁에 유의하시게.',
+  '돈이 움직이는 달일세. 기회는 잡되 셈은 두 번 하시게.',
+  '성실이 결실로 돌아오는 달일세. 공들인 일을 매듭지으시게.',
+  '압박이 커지는 달이나 실력을 증명할 기회이기도 하네.',
+  '인정과 명예가 따르는 달일세. 공적인 자리에 나서시게.',
+  '생각이 깊어지는 달일세. 공부와 재정비에 알맞네.',
+  '귀인이 돕는 달일세. 문서운이 좋으니 계약·시험에 길하네.',
+];
+const NY_INTRO = {
+  title: '2026 병오년(丙午年) 신년 감정',
+  desc: '한 해의 천간·지지가 자네의 일간과 맺는 관계로 그해의 큰 물길을 읽고, 열두 달의 월건(月建)으로 달마다의 흐름을 짚는 감정일세.',
+};
+
 </script>
 <script>
 /* ==========================================================================
@@ -2743,20 +2824,12 @@ const TAROT_POS = [
       `<span class="blob ${b.f ? 'fine' : ''}" style="left:${b.x}%;top:${b.y}%;width:${b.w}%;height:${b.h}%;background:${b.c};opacity:${b.o};"></span>`
     ).join('');
   }
-  paintPebble(document.querySelector('#hero-pebble'), [
-    { c: '#3a352b', x: 14, y: 22, w: 46, h: 42, o: 0.55 },
-    { c: '#3e5a7e', x: 46, y: 10, w: 40, h: 38, o: 0.48 },
-    { c: '#a93a2c', x: 42, y: 48, w: 32, h: 30, o: 0.42 },
-    { c: '#a8842f', x: 10, y: 54, w: 28, h: 26, o: 0.38 },
-    { c: '#4c7a5c', x: 60, y: 60, w: 18, h: 16, o: 0.4, f: true },
-    { c: '#3a352b', x: 30, y: 40, w: 10, h: 9, o: 0.45, f: true },
-  ]);
 
   // ---- 상태 ----------------------------------------------------------------
-  const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null, gunghap: null, lastView: 'hero' };
+  const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null, gunghap: null, lastView: 'hero', newyearUnlocked: false, pendingTarget: null, tarotQuestion: null };
 
   // ---- 화면 전환 -----------------------------------------------------------
-  const views = ['hero', 'form', 'loading', 'result', 'tarot'];
+  const views = ['hero', 'form', 'loading', 'result', 'tarot', 'newyear'];
   function show(v) {
     for (const name of views) $('#view-' + name).hidden = name !== v;
     scrollTo({ top: 0, behavior: 'instant' in document.documentElement.style ? 'instant' : 'auto' });
@@ -2827,9 +2900,139 @@ const TAROT_POS = [
     if (e.key === 'Enter' && !$('#view-form').hidden) { e.preventDefault(); wizNext(); }
   });
 
-  $('#btn-start').addEventListener('click', () => { show('form'); wizGo(0); });
-  $('#btn-tarot').addEventListener('click', () => { state.lastView = 'hero'; openTarot(); });
+  // ---- 홈: 갈래 카드 · 질문형 카탈로그 · 사주 프로필 -------------------------
+  const CATALOG = [
+    { type: 'SAJU', q: '나는 사업이 맞을까, 직장이 맞을까?', note: '직업·적성 감정', target: 'job' },
+    { type: 'SAJU', q: '2026년, 나에게 무엇이 크게 바뀔까?', note: `신년운세 · ${PRODUCTS.newyear.price.toLocaleString()}원`, target: 'newyear' },
+    { type: 'SAJU', q: '내 미래 배우자는 어떤 사람일까?', note: '연애·배우자 감정', target: 'love' },
+    { type: 'SAJU', q: '우리 둘, 정말 잘 맞을까?', note: `궁합 감정 · ${PRODUCTS.gunghap.price.toLocaleString()}원`, target: 'gunghap' },
+    { type: 'TAROT', q: '그 사람은 지금 나를 어떻게 생각할까?', note: '허선생의 그림패', target: 'tarot' },
+    { type: 'TAROT', q: '이 선택, 해도 될까?', note: '허선생의 그림패', target: 'tarot' },
+  ];
+  function loadProfile() {
+    try { return JSON.parse(localStorage.getItem('sajuProfile') || 'null'); } catch (e) { return null; }
+  }
+  function saveProfile(input, name) {
+    try { localStorage.setItem('sajuProfile', JSON.stringify({ input, name })); } catch (e) {}
+  }
+  function renderHome() {
+    const p = loadProfile();
+    const pb = $('#profile-banner');
+    if (p) {
+      const i = p.input;
+      const tStr = i.hourUnknown ? '시간 모름' : `${String(i.hour).padStart(2, '0')}:${String(i.minute).padStart(2, '0')}`;
+      pb.innerHTML = `
+        <div class="profile-chip">
+          <span class="pc-info">저장된 명식 · <b>${escapeHTML(p.name || '이름 없음')}</b> · ${i.year}.${i.month}.${i.day} ${tStr} (${i.calendar === 'lunar' ? '음력' : '양력'})</span>
+          <button class="pc-btn" id="pb-view">바로 보기</button>
+          <button class="pc-btn ghost" id="pb-new">새로 입력</button>
+        </div>`;
+      $('#pb-view').addEventListener('click', () => computeFromProfile(null));
+      $('#pb-new').addEventListener('click', () => { localStorage.removeItem('sajuProfile'); renderHome(); show('form'); wizGo(0); });
+    } else pb.innerHTML = '';
+    $('#home-catalog').innerHTML = CATALOG.map((c, i) => `
+      <div class="cat-card" data-i="${i}">
+        <span class="cat-badge ${c.type === 'SAJU' ? 'b-saju' : 'b-tarot'}">${c.type === 'SAJU' ? '🔮 사주' : '🃏 타로'}</span>
+        <span class="cat-q">${c.q}</span>
+        <span class="cat-note">${c.note} →</span>
+      </div>`).join('');
+    $$('#home-catalog .cat-card').forEach(el => el.addEventListener('click', () => {
+      const c = CATALOG[+el.dataset.i];
+      if (c.type === 'TAROT') { state.tarotQuestion = c.q; state.lastView = 'hero'; openTarot(); return; }
+      state.pendingTarget = c.target;
+      ensureSaju();
+    }));
+  }
+  function ensureSaju() {
+    if (state.saju) { afterSajuReady(); return; }
+    const p = loadProfile();
+    if (p) computeFromProfile(afterSajuReady);
+    else { show('form'); wizGo(0); }
+  }
+  function computeFromProfile(cb) {
+    const p = loadProfile();
+    if (!p) { show('form'); wizGo(0); return; }
+    let saju;
+    try { saju = computeSaju(p.input); } catch (e) { localStorage.removeItem('sajuProfile'); show('form'); wizGo(0); return; }
+    state.saju = saju; state.name = p.name || ''; state.unlocked = state.unlocked || null;
+    show('loading');
+    setTimeout(() => { renderResult(); show('result'); if (cb) cb(); else afterSajuReady(); }, 1300);
+  }
+  function afterSajuReady() {
+    const tgt = state.pendingTarget; state.pendingTarget = null;
+    if (!tgt) return;
+    setTimeout(() => {
+      if (tgt === 'newyear') { openNewyear(); return; }
+      const map = { job: 8, love: 7 };
+      if (tgt === 'gunghap') { $('#gunghap-zone')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
+      const no = map[tgt];
+      if (!no) return;
+      const card = [...document.querySelectorAll('#view-result .card-label')].find(x => x.textContent.startsWith(`제${no}장`));
+      (card ? card.closest('.card') : $('#premium-zone'))?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 250);
+  }
+  $('#fork-saju').addEventListener('click', () => { state.pendingTarget = null; ensureSaju(); });
+  $('#fork-tarot').addEventListener('click', () => { state.tarotQuestion = null; state.lastView = 'hero'; openTarot(); });
   $('#tarot-back').addEventListener('click', () => show(state.lastView === 'result' && state.saju ? 'result' : 'hero'));
+  renderHome();
+
+  // ---- 2026 신년운세 (세운·월운) ---------------------------------------------
+  window.__goNewyear = function () { state.pendingTarget = 'newyear'; ensureSaju(); };
+  function openNewyear() {
+    const s = state.saju;
+    if (!s) { ensureSaju(); return; }
+    const ny = yearGanzhi(NY_YEAR, 6, 15);
+    const nyGz = gzName(gz60Index(ny.stem, ny.branch));
+    const ss = sipseong(s.pillars.day.stem, ny.stem);
+    const rel = branchRelation(s.pillars.day.branch, ny.branch);
+    const relNote = { yukhap: '게다가 그해의 지지가 자네의 일지와 합을 이루니, 큰 인연과 협력이 붙는 해일세.',
+      samhap: '그해의 지지가 자네와 삼합으로 묶이니 뜻 맞는 사람들과 판을 벌이기 좋은 해일세.',
+      chung: '다만 그해의 지지가 자네의 일지와 충하니, 이동·이직·이사처럼 자리가 흔들리는 일이 생기기 쉽네. 미리 알고 준비하면 화가 기회로 바뀌네.',
+      same: '그해의 지지가 자네의 일지와 같은 기운이라, 익숙한 영역에서 힘이 실리는 해일세.' }[rel] || '';
+    const months = [];
+    for (let m = 1; m <= 12; m++) {
+      const mg = monthGanzhi(NY_YEAR, m, 15);
+      const mss = sipseong(s.pillars.day.stem, mg.stem);
+      const mrel = branchRelation(s.pillars.day.branch, mg.branch);
+      months.push({ m, gz: gzName(gz60Index(mg.stem, mg.branch)), ss: mss, rel: mrel });
+    }
+    const monthRows = months.map(mo => `
+      <div class="tl-item ${mo.rel === 'chung' ? '' : ''}">
+        <div class="tl-age">${mo.m}월 <span class="tl-gz">${mo.gz.hangul}(${mo.gz.hanja})월 · ${SIPSEONG_NAMES[mo.ss]}</span>
+          ${mo.rel === 'chung' ? '<span class="tl-flag">⚡ 유의</span>' : (mo.rel === 'yukhap' || mo.rel === 'samhap') ? '<span class="tl-flag">✦ 길함</span>' : ''}</div>
+        <div class="tl-body">${MONTHLY_TEXT[mo.ss]}</div>
+      </div>`).join('');
+    const lockedPart = state.newyearUnlocked
+      ? `<div class="card"><div class="card-label">열두 달의 흐름</div><div class="timeline">${monthRows}</div>
+          <p class="body-text" style="font-size:12.5px; color:var(--muted);">월 경계는 절기 기준이며, 각 달의 월건과 자네 일간·일지의 관계로 읽은 흐름일세.</p></div>`
+      : `<div class="locked-zone">
+          <div class="locked-stack"><div class="card"><div class="card-label">열두 달의 흐름</div><div class="timeline">${monthRows}</div></div></div>
+          <div class="lock-overlay">
+            <div class="lock-ico">封</div>
+            <div class="lock-t">열두 달의 흐름이 봉인되어 있네</div>
+            <div class="lock-s">달마다 길한 달과 유의할 달을 짚어 두었네</div>
+            <button class="cta" style="margin-top:14px; font-size:15px; padding:13px 34px;" onclick="window.__openPay('newyear')">${PRODUCTS.newyear.price.toLocaleString()}원에 개봉</button>
+          </div>
+        </div>`;
+    $('#view-newyear').innerHTML = `
+      <div class="result-head" style="margin-top:44px;">
+        <div class="result-eyebrow">별권 · 신년 감정</div>
+        <h2 class="result-name">${NY_INTRO.title}</h2>
+        <div class="result-birth">${who()} · ${s.gz.day.hangul}(${s.gz.day.hanja})일주 기준</div>
+      </div>
+      <div class="card">
+        <div class="card-label">병오년 총평</div>
+        <p class="body-text">${NY_INTRO.desc}</p>
+        <p class="body-text">${NY_YEAR}년은 <b>${nyGz.hangul}(${nyGz.hanja})년</b> — 자네의 일간에게 <b>${SIPSEONG_NAMES[ss]}</b>의 해일세. ${DAEUN_TEXT[ss]} ${relNote}</p>
+      </div>
+      ${lockedPart}
+      <div class="foot" style="margin-top:34px;">
+        <button class="cta ghost" id="ny-back">감정소로 돌아가기</button>
+      </div>`;
+    $('#ny-back').addEventListener('click', () => show(state.saju ? 'result' : 'hero'));
+    show('newyear');
+  }
+
 
   // ---- 계산 실행 ------------------------------------------------------------
   const LOADING_MSGS = [
@@ -2858,11 +3061,12 @@ const TAROT_POS = [
     state.saju = saju;
     state.name = $('#in-name').value.trim();
     state.unlocked = null;
+    saveProfile(input, state.name);
     show('loading');
     let i = 0;
     const msgEl = $('#loading-msg');
     const iv = setInterval(() => { msgEl.textContent = LOADING_MSGS[++i % LOADING_MSGS.length]; }, 620);
-    setTimeout(() => { clearInterval(iv); renderResult(); show('result'); }, 2600);
+    setTimeout(() => { clearInterval(iv); renderResult(); show('result'); afterSajuReady(); }, 2600);
   }
 
   // ---- 리포트 데이터 파생 ----------------------------------------------------
@@ -3187,6 +3391,23 @@ const TAROT_POS = [
         </div>
       </div>
 
+      <div class="card reveal" style="animation-delay:0.64s">
+        <div class="card-label">별권 · 2026 신년운세</div>
+        <p class="body-text">${NY_YEAR}년 병오년이 자네에게 어떤 해인지, 열두 달의 흐름은 어떻게 굽이치는지 — 같은 명식으로 신년 감정을 이어서 볼 수 있네.</p>
+        <div style="text-align:center; margin-top:14px;">
+          <button class="cta ghost" style="margin-top:0; font-size:14.5px; padding:13px 34px;" onclick="window.__goNewyear()">신년 감정 보러 가기</button>
+        </div>
+      </div>
+
+      <div class="card reveal" style="animation-delay:0.66s" id="followup-card">
+        <div class="card-label">별권 · 후속 문답</div>
+        <p class="body-text">감정서를 읽고 더 궁금한 것이 있으면 물으시게. 자네의 명식을 두고 답하는 것이라, 아무에게나 하는 소리와는 다르네.</p>
+        <div id="fu-thread"></div>
+        <div class="fu-suggests" id="fu-suggests"></div>
+        <input class="fu-input" type="text" disabled placeholder="자유 질문은 정식 버전에서 — AI가 자네 명식을 들고 답하게 되네">
+        <p class="body-text" style="font-size:12px; color:var(--muted); margin-top:10px;">정식 버전 과금 구상 — 리포트 구매 시 후속 질문 3회 포함 · 추가 질문권 990원 · 월 자유 질문권</p>
+      </div>
+
       <div class="foot">
         <div class="foot-seal"><span class="seal-mark">許</span> 감정인 · 사주 허선생</div>
         <p class="disclaim">본 서비스의 사주 계산은 KARI(한국천문연구원) 표준 음양력과 만세력 산법을 따르며,
@@ -3198,8 +3419,9 @@ const TAROT_POS = [
 
     renderPremiumZone();
     renderGunghapZone();
+    initFollowup();
 
-    $('#btn-reset').addEventListener('click', () => { state.unlocked = null; state.gunghap = null; show('form'); wizGo(0); });
+    $('#btn-reset').addEventListener('click', () => { state.unlocked = null; state.gunghap = null; state.newyearUnlocked = false; renderHome(); show('form'); wizGo(0); });
 
     const elOrder = [0, 1, 2, 3, 4].sort((a, b) => s.counts[b] - s.counts[a] || a - b).filter(i => s.counts[i] > 0);
     const inkSpots = [
@@ -3283,8 +3505,13 @@ const TAROT_POS = [
   function openTarot() {
     tarotSel = [];
     tarotDeck = [...Array(22).keys()].sort(() => Math.random() - 0.5);
-    $('#tarot-title').textContent = '마음에 물음 하나를 품으시게';
-    $('#tarot-sub').textContent = '그리고 스물두 패 가운데 석 장을 고르면, 지난 바람 · 지금 바람 · 올 바람을 읽어주겠네';
+    if (state.tarotQuestion) {
+      $('#tarot-title').textContent = `「${state.tarotQuestion}」`;
+      $('#tarot-sub').textContent = '그 물음을 품고 스물두 패 가운데 석 장을 고르시게 — 지난 바람 · 지금 바람 · 올 바람을 읽어주겠네';
+    } else {
+      $('#tarot-title').textContent = '마음에 물음 하나를 품으시게';
+      $('#tarot-sub').textContent = '그리고 스물두 패 가운데 석 장을 고르면, 지난 바람 · 지금 바람 · 올 바람을 읽어주겠네';
+    }
     $('#tarot-board').innerHTML = `
       <div class="tarot-grid">
         ${tarotDeck.map((c, i) => `<div class="tcard-back" data-i="${i}"><span class="tb-seal">許</span></div>`).join('')}
@@ -3323,6 +3550,38 @@ const TAROT_POS = [
       </div>`;
     $('#tarot-again').addEventListener('click', openTarot);
     scrollTo({ top: 0 });
+  }
+
+  // ---- 후속 문답 (데모: 명식 기반 결정적 답변) --------------------------------
+  function fuAnswers(s, d) {
+    const nextDu = s.daeun.list.find(du => du.age > d.nowAge - 1) || s.daeun.list[s.daeun.list.length - 1];
+    const chungMonths = [];
+    for (let m = 1; m <= 12; m++) {
+      const mg = monthGanzhi(NY_YEAR, m, 15);
+      if (branchRelation(s.pillars.day.branch, mg.branch) === 'chung') chungMonths.push(m);
+    }
+    return [
+      { q: '내 대운은 정확히 언제 바뀌는가?', a: `자네의 대운은 ${s.daeun.startAge}세에 처음 들어와 10년마다 바뀌네. 태어난 해가 ${s.sajuYear}년이니, 다음 전환은 <b>${s.sajuYear + nextDu.age - 1}년 무렵(${nextDu.age}세)</b> — ${nextDu.gz.hangul}(${nextDu.gz.hanja}) 대운이 들어오는 때일세. 전환 전후 일 년은 자리가 흔들리기 쉬우니 큰 결정은 그 해를 피하는 것이 좋네.` },
+      { q: '내게 맞는 색과 방향을 정리해 주게', a: `자네의 용신은 <b>${ELEMENTS[s.yongshin].k}(${ELEMENTS[s.yongshin].h})</b>이니 ${YONGSHIN_ADVICE[s.yongshin].color} 계열이 자네의 색일세. ${YONGSHIN_ADVICE[s.yongshin].item}을(를) 곁에 두고, ${YONGSHIN_ADVICE[s.yongshin].place} 쪽으로 몸을 자주 움직이시게. ${YONGSHIN_ADVICE[s.yongshin].habit}도 잊지 말고.` },
+      { q: `${NY_YEAR}년에 조심할 달은 언제인가?`, a: chungMonths.length
+        ? `${NY_YEAR}년 병오년에서 자네의 일지와 충하는 달은 <b>${chungMonths.join('월, ')}월</b>일세. 그 달에는 이사·계약·큰 지출을 삼가고, 이동과 운전에 평소보다 마음을 쓰시게.`
+        : `${NY_YEAR}년에는 자네의 일지와 정면으로 충하는 달이 없네. 큰 탈 없이 흐르는 해이니, 벌여둔 일을 착실히 거두는 데 집중하시게.` },
+    ];
+  }
+  function initFollowup() {
+    const card = $('#followup-card');
+    if (!card || !state.saju) return;
+    const answers = fuAnswers(state.saju, derive(state.saju));
+    const sug = $('#fu-suggests');
+    sug.innerHTML = answers.map((x, i) => `<button class="fu-q" data-i="${i}">${x.q}</button>`).join('');
+    $('#fu-thread').innerHTML = '';
+    $$('.fu-q', sug).forEach(btn => btn.addEventListener('click', () => {
+      const x = answers[+btn.dataset.i];
+      btn.disabled = true; btn.style.opacity = 0.4;
+      $('#fu-thread').insertAdjacentHTML('beforeend', `
+        <div class="fu-bubble fu-user">${x.q}</div>
+        <div class="fu-bubble fu-heo"><span class="fu-seal">許</span>${x.a}</div>`);
+    }));
   }
 
   // ---- 궁합 감정 --------------------------------------------------------------
@@ -3471,7 +3730,11 @@ const TAROT_POS = [
           </div>`;
         setTimeout(() => {
           window.__closePay();
-          if (plan === 'gunghap') {
+          if (plan === 'newyear') {
+            state.newyearUnlocked = true;
+            openNewyear();
+            toast('열두 달의 봉인을 풀었네');
+          } else if (plan === 'gunghap') {
             const p = state._pendingPartner;
             state.gunghap = { partner: p.saju, partnerName: p.name, result: computeGunghap(state.saju, p.saju) };
             renderGunghapZone();
