@@ -443,31 +443,76 @@ select:focus { border-color: var(--line-strong); }
 .gh-person b { color: var(--ink); font-size: 15px; }
 .p-field select, .p-field input { width: 100%; }
 
-/* ── 홈: 갈래 카드 ── */
-.fork-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 38px; }
-.fork-card {
-  border: 1px solid var(--line-strong); border-radius: 8px; background: var(--panel);
-  padding: 30px 14px 26px; text-align: center; cursor: pointer;
-  transition: transform 0.16s ease, box-shadow 0.16s ease;
+/* ── 홈: 감정소 무대 ── */
+.pebble-stage { position: relative; }
+.hero-glow {
+  position: absolute; left: 50%; top: 55%; transform: translate(-50%, -50%);
+  width: min(420px, 92vw); height: 300px; pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(216, 160, 64, 0.22), rgba(216, 160, 64, 0.07) 45%, transparent 70%);
+  animation: lantern 5.5s ease-in-out infinite;
 }
-.fork-card:hover { transform: translateY(-4px); box-shadow: 0 10px 24px rgba(34, 30, 23, 0.12); }
-.fork-card .fk-emoji { display: block; font-size: 34px; margin-bottom: 10px; }
-.fork-card b { display: block; font-size: 21px; letter-spacing: 0.24em; text-indent: 0.24em; margin-bottom: 8px; }
+@keyframes lantern { 0%, 100% { opacity: 0.85; } 40% { opacity: 1; } 65% { opacity: 0.75; } }
+
+.fork-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 38px; }
+.fork-card {
+  border: 1px solid var(--line-strong); border-radius: 10px; background: var(--panel);
+  padding: 26px 14px 24px; text-align: center; cursor: pointer; position: relative;
+  box-shadow: 0 6px 18px rgba(34, 30, 23, 0.08);
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s ease;
+}
+.fork-card:hover { transform: translateY(-6px); box-shadow: 0 16px 32px rgba(34, 30, 23, 0.16); }
+.fork-card .fk-visual { height: 84px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.pebble.mini { width: 84px; margin: 0; animation-duration: 11s; }
+.fan { position: relative; width: 84px; height: 78px; }
+.fan .fan-c {
+  position: absolute; left: 50%; bottom: 0; width: 44px; height: 66px; margin-left: -22px;
+  border: 1.5px solid var(--line-strong); border-radius: 6px;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(169, 58, 44, 0.06), transparent 60%),
+    repeating-linear-gradient(45deg, #f1ead9, #f1ead9 6px, #ece3cf 6px, #ece3cf 12px);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 700; color: rgba(169, 58, 44, 0.65);
+  transform-origin: 50% 92%; transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.fan .fan-c:nth-child(1) { transform: rotate(-16deg); }
+.fan .fan-c:nth-child(2) { transform: rotate(0deg); z-index: 1; }
+.fan .fan-c:nth-child(3) { transform: rotate(16deg); }
+#fork-tarot:hover .fan-c:nth-child(1) { transform: rotate(-26deg) translateY(-4px); }
+#fork-tarot:hover .fan-c:nth-child(3) { transform: rotate(26deg) translateY(-4px); }
+#fork-tarot:hover .fan-c:nth-child(2) { transform: rotate(0) translateY(-7px); }
+.fork-card b { display: block; font-size: 21px; letter-spacing: 0.26em; text-indent: 0.26em; margin-bottom: 8px; }
 .fork-card .fk-desc { display: block; font-size: 12.5px; color: var(--muted); line-height: 1.7; }
 
-.home-label { margin: 40px 0 14px; font-size: 12.5px; letter-spacing: 0.3em; color: var(--seal); font-weight: 700; text-align: left; }
-#home-catalog { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); text-align: left; }
-.cat-card { background: var(--panel); padding: 16px 18px; cursor: pointer; display: flex; align-items: center; gap: 13px; transition: background 0.15s ease; }
-.cat-card:hover { background: #f5efe0; }
-.cat-badge { flex: 0 0 auto; font-size: 11px; letter-spacing: 0.06em; border: 1px solid var(--line-strong); border-radius: 3px; padding: 1px 7px; color: var(--ink-2); white-space: nowrap; }
-.cat-badge.b-tarot { border-color: rgba(62, 90, 126, 0.55); color: #3e5a7e; }
-.cat-badge.b-saju { border-color: rgba(169, 58, 44, 0.55); color: var(--seal); }
-.cat-q { flex: 1; min-width: 0; font-size: 15px; font-weight: 700; color: var(--ink); }
-.cat-note { flex: 0 0 auto; font-size: 11.5px; color: var(--muted); white-space: nowrap; }
+.home-label { margin: 44px 0 18px; font-size: 15px; letter-spacing: 0.1em; color: var(--ink); font-weight: 700; text-align: center; }
+.home-label::before, .home-label::after { content: ' ─ '; color: var(--line-strong); font-weight: 400; }
+
+#home-catalog { display: flex; flex-direction: column; gap: 12px; text-align: left; }
+.cat-card {
+  display: flex; align-items: center; gap: 14px; cursor: pointer; position: relative;
+  background: #fbf8ee; border: 1px solid var(--line-strong); border-radius: 4px;
+  padding: 15px 18px; transform: rotate(var(--rot, 0deg));
+  box-shadow: 0 4px 12px rgba(34, 30, 23, 0.1), 0 1px 0 rgba(255, 255, 255, 0.6) inset;
+  opacity: 0; animation: slipin 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+@keyframes slipin { from { opacity: 0; transform: rotate(var(--rot, 0deg)) translateY(18px); } to { opacity: 1; transform: rotate(var(--rot, 0deg)) translateY(0); } }
+.cat-card:hover { transform: rotate(0deg) translateY(-3px); box-shadow: 0 10px 22px rgba(34, 30, 23, 0.16); }
+.cat-card::after { content: ''; position: absolute; top: -5px; left: 50%; width: 34px; height: 10px; margin-left: -17px;
+  background: rgba(216, 160, 64, 0.28); transform: rotate(-1deg); border: 1px solid rgba(34, 30, 23, 0.08); } /* 붙임 종이테이프 */
+.cat-seal {
+  flex: 0 0 34px; height: 34px; display: flex; align-items: center; justify-content: center;
+  border: 1.5px solid var(--seal); color: var(--seal); border-radius: 4px;
+  font-size: 16px; font-weight: 700; transform: rotate(-3deg); background: rgba(252, 250, 244, 0.7);
+}
+.cat-seal.b-tarot { border-color: rgba(62, 90, 126, 0.7); color: #3e5a7e; transform: rotate(3deg); }
+.cat-body { flex: 1; min-width: 0; }
+.cat-q { display: block; font-size: 15.5px; font-weight: 700; color: var(--ink); line-height: 1.5; }
+.cat-note { display: block; font-size: 11.5px; color: var(--muted); margin-top: 3px; letter-spacing: 0.04em; }
+.cat-go { flex: 0 0 auto; color: var(--seal); font-size: 16px; }
 
 .profile-chip {
   display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center;
-  margin-top: 26px; padding: 12px 16px; border: 1px dashed var(--line-strong); border-radius: 8px;
+  margin-top: 30px; padding: 12px 16px; border: 1px dashed var(--line-strong); border-radius: 8px;
   background: rgba(252, 250, 244, 0.6); font-size: 13px; color: var(--ink-2);
 }
 .profile-chip b { color: var(--ink); }
@@ -500,24 +545,31 @@ select:focus { border-color: var(--line-strong); }
 <div id="app">
   <header class="topbar"><span class="rule"></span>사주 허선생<span class="seal-mark">許</span><span class="rule"></span></header>
 
-  <!-- 홈: 오늘 무엇으로 볼까요 -->
+  <!-- 홈: 감정소 입장 -->
   <section id="view-hero">
-    <div class="hero-sub">사주 · 타로 개인화 운세</div>
-    <h1 class="hero-title">오늘, 무엇으로<br>볼까요?</h1>
+    <div class="hero-sub reveal">만세력 실계산 · 명리 감정소</div>
+    <h1 class="hero-title reveal" style="animation-delay:0.15s">그래, 무엇이<br>궁금하여 왔는가</h1>
+    <div class="pebble-stage reveal" style="animation-delay:0.35s">
+      <div class="hero-glow"></div>
+      <div class="pebble" id="hero-pebble" aria-hidden="true"></div>
+    </div>
+    <div class="pebble-caption reveal" style="animation-delay:0.5s">사람마다 다른 오행의 먹빛 — 감정을 마치면 자네의 빛깔이 채워질 걸세</div>
     <div id="profile-banner"></div>
-    <div class="fork-cards">
+    <div class="fork-cards reveal" style="animation-delay:0.62s">
       <div class="fork-card" id="fork-saju">
-        <span class="fk-emoji">🔮</span><b>사주</b>
-        <span class="fk-desc">내가 타고난 흐름과<br>시기를 봅니다</span>
+        <div class="fk-visual"><div class="pebble mini" id="fork-pebble"></div></div>
+        <b>사주</b>
+        <span class="fk-desc">타고난 팔자와<br>때를 짚어주지</span>
       </div>
       <div class="fork-card" id="fork-tarot">
-        <span class="fk-emoji">🃏</span><b>타로</b>
-        <span class="fk-desc">지금 궁금한 질문을<br>카드로 봅니다</span>
+        <div class="fk-visual"><div class="fan"><span class="fan-c">許</span><span class="fan-c">許</span><span class="fan-c">許</span></div></div>
+        <b>그림패</b>
+        <span class="fk-desc">지금 품은 물음에<br>패로 답하지</span>
       </div>
     </div>
-    <div class="home-label">이런 게 궁금하지 않으세요?</div>
+    <div class="home-label reveal" style="animation-delay:0.8s">이런 것이 궁금하지는 아니한가</div>
     <div id="home-catalog"></div>
-    <div class="hero-hanja" style="margin-top:34px;">만세력 실계산 · 감정 캐릭터 <b>허선생</b> · 프로토타입 데모</div>
+    <div class="hero-hanja reveal" style="animation-delay:1.6s">감정인 <b>허선생</b> · 육십갑자 명식 · 대운 감정</div>
   </section>
 
   <!-- 문진 (한 질문 = 한 화면) -->
@@ -2825,6 +2877,15 @@ const NY_INTRO = {
     ).join('');
   }
 
+  paintPebble(document.querySelector('#hero-pebble'), [
+    { c: '#3a352b', x: 14, y: 22, w: 46, h: 42, o: 0.55 },
+    { c: '#3e5a7e', x: 46, y: 10, w: 40, h: 38, o: 0.48 },
+    { c: '#a93a2c', x: 42, y: 48, w: 32, h: 30, o: 0.42 },
+    { c: '#a8842f', x: 10, y: 54, w: 28, h: 26, o: 0.38 },
+    { c: '#4c7a5c', x: 60, y: 60, w: 18, h: 16, o: 0.4, f: true },
+    { c: '#3a352b', x: 30, y: 40, w: 10, h: 9, o: 0.45, f: true },
+  ]);
+
   // ---- 상태 ----------------------------------------------------------------
   const state = { gender: 'F', calendar: 'solar', saju: null, name: '', unlocked: null, gunghap: null, lastView: 'hero', newyearUnlocked: false, pendingTarget: null, tarotQuestion: null };
 
@@ -2902,12 +2963,13 @@ const NY_INTRO = {
 
   // ---- 홈: 갈래 카드 · 질문형 카탈로그 · 사주 프로필 -------------------------
   const CATALOG = [
+    { type: 'SAJU', q: '오늘, 나의 운세는 어떤가?', note: '오늘의 운세 · 무료', target: 'today' },
     { type: 'SAJU', q: '나는 사업이 맞을까, 직장이 맞을까?', note: '직업·적성 감정', target: 'job' },
-    { type: 'SAJU', q: '2026년, 나에게 무엇이 크게 바뀔까?', note: `신년운세 · ${PRODUCTS.newyear.price.toLocaleString()}원`, target: 'newyear' },
-    { type: 'SAJU', q: '내 미래 배우자는 어떤 사람일까?', note: '연애·배우자 감정', target: 'love' },
+    { type: 'SAJU', q: '2026년, 나에게 무엇이 크게 바뀔까?', note: `신년 감정 · ${PRODUCTS.newyear.price.toLocaleString()}원`, target: 'newyear' },
+    { type: 'SAJU', q: '내 미래 배우자는 어떤 사람일까?', note: '연애·배우자상 감정', target: 'love' },
     { type: 'SAJU', q: '우리 둘, 정말 잘 맞을까?', note: `궁합 감정 · ${PRODUCTS.gunghap.price.toLocaleString()}원`, target: 'gunghap' },
-    { type: 'TAROT', q: '그 사람은 지금 나를 어떻게 생각할까?', note: '허선생의 그림패', target: 'tarot' },
-    { type: 'TAROT', q: '이 선택, 해도 될까?', note: '허선생의 그림패', target: 'tarot' },
+    { type: 'TAROT', q: '그 사람은 지금 나를 어떻게 생각할까?', note: '패 석 장', target: 'tarot' },
+    { type: 'TAROT', q: '이 선택, 해도 될까?', note: '패 석 장', target: 'tarot' },
   ];
   function loadProfile() {
     try { return JSON.parse(localStorage.getItem('sajuProfile') || 'null'); } catch (e) { return null; }
@@ -2923,19 +2985,24 @@ const NY_INTRO = {
       const tStr = i.hourUnknown ? '시간 모름' : `${String(i.hour).padStart(2, '0')}:${String(i.minute).padStart(2, '0')}`;
       pb.innerHTML = `
         <div class="profile-chip">
-          <span class="pc-info">저장된 명식 · <b>${escapeHTML(p.name || '이름 없음')}</b> · ${i.year}.${i.month}.${i.day} ${tStr} (${i.calendar === 'lunar' ? '음력' : '양력'})</span>
-          <button class="pc-btn" id="pb-view">바로 보기</button>
-          <button class="pc-btn ghost" id="pb-new">새로 입력</button>
+          <span class="pc-info">자네 명식은 내 이미 적어두었네 — <b>${escapeHTML(p.name || '이름 없는 손님')}</b> · ${i.year}.${i.month}.${i.day} ${tStr} (${i.calendar === 'lunar' ? '음력' : '양력'})</span>
+          <button class="pc-btn" id="pb-view">마저 보시게</button>
+          <button class="pc-btn ghost" id="pb-new">새로 적겠네</button>
         </div>`;
       $('#pb-view').addEventListener('click', () => computeFromProfile(null));
       $('#pb-new').addEventListener('click', () => { localStorage.removeItem('sajuProfile'); renderHome(); show('form'); wizGo(0); });
     } else pb.innerHTML = '';
     $('#home-catalog').innerHTML = CATALOG.map((c, i) => `
-      <div class="cat-card" data-i="${i}">
-        <span class="cat-badge ${c.type === 'SAJU' ? 'b-saju' : 'b-tarot'}">${c.type === 'SAJU' ? '🔮 사주' : '🃏 타로'}</span>
-        <span class="cat-q">${c.q}</span>
-        <span class="cat-note">${c.note} →</span>
+      <div class="cat-card" data-i="${i}" style="--rot:${(i % 2 ? 1 : -1) * (0.5 + (i % 3) * 0.35)}deg; animation-delay:${0.85 + i * 0.12}s">
+        <span class="cat-seal ${c.type === 'SAJU' ? 'b-saju' : 'b-tarot'}">${c.type === 'SAJU' ? '命' : '牌'}</span>
+        <span class="cat-body"><span class="cat-q">${c.q}</span><span class="cat-note">${c.type === 'SAJU' ? '사주' : '그림패'} · ${c.note}</span></span>
+        <span class="cat-go">→</span>
       </div>`).join('');
+    paintPebble($('#fork-pebble'), [
+      { c: '#3a352b', x: 12, y: 20, w: 52, h: 48, o: 0.5 },
+      { c: '#a93a2c', x: 44, y: 44, w: 36, h: 34, o: 0.42 },
+      { c: '#3e5a7e', x: 30, y: 56, w: 26, h: 24, o: 0.4, f: true },
+    ]);
     $$('#home-catalog .cat-card').forEach(el => el.addEventListener('click', () => {
       const c = CATALOG[+el.dataset.i];
       if (c.type === 'TAROT') { state.tarotQuestion = c.q; state.lastView = 'hero'; openTarot(); return; }
@@ -2963,7 +3030,7 @@ const NY_INTRO = {
     if (!tgt) return;
     setTimeout(() => {
       if (tgt === 'newyear') { openNewyear(); return; }
-      const map = { job: 8, love: 7 };
+      const map = { today: 5, job: 8, love: 7 };
       if (tgt === 'gunghap') { $('#gunghap-zone')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
       const no = map[tgt];
       if (!no) return;
